@@ -1,0 +1,56 @@
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+*.log
+*./obj/
+
+
+# Visual Studio folder
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider IDE
+.idea/
+
+# User-specific files
+*.sln.ide
+*.swp
+
+# ASP.NET secrets
+secrets.json
+
+# Auto-generated files
+CopilotIndices/
+FileContentIndex/
+DesignTimeBuild/
+*.db
+*.db-wal
+*.db-shm
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log
+
+# Environment files
+.env
+.env.*
+
+# Database
+*.db
+*.sqlite
+*.mdf
+*.ldf
+
+# EF Core Migrations history
+*MigrationsSnapshot.cs
+**/Migrations/*ModelSnapshot.cs

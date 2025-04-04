@@ -1,6 +1,7 @@
 ﻿using E_Commerce.API.Data;
 using E_Commerce.API.Mappings;
 using E_Commerce.API.Middlewares;
+using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Repositories.IRepository;
 using E_Commerce.API.Repositories.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -54,7 +55,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<IdentityUser>()
     .AddRoles<IdentityRole>()
     .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("E_Commerce")
-    .AddEntityFrameworkStores<DataAuthContext>()
+    .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -69,9 +70,6 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("E_CommerceConnectionString")));
-
-builder.Services.AddDbContext<DataAuthContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("E_CommerceAuthConnectionString")));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
