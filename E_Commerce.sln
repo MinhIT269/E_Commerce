@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_Commerce.API", "E_Commerce.API\E_Commerce.API.csproj", "{AA39D7A7-742C-46EC-B0AF-8C3527C96D50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_Commerce.UI", "E_Commerce.UI\E_Commerce.UI.csproj", "{331B5233-D82D-446A-9536-6C2683421F23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA39D7A7-742C-46EC-B0AF-8C3527C96D50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA39D7A7-742C-46EC-B0AF-8C3527C96D50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA39D7A7-742C-46EC-B0AF-8C3527C96D50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA39D7A7-742C-46EC-B0AF-8C3527C96D50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{331B5233-D82D-446A-9536-6C2683421F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{331B5233-D82D-446A-9536-6C2683421F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{331B5233-D82D-446A-9536-6C2683421F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{331B5233-D82D-446A-9536-6C2683421F23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {925341F1-E28D-4F4F-B1C5-05CF7B3F3C8E}
+	EndGlobalSection
+EndGlobal
