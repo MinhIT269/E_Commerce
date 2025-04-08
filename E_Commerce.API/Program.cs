@@ -4,6 +4,8 @@ using E_Commerce.API.Middlewares;
 using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Repositories.IRepository;
 using E_Commerce.API.Repositories.Repository;
+using E_Commerce.API.Services.IService;
+using E_Commerce.API.Services.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -48,13 +50,17 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
-builder.Services.AddIdentityCore<IdentityUser>()
+builder.Services.AddIdentityCore<User>()
     .AddRoles<IdentityRole>()
-    .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("E_Commerce")
+    .AddTokenProvider<DataProtectorTokenProvider<User>>("E_Commerce")
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
 
@@ -80,8 +86,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateLifetime = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
+        ClockSkew = TimeSpan.Zero,
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     });
 
 var app = builder.Build();

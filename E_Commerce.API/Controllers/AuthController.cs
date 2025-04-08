@@ -1,6 +1,8 @@
-﻿using E_Commerce.API.Models.Requests;
+﻿using E_Commerce.API.Models.Domain;
+using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Response;
 using E_Commerce.API.Repositories.IRepository;
+using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,65 +13,46 @@ namespace E_Commerce.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly ITokenRepository _tokenRepository;
-        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository) 
+        private readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
         {
-            _userManager = userManager;
-            _tokenRepository = tokenRepository;
+            _authService = authService;
         }
+
         // POST: /api/Auth/Register
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequestDto)
         {
-            var identityUser = new IdentityUser
+            var result = await _authService.Register(registerRequestDto);
+            if (result == null)
             {
-                UserName = registerRequestDto.Username,
-                Email = registerRequestDto.Username
-            };
-            var identityResult = await _userManager.CreateAsync(identityUser, registerRequestDto.Password);
-            if (identityResult.Succeeded)
-            {
-                if(registerRequestDto.Roles != null && registerRequestDto.Roles.Any())
-                {
-                   identityResult = await _userManager.AddToRolesAsync(identityUser, registerRequestDto.Roles);
-
-                    if (identityResult.Succeeded)
-                    {
-                        return Ok("User registered successfully");
-                    }
-                }
+                return BadRequest("User registration failed");
             }
-            return BadRequest("Something went wrong");
+            return Ok(result);
         }
 
-        [HttpPost]
-        [Route("Login")]
+        // POST: /api/Auth/Login
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto)
         {
-            var identityUser = await _userManager.FindByNameAsync(loginRequestDto.Username);
-            if (identityUser != null)
+            var result = await _authService.Login(loginRequestDto);
+            if (result == null)
+                return BadRequest("Registration failed");
+
+            return Ok(result);
+        }
+
+        // POST: /api/Auth/RefreshToken
+        [HttpPost("RefreshToken")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenDto refreshTokenDto)
+        {
+            var result = await _authService.RefreshToken(refreshTokenDto);
+            if (result.IsLogedIn)
             {
-                var identityResult = await _userManager.CheckPasswordAsync(identityUser, loginRequestDto.Password);
-                if (identityResult)
-                {
-                    // Get Role for this user
-                    var roles = await _userManager.GetRolesAsync(identityUser);
-
-                    if (roles != null && roles.Any())
-                    {
-                        // Create a token
-                        var jwtToken = _tokenRepository.CreateJWTToken(identityUser, roles.ToList());
-
-                        var response = new LoginResponseDto
-                        {
-                            JwtToken = jwtToken
-                        };
-                        return Ok(response);
-                    }
-                }
+                return Ok(result);
             }
-            return BadRequest("Username or password incorrect");
+
+            return Unauthorized();
         }
     }
 }

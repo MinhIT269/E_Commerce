@@ -4,6 +4,10 @@ namespace E_Commerce.API.Models.Domain
 {
     public class User : IdentityUser
     {
+        public string? RefreshToken { get; set; }
+
+        public DateTime RefreshTokenExpiryTime { get; set; }
+        
         public ICollection<Review>? Reviews { get; set; }
 
         public ICollection<PaymentDetail>? PaymentDetails { get; set; }
