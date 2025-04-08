@@ -1,0 +1,17 @@
+﻿using E_Commerce.API.Models.Domain;
+using Microsoft.AspNetCore.Identity;
+
+namespace E_Commerce.API.Repositories.IRepository
+{
+    public interface IUserRepository
+    {
+        Task<User?> FindByNameAsync(string username);
+        Task<bool> CheckPasswordAsync(User user, string password);
+        Task<IList<string>> GetRolesAsync(User user);
+        Task<IdentityResult> CreateAsync(User user, string password);
+        Task<IdentityResult> AddToRolesAsync(User user, IList<string> roles);
+        Task<IdentityResult> UpdateAsync(User user);
+        Task<User?> FindByRefreshTokenAsync(string refreshToken);
+
+    }
+}
