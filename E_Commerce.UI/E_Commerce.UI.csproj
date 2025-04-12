@@ -10,6 +10,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Models\Requests\" />
     <Folder Include="Models\Responses\" />
+    <Folder Include="wwwroot\assets\images\icons\" />
   </ItemGroup>
 
 </Project>

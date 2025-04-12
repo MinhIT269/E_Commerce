@@ -8,7 +8,7 @@ namespace E_Commerce.API.Models.Domain
         [Key]
         public Guid ProductId { get; set; }  
 
-        [Required, MaxLength(200)]
+        [Required]
         public string? Name { get; set; }
 
         public string? Description { get; set; }
