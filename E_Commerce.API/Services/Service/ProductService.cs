@@ -52,5 +52,13 @@ namespace E_Commerce.API.Services.Service
 
             return totalPages;
         }
+
+        public async Task<List<ProductResponseDto>> GetProductsByCategoryAsync(Guid categoryId, int count)
+        {
+            if (categoryId == Guid.Empty) return null;
+            var products = await _productRepository.GetProductsByCategoryAsync(categoryId, count);
+            if (products == null) return null;
+            return _mapper.Map<List<ProductResponseDto>>(products);
+        }
     }
 }

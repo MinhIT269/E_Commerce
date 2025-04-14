@@ -48,5 +48,16 @@ namespace E_Commerce.API.Controllers
             return Ok(totalPages);
         }
 
+        //GET: /api/product/GetProductsByCategory?categoryId=1234-5678-9101-1121&count=20
+        [HttpGet("GetProductsByCategory")]
+        public async Task<IActionResult> GetProductsByCategory([FromQuery] Guid categoryId, [FromQuery] int count)
+        {
+            var products = await _productsService.GetProductsByCategoryAsync(categoryId, count);
+            if (products == null || !products.Any())
+                return NotFound();
+
+            return Ok(products);
+        }
+
     }
 }

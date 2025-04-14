@@ -22,6 +22,16 @@ namespace E_Commerce.API.Repositories.Repository
                 .Include(p => p.ProductImages).ToListAsync();
         }
 
+        public async Task<List<Product?>> GetProductsByCategoryAsync(Guid categoryId, int count)
+        {
+            return await _context.ProductCategories.Where(pc => pc.CategoryId == categoryId)
+                .Include(pc => pc.Product)
+                .Select(pc => pc.Product)
+                .OrderBy(p => p.Quantity)
+                .Take(count)
+                .ToListAsync();
+        }
+
         public IQueryable<Product> GetAllProducts()
         {
             return _context.Products.Include(p => p.Brand)
