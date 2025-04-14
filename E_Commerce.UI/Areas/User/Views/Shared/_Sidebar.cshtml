@@ -1,0 +1,308 @@
+﻿@using E_Commerce.UI.Models.Responses
+@model HomeViewModel
+@{
+    var chunkSize = 6;
+    var categories = Model.Categories;
+    var brands = Model.Brands;
+    var columns = categories.Select((x, i) => new { x, i })
+                            .GroupBy(g => g.i / chunkSize)
+                            .ToList();
+    var brandColumns = brands.Select((x, i) => new { x, i })
+      .GroupBy(g => g.i / chunkSize)
+      .ToList();
+}
+
+<div class="side-menu-wrapper text-uppercase mb-2 d-none d-lg-block">
+    <h2 class="side-menu-title bg-gray ls-n-25">Browse Categories</h2>
+
+    <nav class="side-nav">
+        <ul class="menu menu-vertical sf-arrows">
+            <li class="active"><a href="demo1.html"><i class="icon-home"></i>Home</a></li>
+            <li>
+                <a href="demo1-shop.html" class="sf-with-ul">
+                    <i class="sicon-badge"></i>Danh Mục
+                </a>
+                <div class="megamenu megamenu-fixed-width megamenu-3cols">
+                    <div class="row">
+                        @foreach (var column in columns)
+                        {
+                            <div class="col-lg-4">
+                                <ul class="submenu">
+                                    @foreach (var item in column)
+                                    {
+                                        <li><a href="#" data-id="@item.x.CategoryId">@item.x.CategoryName</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- End .megamenu -->
+            </li>
+            <li>
+                <a href="#" class="sf-with-ul"><i class="sicon-envelope"></i>Thương Hiệu</a>
+                <div class="megamenu megamenu-fixed-width megamenu-3cols">
+                    <div class="row">
+                        @foreach (var column in brandColumns)
+                        {
+                            <div class="col-lg-4">
+                                <ul class="submenu">
+                                    @foreach (var brand in column)
+                                    {
+                                        <li><a href="#" data-id="@brand.x.BrandId">@brand.x.BrandName</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- End .megamenu -->
+            </li>
+            <li><a href="#"><i class="sicon-book-open"></i>Tin Tức</a></li>
+            <li><a href="#"><i class="sicon-users"></i>Về Chúng Tôi</a></li>
+            <li><a href="#"><i class="icon-cat-gift"></i>Ưu Đãi Đặc Biệt</a></li>
+            <li>
+                <a href="#" target="_blank">
+                    <i class="sicon-star"></i>Sản Phẩm Bán Chạy<span class="tip tip-hot">Hot</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- End .side-menu-container -->
+
+<div class="widget widget-banners px-3 pb-3 text-center">
+    <div class="owl-carousel owl-theme dots-small">
+        <div class="banner d-flex flex-column align-items-center">
+            <h3 class="badge-sale bg-primary d-flex flex-column align-items-center justify-content-center text-uppercase">
+                <em>Khuyến mãi</em>Nhiều sản phẩm
+            </h3>
+
+            <h4 class="sale-text text-uppercase">
+                <small>
+                    GIẢM
+                    ĐẾN
+                </small>50<sup>%</sup><sub>OFF</sub>
+            </h4>
+            <p>Laptop, Tai nghe, Chuột gaming, Loa bluetooth, Webcam và nhiều hơn thế!</p>
+            <a href="#" class="btn btn-dark btn-md">Khám phá ngay</a>
+        </div>
+        <!-- End .banner -->
+
+        <div class="banner banner5">
+            <h4>KHUYẾN MÃI TAI NGHE CHÍNH HÃNG</h4>
+
+            <figure class="m-b-3">
+                <img src="assets/images/demoes/demo1/banners/banner-8.jpg" alt="banner">
+            </figure>
+
+            <div class="banner-layer">
+                <div class="coupon-sale-content">
+                    <h5 class="coupon-sale-text ls-n-10 p-0 font1">
+                        <i>
+                            ƯU ĐÃI ĐẾN
+                        </i><b class="text-white bg-secondary font1">50%</b> OFF
+                    </h5>
+                    <a href="#" class="btn btn-inline-block btn-dark btn-black ls-0">
+                        Xem ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- End .banner -->
+    </div>
+    <!-- End .banner-slider -->
+</div>
+<!-- End .widget -->
+
+<div class="widget widget-newsletters bg-gray text-center">
+    <h3 class="widget-title text-uppercase m-b-3">Đăng ký nhận tin khuyến mãi</h3>
+    <p class="mb-2">Nhận ngay thông tin giảm giá, ưu đãi & sản phẩm mới mỗi tuần! </p>
+    <form action="#">
+        <div class="form-group position-relative sicon-envolope-letter">
+            <input type="email" class="form-control" name="newsletter-email" placeholder="Nhập email của bạn">
+        </div>
+        <!-- Endd .form-group -->
+        <input type="submit" class="btn btn-primary btn-md" value="Đăng ký ngay">
+    </form>
+</div>
+<!-- End .widget -->
+
+<div class="widget widget-testimonials">
+    <div class="owl-carousel owl-theme dots-left dots-small">
+        <div class="testimonial">
+            <div class="testimonial-owner">
+                <figure>
+                    <img src="assets/images/clients/client-1.jpg" alt="client">
+                </figure>
+
+                <div>
+                    <h4 class="testimonial-title">Anh Minh Trí</h4>
+                    <span>Khách hàng thân thiết</span>
+                </div>
+            </div>
+            <!-- End .testimonial-owner -->
+
+            <blockquote class="ml-4 pr-0">
+                <p>
+                    Mình rất hài lòng khi mua laptop tại Minh Nguyen, sản phẩm chính hãng, giao hàng nhanh và giá tốt hơn so với nhiều nơi khác.
+                </p>
+            </blockquote>
+        </div>
+        <!-- End .testimonial -->
+
+        <div class="testimonial">
+            <div class="testimonial-owner">
+                <figure>
+                    <img src="assets/images/clients/client-2.jpg" alt="client">
+                </figure>
+
+                <div>
+                    <h4 class="testimonial-title">Chị Hoài An</h4>
+                    <span>Khách hàng doanh nghiệp</span>
+                </div>
+            </div>
+            <!-- End .testimonial-owner -->
+
+            <blockquote class="ml-4 pr-0">
+                <p>
+                    Minh Nguyen Technology hỗ trợ rất nhiệt tình, cấu hình máy chuẩn, đúng nhu cầu công việc, bảo hành rõ ràng. Rất đáng tin cậy!
+                </p>
+            </blockquote>
+        </div>
+        <!-- End .testimonial -->
+
+        <div class="testimonial">
+            <div class="testimonial-owner">
+                <figure>
+                    <img src="assets/images/clients/client-3.jpg" alt="client">
+                </figure>
+
+                <div>
+                    <h4 class="testimonial-title">Anh Quốc Bảo</h4>
+                    <span>Khách hàng cá nhân</span>
+                </div>
+            </div>
+            <!-- End .testimonial-owner -->
+
+            <blockquote class="ml-4 pr-0">
+                <p>
+                    Mình mua tai nghe gaming tại Minh Nguyen, giá hợp lý, chất lượng âm thanh rất ổn. Sẽ tiếp tục ủng hộ khi có nhu cầu.
+                </p>
+            </blockquote>
+        </div>
+        <!-- End .testimonial -->
+    </div>
+    <!-- End .testimonials-slider -->
+</div>
+<!-- End .widget -->
+
+<div class="widget widget-posts post-date-in-media media-with-zoom mb-0 mb-lg-2 pb-lg-2">
+    <div class="owl-carousel owl-theme dots-left dots-m-0 dots-small" data-owl-options="
+                                { 'margin' : 20,
+                                  'loop': false }">
+        <article class="post">
+            <div class="post-media">
+                <a href="#">
+                    <img src="assets/images/blog/home/post-1.jfif" data-zoom-image="assets/images/blog/home/post-1.jfif" width="280" height="209" alt="Post">
+                </a>
+                <div class="post-date">
+                    <span class="day">29</span>
+                    <span class="month">Th5</span>
+                </div>
+                <!-- End .post-date -->
+
+                <span class="prod-full-screen">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+            <!-- End .post-media -->
+
+            <div class="post-body">
+                <h2 class="post-title">
+                    <a href="#">Top laptop đáng mua nhất cho sinh viên</a>
+                </h2>
+
+                <div class="post-content">
+                    <p>Nếu bạn đang tìm kiếm một chiếc laptop mạnh mẽ cho công việc và giải trí, đây là những lựa chọn đáng cân nhắc nhất tháng này... </p>
+
+                    <a href="#" class="read-more">
+                        Xem chi tiết <i class="icon-right-open"></i>
+                    </a>
+                </div>
+                <!-- End .post-content -->
+            </div>
+            <!-- End .post-body -->
+        </article>
+
+        <article class="post">
+            <div class="post-media">
+                <a href="#">
+                    <img src="assets/images/blog/home/post-3.jfif" data-zoom-image="assets/images/blog/home/post-3.jfif" style="height: 209px" width="280" height="209" alt="Post">
+                </a>
+                <div class="post-date">
+                    <span class="day">29</span>
+                    <span class="month">Th5</span>
+                </div>
+                <!-- End .post-date -->
+                <span class="prod-full-screen">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+            <!-- End .post-media -->
+
+            <div class="post-body">
+                <h2 class="post-title">
+                    <a href="#">5 tips chọn tai nghe gaming giá tốt</a>
+                </h2>
+
+                <div class="post-content">
+                    <p>Chọn tai nghe gaming không chỉ cần âm thanh chất mà còn phải vừa túi tiền. Xem ngay 5 mẹo giúp bạn chọn sản phẩm ưng ý... </p>
+
+                    <a href="#" class="read-more">
+                        Xem chi tiết <i class="icon-right-open"></i>
+                    </a>
+                </div>
+                <!-- End .post-content -->
+            </div>
+            <!-- End .post-body -->
+        </article>
+
+        <article class="post">
+            <div class="post-media">
+                <a href="#">
+                    <img src="assets/images/blog/home/post-2.jfif" data-zoom-image="assets/images/blog/home/post-2.jfif" style="height: 209px" width="280" height="209" alt="Post">
+                </a>
+                <div class="post-date">
+                    <span class="day">2</span>
+                    <span class="month">Th5</span>
+                </div>
+                <!-- End .post-date -->
+                <span class="prod-full-screen">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+            <!-- End .post-media -->
+
+            <div class="post-body">
+                <h2 class="post-title">
+                    <a href="#">
+                        Hướng dẫn build PC tiết kiệm
+                    </a>
+                </h2>
+
+                <div class="post-content">
+                    <p>Chỉ cần một vài lưu ý nhỏ, bạn có thể tự tay build bộ PC cực chất, giá hợp lý mà vẫn chiến game và làm việc mượt mà... </p>
+
+                    <a href="#" class="read-more">
+                        Xem chi tiết <i class="icon-right-open"></i>
+                    </a>
+                </div>
+                <!-- End .post-content -->
+            </div>
+            <!-- End .post-body -->
+        </article>
+    </div>
+    <!-- End .posts-slider -->
+</div>
+<!-- End .widget -->

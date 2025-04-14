@@ -1,0 +1,78 @@
+﻿@using E_Commerce.UI.Models.Responses
+@model List<ProductResponseDto>
+
+<div class="products-slider owl-carousel owl-theme dots-top dots-small m-b-1 pb-1 appear-animate" data-animation-name="fadeInUpShorter">
+    @foreach (var product in Model)
+    {
+        var isHot = product.Hot > DateTime.Now;
+        var hasPromotion = product.PromotionPrice > 0 && product.PromotionPrice < product.Price;
+        var discountPercent = hasPromotion ? (int)Math.Round((product.Price - product.PromotionPrice.GetValueOrDefault()) / product.Price * 100) : 0;
+        <div class="product-default inner-quickview inner-icon">
+            <figure class="img-effect">
+                <a href="demo1-product.html">
+                    <img src="@product.ImageUrl" width="205" height="205" style="width: 205px; height: 205px" alt="product">
+                </a>
+                <div class="label-group">
+                    @if (isHot)
+                    {
+                        <div class="product-label label-hot">HOT</div>
+                    }
+                    @if (hasPromotion)
+                    {
+                        <div class="product-label label-sale">-@discountPercent%</div>
+                    }
+                </div>
+                <div class="btn-icon-group">
+                    <a href="#" title="Thêm Vào Giỏ Hàng" class="btn-icon btn-add-cart product-type-simple">
+                        <i class="icon-shopping-cart"></i>
+                    </a>
+                </div>
+                <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">XEM THÊM</a>
+            </figure>
+            <div class="product-details">
+                <div class="category-wrap">
+                    <div class="category-list">
+                        <a href="demo1-shop.html" class="product-category">TOP ĐÁNH GIÁ</a>
+                    </div>
+                    <a href="wishlist.html" title="Add to Wishlist" class="btn-icon-wish">
+                        <i class="icon-heart"></i>
+                    </a>
+                </div>
+                <h3 class="product-title"> <a href="#">@product.Name</a> </h3>
+                <div class="ratings-container">
+                    <div class="product-ratings">
+                        <span class="ratings" style="width:100%"></span>
+                        <!-- End .ratings -->
+                        <span class="tooltiptext tooltip-top"></span>
+                    </div>
+                    <!-- End .product-ratings -->
+                </div>
+                <!-- End .product-container -->
+                <div class="price-box">
+                    @if (hasPromotion)
+                    {
+                        <span class="old-price text-muted">@product.Price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
+                        <div class="product-price text-danger mt-1">@product.PromotionPrice.GetValueOrDefault().ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                    }
+                    else if (product.PromotionPrice > 0)
+                    {
+                        <span class="old-price text-muted"></span>
+                        <div class="product-price text-danger mt-1">@product.PromotionPrice.GetValueOrDefault().ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                    }
+                    else if (product.Price > 0)
+                    {
+                        <span class="old-price text-muted"></span>
+                        <div class="product-price text-danger mt-1">@product.Price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                    }
+                    else
+                    {
+                        <span class="old-price text-muted"></span>
+                        <div class="product-price text-danger mt-1">Giá: Liên hệ</div> <!-- fallback nếu không có giá -->
+                    }
+                </div>
+                <!-- End .price-box -->
+            </div>
+            <!-- End .product-details -->
+        </div>
+    }
+</div>
