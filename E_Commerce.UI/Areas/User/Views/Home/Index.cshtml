@@ -3,13 +3,15 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     @await Html.PartialAsync("_Head")
 </head>
+
 <body>
     <div class="page-wrapper">
         <header class="header home">
-            @await Html.PartialAsync("_Header")
+            @await Component.InvokeAsync("Header")
         </header>
         <!-- End .header -->
 
@@ -59,7 +61,7 @@
                         'nav': false
                         }">
                             <div class="home-slide home-slide1 banner banner-md-vw banner-sm-vw d-flex align-items-center">
-                                <img class="slide-bg" style="background-color: #2699D0;" src="assets/images/demoes/demo1/slider/slide-1.png" width="880" height="428" alt="home-slider">
+                                <img class="slide-bg" style="background-color: #2699D0;" src="~/assets/images/demoes/demo1/slider/slide-1.png" width="880" height="428" alt="home-slider">
                                 <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
                                     <h4 class="text-white mb-0">Khám Phá Công Nghệ Mới, Sở Hữu Ngay!</h4>
                                     <h2 class="text-white mb-0">Giảm Giá Mùa Hè</h2>
@@ -92,7 +94,7 @@
                         }">
                             <div class="banner banner1 banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
                                 <figure class="w-100">
-                                    <img src="assets/images/demoes/demo1/banners/banner-1.jpg" style="background-color: #dadada;" alt="banner">
+                                    <img src="~/assets/images/demoes/demo1/banners/banner-1.jpg" style="background-color: #dadada;" alt="banner">
                                 </figure>
                                 <div class="banner-layer">
                                     <h3 class="m-b-2">Porto Watches</h3>
@@ -103,7 +105,7 @@
                             <!-- End .banner -->
                             <div class="banner banner2 text-uppercase banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInUpShorter" data-animation-delay="200">
                                 <figure class="w-100">
-                                    <img src="assets/images/demoes/demo1/banners/banner-2.jpg" style="background-color: #dadada;" alt="banner">
+                                    <img src="~/assets/images/demoes/demo1/banners/banner-2.jpg" style="background-color: #dadada;" alt="banner">
                                 </figure>
                                 <div class="banner-layer text-center">
                                     <h3 class="m-b-1 ls-n-20">Deal Promos</h3>
@@ -114,7 +116,7 @@
                             <!-- End .banner -->
                             <div class="banner banner3 banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="500">
                                 <figure class="w-100">
-                                    <img src="assets/images/demoes/demo1/banners/banner-3.jpg" style="background-color: #dadada;" alt="banner">
+                                    <img src="~/assets/images/demoes/demo1/banners/banner-3.jpg" style="background-color: #dadada;" alt="banner">
                                 </figure>
                                 <div class="banner-layer text-right">
                                     <h3 class="m-b-2">Handbags</h3>
@@ -151,18 +153,18 @@
                                 }
                             }
                         }">
-                            <img src="assets/images/brands/small/DELL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/ASUS.jfif" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/HP.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/JBL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/Apple.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/MSI.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/GIGABYTE.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/ACER.png" width="140" height="60" style="width:140px; height:55px" alt="brand">
-                            <img src="assets/images/brands/small/SONY.png" width="140" height="60" style="width:140px; height:55px" alt="brand">
-                            <img src="assets/images/brands/small/LG.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/LENOVO.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="assets/images/brands/small/MICROSOFT.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/DELL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/ASUS.jfif" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/HP.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/JBL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/Apple.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/MSI.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/GIGABYTE.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/ACER.png" width="140" height="60" style="width:140px; height:55px" alt="brand">
+                            <img src="~/assets/images/brands/small/SONY.png" width="140" height="60" style="width:140px; height:55px" alt="brand">
+                            <img src="~/assets/images/brands/small/LG.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/LENOVO.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                            <img src="~/assets/images/brands/small/MICROSOFT.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
                         </div>
                         <!-- End .brands-slider -->
 
@@ -201,8 +203,8 @@
                                     <div class="product-default left-details product-widget">
                                         <figure>
                                             <a href="demo1-product.html">
-                                                <img src="assets/images/demoes/demo1/products/small/product-4.jpg" width="84" height="84" alt="product">
-                                                <img src="assets/images/demoes/demo1/products/small/product-4-2.jpg" width="84" height="84" alt="product">
+                                                <img src="~/assets/images/demoes/demo1/products/small/product-4.jpg" width="84" height="84" alt="product">
+                                                <img src="~/assets/images/demoes/demo1/products/small/product-4-2.jpg" width="84" height="84" alt="product">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -240,7 +242,7 @@
                                     <div class="product-default left-details product-widget ">
                                         <figure>
                                             <a href="demo1-product.html">
-                                                <img src="assets/images/demoes/demo1/products/small/product-2.jpg" width="84" height="84" alt="product">
+                                                <img src="~/assets/images/demoes/demo1/products/small/product-2.jpg" width="84" height="84" alt="product">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -275,8 +277,8 @@
                                     <div class="product-default left-details product-widget ">
                                         <figure>
                                             <a href="demo1-product.html">
-                                                <img src="assets/images/demoes/demo1/products/small/product-9.jpg" width="84" height="84" alt="product">
-                                                <img src="assets/images/demoes/demo1/products/small/product-9-2.jpg" width="84" height="84" alt="product">
+                                                <img src="~/assets/images/demoes/demo1/products/small/product-9.jpg" width="84" height="84" alt="product">
+                                                <img src="~/assets/images/demoes/demo1/products/small/product-9-2.jpg" width="84" height="84" alt="product">
                                             </a>
                                         </figure>
                                         <div class="product-details">
@@ -399,7 +401,7 @@
     <!-- End .mobil-menu-overlay -->
 
     <div class="mobile-menu-container">
-        @await Html.PartialAsync("_Mobilemenu")
+        @await Component.InvokeAsync("Menu")
     </div>
     <!-- End .mobile-menu-container -->
 
@@ -436,16 +438,15 @@
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
     <!-- Plugins JS File -->
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/plugins.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/jquery.appear.min.js"></script>
-    <script src="assets/js/jquery.plugin.min.js"></script>
-    <script src="assets/js/jquery.countdown.min.js"></script>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/plugins.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/jquery.appear.min.js"></script>
+    <script src="~/assets/js/jquery.plugin.min.js"></script>
+    <script src="~/assets/js/jquery.countdown.min.js"></script>
 
     <!-- Main JS File -->
-    <script src="assets/js/main.min.js"></script>
+    <script src="~/assets/js/main.min.js"></script>
 </body>
 
 </html>

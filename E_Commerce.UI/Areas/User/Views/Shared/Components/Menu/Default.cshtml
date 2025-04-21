@@ -1,14 +1,17 @@
-﻿<div class="mobile-menu-wrapper">
+﻿@using E_Commerce.UI.Models.Responses
+@model MenuViewModel
+
+<div class="mobile-menu-wrapper">
     <span class="mobile-menu-close"><i class="fa fa-times"></i></span>
     <nav class="mobile-nav">
         <ul class="mobile-menu menu-with-icon">
             <li><a href="demo1.html"><i class="icon-home"></i>Home</a></li>
             <li>
-                <a href="demo1-shop.html" class="sf-with-ul"><i class="sicon-badge"></i>Danh Mục</a>
+                <a href="#" class="sf-with-ul"><i class="sicon-badge"></i>Danh Mục</a>
                 <ul>
-                    @foreach (var category in Model.Categories)
+                    @foreach (var category in Model.Categories!)
                     {
-                        <li><a href="demo1-shop.html" data-id ="@category.CategoryId">@category.CategoryName</a></li>
+                        <li><a href="#" data-id="@category.CategoryId">@category.CategoryName</a></li>
                     }
                 </ul>
             </li>
@@ -49,14 +52,14 @@
                     <li>
                         <a href="wishlist.html">Wishlist</a>
                     </li>
-                    @foreach (var brand in Model.Brands)
+                    @foreach (var brand in Model.Brands!)
                     {
-                        <li><a href="demo1-shop.html">@brand.BrandName</a></li>
+                        <li><a href="#">@brand.BrandName</a></li>
                     }
                 </ul>
             </li>
-            <li><a href="blog.html"><i class="sicon-book-open"></i>Blog</a></li>
-            <li><a href="demo1-about.html"><i class="sicon-users"></i>About Us</a></li>
+            <li><a href="#"><i class="sicon-book-open"></i>Blog</a></li>
+            <li><a href="#"><i class="sicon-users"></i>About Us</a></li>
         </ul>
 
         <ul class="mobile-menu menu-with-icon mt-2 mb-2">
@@ -68,12 +71,12 @@
         </ul>
 
         <ul class="mobile-menu">
-            <li><a href="login.html">My Account</a></li>
-            <li><a href="demo1-contact.html">Contact Us</a></li>
-            <li><a href="wishlist.html">My Wishlist</a></li>
+            <li><a href="#">My Account</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">My Wishlist</a></li>
             <li><a href="#">Site Map</a></li>
-            <li><a href="cart.html">Cart</a></li>
-            <li><a href="login.html" class="login-link">Log In</a></li>
+            <li><a href="#">Cart</a></li>
+            <li><a href="#" class="login-link">Log In</a></li>
         </ul>
     </nav>
     <!-- End .mobile-nav -->

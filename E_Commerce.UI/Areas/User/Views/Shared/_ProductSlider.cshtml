@@ -9,7 +9,7 @@
         var discountPercent = hasPromotion ? (int)Math.Round((product.Price - product.PromotionPrice.GetValueOrDefault()) / product.Price * 100) : 0;
         <div class="product-default inner-quickview inner-icon">
             <figure class="img-effect">
-                <a href="demo1-product.html">
+                <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductId })">
                     <img src="@product.ImageUrl" width="205" height="205" style="width: 205px; height: 205px" alt="product">
                 </a>
                 <div class="label-group">
@@ -27,18 +27,17 @@
                         <i class="icon-shopping-cart"></i>
                     </a>
                 </div>
-                <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">XEM THÊM</a>
             </figure>
             <div class="product-details">
                 <div class="category-wrap">
                     <div class="category-list">
-                        <a href="demo1-shop.html" class="product-category">TOP ĐÁNH GIÁ</a>
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductId })" class="product-category">TOP ĐÁNH GIÁ</a>
                     </div>
-                    <a href="wishlist.html" title="Add to Wishlist" class="btn-icon-wish">
+                    <a href="#" title="Add to Wishlist" class="btn-icon-wish">
                         <i class="icon-heart"></i>
                     </a>
                 </div>
-                <h3 class="product-title"> <a href="#">@product.Name</a> </h3>
+                <h3 class="product-title"> <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductId })">@product.Name</a> </h3>
                 <div class="ratings-container">
                     <div class="product-ratings">
                         <span class="ratings" style="width:100%"></span>

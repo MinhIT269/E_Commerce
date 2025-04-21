@@ -1,0 +1,71 @@
+﻿@using E_Commerce.UI.Models.Responses
+@model List<ProductResponseDto>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <div class="col-6 col-sm-4 col-md-3 col-xl-5col">
+            <div class="product-default">
+                <figure>
+                    <a href="@Url.Action("ProductDetail", "Home", new { id = item.ProductId })">
+                        <img src="@item.ImageUrl" width="220" height="220" alt="@item.Name" style="width:220px; height: 220px;"/>
+                        <img src="@item.ImageUrl" width="220" height="220" alt="@item.Name" />
+                    </a>
+
+                    <div class="label-group">
+                        @if (item.PromotionPrice.HasValue && item.PromotionPrice > item.Price)
+                        {
+                            var discount = Math.Round((1 - (item.Price / item.PromotionPrice.Value)) * 100);
+                            <div class="product-label label-sale">-@discount%</div>
+                        }
+                    </div>
+                </figure>
+
+                <div class="product-details">
+                    <div class="category-wrap">
+                        <div class="category-list">
+                            <a href="#" class="product-category">Category</a>
+                        </div>
+                    </div>
+
+                    <h3 class="product-title">
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = item.ProductId })">@item.Name</a>
+                    </h3>
+
+                    <div class="ratings-container">
+                        <div class="product-ratings">
+                            <span class="ratings" style="width:100%"></span>
+                            <span class="tooltiptext tooltip-top"></span>
+                        </div>
+                    </div>
+
+                    <div class="price-box">
+                        @if (item.PromotionPrice > item.Price)
+                        {
+                            <span class="old-price">@item.PromotionPrice.GetValueOrDefault().ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
+                        }
+                        <span class="product-price">@item.Price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
+                    </div>
+
+                    <div class="product-action">
+                        <a href="wishlist.html" class="btn-icon-wish" title="wishlist">
+                            <i class="icon-heart"></i>
+                        </a>
+                        <a href="#" class="btn-icon btn-add-cart product-type-simple">
+                            <i class="icon-shopping-cart"></i><span>ADD TO CART</span>
+                        </a>
+                        <a href="#" class="btn-quickview" title="Quick View">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Không có sản phẩm nào phù hợp.</p>
+}
+<!-- End .col-sm-4 -->
