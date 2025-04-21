@@ -22,14 +22,24 @@ namespace E_Commerce.API.Repositories.Repository
                 .Include(p => p.ProductImages).ToListAsync();
         }
 
-        public async Task<List<Product?>> GetProductsByCategoryAsync(Guid categoryId, int count)
+        public async Task<List<Product>> GetProductsByCategoryAsync(Guid categoryId, int count)
         {
-            return await _context.ProductCategories.Where(pc => pc.CategoryId == categoryId)
-                .Include(pc => pc.Product)
-                .Select(pc => pc.Product)
+            return await _context.ProductCategories
+                .Where(pc => pc.CategoryId == categoryId && pc.Product != null)
+                .Select(pc => pc.Product!)
                 .OrderBy(p => p.Quantity)
                 .Take(count)
                 .ToListAsync();
+        }
+
+        public async Task<Product?> GetProductByIdAsync(Guid id)
+        {
+            return await _context.Products
+                .Include(p => p.Brand)
+                .Include(p => p.ProductCategories!)
+                    .ThenInclude(pc => pc.Category)
+                .Include(p => p.ProductImages)
+                .FirstOrDefaultAsync(p => p.ProductId == id);
         }
 
         public IQueryable<Product> GetAllProducts()
@@ -40,7 +50,7 @@ namespace E_Commerce.API.Repositories.Repository
                 .Include(p => p.ProductImages);
         }
 
-        public IQueryable<Product> FilterBySearchQuery(IQueryable<Product> query, string filterQuery)
+        public IQueryable<Product> FilterBySearchQuery(IQueryable<Product> query, string? filterQuery)
         {
             if (!string.IsNullOrEmpty(filterQuery))
             {
@@ -74,10 +84,21 @@ namespace E_Commerce.API.Repositories.Repository
         }
 
         public async Task<List<Product>> GetAllAsync(string? filterQuery, string sortBy, bool isAscending,
-            int pageNumber = 1, int pageSize = 1000)
+            int pageNumber = 1, int pageSize = 1000, Guid? categoryId = null, Guid? brandId = null)
         {
             var query = GetAllProducts();
             query = FilterBySearchQuery(query, filterQuery);
+
+            if (categoryId.HasValue)
+            {
+                query = query.Where(p => p.ProductCategories!.Any(pc => pc.CategoryId == categoryId.Value));
+            }
+
+            if (brandId.HasValue)
+            {
+                query = query.Where(p => p.BrandId == brandId.Value);
+            }
+
             query = ApplySorting(query, sortBy, isAscending);
             query = ApplyPagination(query, pageNumber, pageSize);
             return await query.ToListAsync();
@@ -90,23 +111,28 @@ namespace E_Commerce.API.Repositories.Repository
                 .ThenInclude(pc => pc.Category)
                 .Include(p => p.ProductImages)
                 .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(filterQuery) &&
-                            p.Brand.BrandId == brandId)
+                            p.Brand!.BrandId == brandId)
                 .ToListAsync();
         }
 
-        public async Task<List<Product>> FindProductsByNameAsync(string name)
+        public async Task<int> CountProductAsync(string? searchQuery, Guid? categoryId = null, Guid? brandId = null)
         {
-            return await _context.Products.Include(p => p.Brand)
-                 .Include(p => p.ProductCategories!)
-                 .ThenInclude(pc => pc.Category)
-                 .Include(p => p.ProductImages)
-                 .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(name))
-                 .ToListAsync();
-        }
+            var query = _context.Products
+                                .Include(p => p.Brand)
+                                .Include(p => p.ProductCategories)!
+                                .ThenInclude(pc => pc.Category)
+                                .AsQueryable();
 
-        public async Task<int> CountProductAsync()
-        {
-            return await _context.Products.CountAsync();
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+                query = query.Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchQuery));
+
+            if (categoryId.HasValue)
+                query = query.Where(p => p.ProductCategories!.Any(pc => pc.CategoryId == categoryId.Value));
+
+            if (brandId.HasValue)
+                query = query.Where(p => p.BrandId == brandId.Value);
+
+            return await query.CountAsync();
         }
     }
 }

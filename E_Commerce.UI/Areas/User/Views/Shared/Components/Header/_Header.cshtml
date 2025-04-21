@@ -47,8 +47,8 @@
             <button class="mobile-menu-toggler mr-2" type="button">
                 <i class="fas fa-bars"></i>
             </button>
-            <a href="demo1.html" class="logo">
-                <img src="assets/images/logo.png" width="111" height="44" alt="Minh Nguyen Logo">
+            <a href="@Url.Action("Index", "Home")" class="logo">
+                <img src="~/assets/images/logo.png" width="111" height="44" alt="Minh Nguyen Logo">
             </a>
         </div>
         <!-- End .header-left -->
@@ -56,10 +56,9 @@
         <div class="header-right w-lg-max pl-2">
             <div class="header-search header-icon header-search-inline header-search-category w-lg-max">
                 <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
-                <form action="#" method="get">
+                <form action="/User/Product/Index" method="get">
                     <div class="header-search-wrapper">
-                        <input type="search" class="form-control" name="q" id="q" placeholder="Tìm kiếm..." required>
-                        <!-- End .select-custom -->
+                        <input type="search" class="form-control" name="search" id="search" placeholder="Tìm kiếm..." required>
                         <button class="btn icon-magnifier" type="submit"></button>
                     </div>
                     <!-- End .header-search-wrapper -->
@@ -107,7 +106,7 @@
 
                                 <figure class="product-image-container">
                                     <a href="demo1-product.html" class="product-image">
-                                        <img src="assets/images/products/product-1.jpg" alt="product" width="80" height="80">
+                                        <img src="~/assets/images/products/product-1.jpg" alt="product" width="80" height="80">
                                     </a>
 
                                     <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
@@ -129,7 +128,7 @@
 
                                 <figure class="product-image-container">
                                     <a href="demo1-product.html" class="product-image">
-                                        <img src="assets/images/products/product-2.jpg" alt="product" width="80" height="80">
+                                        <img src="~/assets/images/products/product-2.jpg" alt="product" width="80" height="80">
                                     </a>
 
                                     <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
@@ -151,7 +150,7 @@
 
                                 <figure class="product-image-container">
                                     <a href="demo1-product.html" class="product-image">
-                                        <img src="assets/images/products/product-3.jpg" alt="product" width="80" height="80">
+                                        <img src="~/assets/images/products/product-3.jpg" alt="product" width="80" height="80">
                                     </a>
                                     <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
                                 </figure>

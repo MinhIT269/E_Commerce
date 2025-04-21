@@ -39,6 +39,13 @@ namespace E_Commerce.UI.Areas.User.Controllers
             return View(ViewModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ProductDetail(Guid id)
+        {
+            var product = await GetProductById(id);
+            return View(product);
+        }
+
         public async Task<List<BrandResponseDto>> GetAllBrand()
         {
             try
@@ -108,6 +115,30 @@ namespace E_Commerce.UI.Areas.User.Controllers
             catch (Exception)
             {
                 return new List<ProductResponseDto>();
+            }
+        }
+
+        public async Task<ProductResponseDto> GetProductById(Guid id)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var httpMessage = new HttpRequestMessage()
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri($"{_baseUrl}/api/Products/GetProductById?productId={id}")
+                };
+                var httpResponse = await client.SendAsync(httpMessage);
+                if (!httpResponse.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+                var productDto = await httpResponse.Content.ReadFromJsonAsync<ProductResponseDto>();
+                return productDto;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }
