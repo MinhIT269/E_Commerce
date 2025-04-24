@@ -1,0 +1,119 @@
+﻿@model E_Commerce.UI.Models.Requests.LoginRequestDto
+
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Minh Nguyen Technology</title>
+
+    <meta name="keywords" content="HTML5 Template" />
+    <meta name="description" content="Minh Nguyen Technology eCommerce">
+    <meta name="author" content="SW-THEMES">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/assets/images/icons/favicon.png">
+
+
+    <script>
+        WebFontConfig = {
+            google: {
+                families: ['Open+Sans:300,400,600,700', 'Poppins:300,400,500,600,700,800', 'Oswald:300,400,500,600,700,800', 'Playfair+Display:900', 'Shadows+Into+Light:400']
+            }
+        };
+        (function(d) {
+            var wf = d.createElement('script'),
+                s = d.scripts[0];
+            wf.src = '@Url.Content("~/assets/js/webfont.js")';
+            wf.async = true;
+            s.parentNode.insertBefore(wf, s);
+        })(document);
+    </script>
+
+    <!-- Vendor css (Required on all Pages) -->
+    <link href="~/css/vendor.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/js/config.js"></script>
+</head>
+
+<body class="h-100">
+    <div class="d-flex flex-column h-100">
+        <div class="d-flex flex-column flex-grow-1">
+            <div class="row h-100">
+                <div class="col">
+                    <div class="row justify-content-center h-100">
+                        <div class="col-lg-4 py-lg-4">
+                            <div class="d-flex flex-column h-100 justify-content-center">
+                                <div class="text-center">
+                                    <a href="@Url.Action("Index", "Home")" class="logo-light d-inline-block">
+                                        <img src="@Url.Content("~/assets/images/logo.png")"
+                                             alt="logo"
+                                             style="max-height: 80px; object-fit: contain;">
+                                    </a>
+                                </div>
+                                <p class="text-center h1 fw-bold my-4 mx-1 mx-md-4">Đăng Nhập</p>
+                                <div class="mb-5">
+                                    <form method="post" asp-area="User" asp-controller="Auth" asp-action="Login" class="authentication-form">
+                                        <!-- Hiển thị tất cả lỗi từ ModelState -->
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="mb-3">
+                                            <input name="UserName" type="email" class="form-control" placeholder="Nhập tên người dùng" required>
+                                        </div>
+                                        <div class="mb-4">
+                                            <input name="Password" type="password" class="form-control" placeholder="Nhập mật khẩu của bạn" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$" title="Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường và 1 con số">
+                                        </div>
+                                        <div class="mb-1 text-center d-grid">
+                                            <button class="btn btn-soft-primary mb-2" type="submit">Đăng nhập</button>
+                                            <a href="@Url.Action("ResetPassword", "Auth")" class="float-end text-dark fw-bold ms-1">Quên mật khẩu?</a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <p class="text-danger text-center">
+                                    Don't have an account? <a href="@Url.Action("Register", "Auth")" class="text-dark fw-bold ms-1">Đăng Ký Ngay</a>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Lỗi đăng nhập</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @ViewBag.Message
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if ("@ViewBag.Message") {
+                var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+                messageModal.show();
+            }
+        });
+    </script>
+
+    <!-- Vendor Javascript (Required on all Pages) -->
+    <script src="~/js/vendor.js"></script>
+    <!-- App Javascript (Required on all Pages) -->
+    <script src="~/js/app.js"></script>
+</body>
+</html>

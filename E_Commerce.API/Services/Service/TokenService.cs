@@ -1,8 +1,5 @@
-﻿using E_Commerce.API.Models.Requests;
-using E_Commerce.API.Models.Response;
-using E_Commerce.API.Services.IService;
+﻿using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -38,7 +35,7 @@ namespace E_Commerce.API.Services.Service
                 _configuration["JWT:Issuer"], // ai phat hanh
                 _configuration["JWT:Audience"], // ai su dung
                 claims, // danh sach chua thong tin nguoi dung
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddHours(1),
                 signingCredentials: credentials); // chu ki bao mat
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -58,7 +55,7 @@ namespace E_Commerce.API.Services.Service
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]!));
             var validationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = false,
+                ValidateIssuerSigningKey = true,
                 IssuerSigningKey = securityKey,
                 ValidateIssuer = false,
                 ValidateAudience = false,

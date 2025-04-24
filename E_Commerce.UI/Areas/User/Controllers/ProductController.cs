@@ -7,11 +7,9 @@ namespace E_Commerce.UI.Areas.User.Controllers
     [Area("User")]
     public class ProductController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ApiRequestHelper _apiHelper;
-        public ProductController(IHttpClientFactory httpClientFactory, IConfiguration config, ApiRequestHelper apiHelper)
+        public ProductController(ApiRequestHelper apiHelper)
         {
-            _httpClientFactory = httpClientFactory;
             _apiHelper = apiHelper;
         }
 

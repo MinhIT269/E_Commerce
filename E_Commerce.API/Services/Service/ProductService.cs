@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
 using E_Commerce.API.Services.IService;
