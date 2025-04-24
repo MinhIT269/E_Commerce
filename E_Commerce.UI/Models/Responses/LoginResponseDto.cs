@@ -1,10 +1,9 @@
-﻿namespace E_Commerce.API.Models.Response
+﻿namespace E_Commerce.UI.Models.Responses
 {
     public class LoginResponseDto
     {
         public bool IsLogedIn { get; set; } = false;
         public string? RefreshToken { get; set; }
         public string? JwtToken { get; set; }
-        public string? ErrorMessage { get; set; }
     }
 }

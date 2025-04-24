@@ -308,20 +308,9 @@
                 </div>
                 <!-- End .row -->
 
-                <nav class="toolbox toolbox-pagination">
+                <nav class="toolbox toolbox-pagination d-flex justify-content-end">
                     <ul class="pagination toolbox-item">
-                        <li class="page-item disabled">
-                            <a class="page-link page-link-btn" href="#"><i class="icon-angle-left"></i></a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><span class="page-link">...</span></li>
-                        <li class="page-item">
-                            <a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
-                        </li>
+                        <!--Pagination -->
                     </ul>
                 </nav>
             </div>
@@ -440,20 +429,49 @@
         // Hàm render số trang vào pagination
         function renderPagination(totalPages, currentPage) {
             let paginationHtml = '';
-            for (let i = 1; i <= totalPages; i++) {
-               paginationHtml += `
-                <li class="page-item ${i === currentPage ? 'active' : ''}">
-                    <a class="page-link" href="#" data-page="${i}">${i}</a>
-                </li>`;
+
+            const maxVisible = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            let endPage = startPage + maxVisible - 1;
+
+            if (endPage > totalPages) {
+                endPage = totalPages;
+                startPage = Math.max(1, endPage - maxVisible + 1);
             }
+
+            // Prev button
+            if (currentPage > 1) {
+                paginationHtml += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" data-page="${currentPage - 1}">Prev</a>
+                    </li>`;
+            }
+
+            // Page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHtml += `
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a class="page-link" href="#" data-page="${i}">${i}</a>
+                    </li>`;
+            }
+
+            // Next button
+            if (currentPage < totalPages) {
+                paginationHtml += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
+                    </li>`;
+            }
+
             $('.pagination.toolbox-item').html(paginationHtml);
 
             $('.pagination.toolbox-item .page-link').off('click').on('click', function (e) {
-                 e.preventDefault();
-                 var selectedPage = parseInt($(this).data('page'));
-                 loadProducts(selectedPage);
+                e.preventDefault();
+                const selectedPage = parseInt($(this).data('page'));
+                loadProducts(selectedPage);
             });
         }
+
 
         $(document).ready(function () {
             $('#product-count, #orderby').on('change', function () {

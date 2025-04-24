@@ -1,4 +1,7 @@
-﻿<div class="header-top bg-primary text-uppercase">
+﻿@{
+    var isLoggedIn = Context.Request.Cookies["JwtToken"] != null;
+}
+<div class="header-top bg-primary text-uppercase">
     <div class="container">
         <div class="header-left">
             <div class="mr-auto mr-sm-3 mr-md-0">
@@ -19,7 +22,14 @@
                         <li><a href="#">Liên Hệ</a></li>
                         <li><a href="#">DS Yêu Thích</a></li>
                         <li><a href="#">Giỏ Hàng</a></li>
-                        <li><a href="#" class="login-link">Đăng Nhập</a></li>
+                        @if (isLoggedIn)
+                        {
+                            <li><a href="@Url.Action("Logout", "Auth")">Đăng Xuất</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Login", "Auth")">Đăng Nhập</a></li>
+                        }
                     </ul>
                 </div>
                 <!-- End .header-menu -->

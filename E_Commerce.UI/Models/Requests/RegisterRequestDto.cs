@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace E_Commerce.API.Models.Requests
+namespace E_Commerce.UI.Models.Requests
 {
     public class RegisterRequestDto
     {
@@ -11,7 +11,6 @@ namespace E_Commerce.API.Models.Requests
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
-        public string[] Roles { get; set; }
-
+        public string[] Roles { get; set; } = new string[] { "User" };
     }
 }

@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ApiRequestHelper>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

@@ -1,6 +1,5 @@
 ﻿using E_Commerce.API.Data;
 using E_Commerce.API.Mappings;
-using E_Commerce.API.Middlewares;
 using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Repositories.IRepository;
 using E_Commerce.API.Repositories.Repository;
@@ -60,6 +59,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));

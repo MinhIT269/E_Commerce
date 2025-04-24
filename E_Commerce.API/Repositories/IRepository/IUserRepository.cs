@@ -12,6 +12,12 @@ namespace E_Commerce.API.Repositories.IRepository
         Task<IdentityResult> AddToRolesAsync(User user, IList<string> roles);
         Task<IdentityResult> UpdateAsync(User user);
         Task<User?> FindByRefreshTokenAsync(string refreshToken);
+        Task<User?> FindByIdAsync(string userId);
+        Task<string> GenerateEmailConfirmationTokenAsync(User user);
+        Task<IdentityResult> ConfirmEmailAsync(User user, string token);
+        Task<string> GeneratePasswordResetTokenAsync(User user);
+        Task<User?> FindByEmailAsync(string email);
+        Task<IdentityResult?> ResetPasswordAsync(User user, string token, string newPassword);
 
     }
 }
