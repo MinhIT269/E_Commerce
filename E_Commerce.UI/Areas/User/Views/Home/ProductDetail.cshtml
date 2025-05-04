@@ -311,16 +311,12 @@
 
 
                             <div class="product-action">
-                                <div class="product-single-qty">
-                                    <input class="horizontal-quantity form-control" type="text">
-                                </div>
-                                <!-- End .product-single-qty -->
 
-                                <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart">
-                                   THÊM VÀO GIỎ HÀNG
+                                <<a href="javascript:;" class="btn btn-dark add-cart mr-2" data-product-id="@Model.ProductId">
+                                    THÊM VÀO GIỎ HÀNG
                                 </a>
 
-                                <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
+                                <a href="#" class="btn btn-gray view-cart d-none">View cart</a>
                             </div>
                             <!-- End .product-action -->
 
@@ -786,6 +782,7 @@
 
     <!-- Main JS File -->
     <script src="~/assets/js/main.min.js"></script>
+    <script src="~/assets/js/cart.js"></script>
 </body>
 
 </html>

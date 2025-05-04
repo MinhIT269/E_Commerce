@@ -9,7 +9,7 @@ namespace E_Commerce.API.Models.Domain
         public Guid UserInfoId { get; set; }  // Primary Key
 
         [Required]
-        public string UserId { get; set; }  // Foreign Key
+        public string UserId { get; set; } = string.Empty; // Foreign Key
 
         [Required, StringLength(250)]
         public string? Address { get; set; }  // Không cần nullable

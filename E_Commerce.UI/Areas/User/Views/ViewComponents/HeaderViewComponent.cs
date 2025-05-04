@@ -13,7 +13,7 @@ namespace E_Commerce.UI.Areas.User.Views.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("_Header");
+            return View("Header");
         }
     }
 }

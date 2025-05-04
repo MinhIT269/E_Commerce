@@ -25,6 +25,7 @@ namespace E_Commerce.API.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

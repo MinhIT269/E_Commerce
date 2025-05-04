@@ -14,7 +14,7 @@ namespace E_Commerce.API.Models.Domain
         public string? CardHolderName { get; set; }
 
         [Required]
-        public string UserId { get; set; }   
+        public string UserId { get; set; }   = string.Empty;
 
         public User? User { get; set; }
 

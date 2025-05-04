@@ -20,7 +20,7 @@ namespace E_Commerce.API.Services.Service
             // Create claims
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Email, user.Email!),
+                new Claim(ClaimTypes.NameIdentifier, user.Id!),
                 new Claim(ClaimTypes.Name, user.UserName!)
             };
 
