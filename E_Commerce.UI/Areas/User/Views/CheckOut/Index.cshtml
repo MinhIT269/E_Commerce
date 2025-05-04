@@ -1,14 +1,14 @@
-﻿@using E_Commerce.UI.Models.Responses
-@model List<ProductResponseDto>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     @await Html.PartialAsync("_Head")
+    <link rel="stylesheet" href="~/assets/css/style.min.css">
 </head>
 
 <body>
     <div class="page-wrapper">
+
         <header class="header home">
             @await Component.InvokeAsync("Header")
 
@@ -201,131 +201,204 @@
         </header>
         <!-- End .header -->
 
+        <main class="main main-test">
+            <div class="container checkout-container">
+                <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
+                    <li>
+                        <a href="#">Giỏ hàng</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Thanh toán</a>
+                    </li>
+                    <li class="disabled">
+                        <a href="#">Hoàn tất đơn hàng</a>
+                    </li>
+                </ul>
 
-        <main class="main">
-            <div class="category-banner-container bg-gray">
-                <div class="category-banner-container bg-gray">
-                    <div class="category-banner banner text-uppercase" style="background: no-repeat 60%/cover url('@Url.Content("~/assets/images/banners/banner-top.jpg")');">
-                        <div class="container position-relative">
-                            <div class="row">
-                                <div class="pl-lg-5 pb-5 pb-md-0 col-md-5 col-xl-4 col-lg-4 offset-1">
-                                    <h3>Ưu Đãi<br>Thiết Bị Điện Tử</h3>
-                                    <a href="category.html" class="btn btn-dark">Mua Ngay!</a>
-                                </div>
-                                <div class="pl-lg-3 col-md-4 offset-md-0 offset-1 pt-3">
-                                    <div class="coupon-sale-content">
-                                        <h4 class="m-b-1 coupon-sale-text bg-white text-transform-none">
-                                            MÃ GIẢM GIÁ ĐỘC QUYỀN
-                                        </h4>
-                                        <h5 class="mb-2 coupon-sale-text d-block ls-10 p-0">
-                                            <i class="ls-0">GIẢM ĐẾN</i>
-                                            <b class="text-dark">100.000 VND</b>
-                                        </h5>
+                <div class="checkout-discount">
+                    <h4>
+                        Có mã giảm giá?
+                        <button data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne" class="btn btn-link btn-toggle">NHẬP MÃ</button>
+                    </h4>
+
+                    <div id="collapseTwo" class="collapse">
+                        <div class="feature-box">
+                            <div class="feature-box-content">
+                                <p>Nếu bạn có mã giảm giá, vui lòng nhập vào bên dưới.</p>
+
+                                <form action="#">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm w-auto" placeholder="Mã giảm giá" required="" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-sm mt-0" type="submit">
+                                                Áp dụng
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="container">
-                <nav aria-label="breadcrumb" class="breadcrumb-nav">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="demo4.html"><i class="icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="#">Sản Phầm</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Tất Cả Sản Phẩm</li>
-                    </ol>
-                </nav>
+                <div class="row">
+                    <div class="col-lg-7">
+                        <ul class="checkout-steps">
+                            <li>
+                                <h2 class="step-title">Thông tin thanh toán</h2>
 
-                <nav class="toolbox sticky-header" data-sticky-options="{'mobile': true}">
-                    <div class="toolbox-left">
-                        <a href="#" class="sidebar-toggle">
-                            <svg data-name="Layer 3" id="Layer_3" viewBox="0 0 32 32"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <line x1="15" x2="26" y1="9" y2="9" class="cls-1"></line>
-                                <line x1="6" x2="9" y1="9" y2="9" class="cls-1"></line>
-                                <line x1="23" x2="26" y1="16" y2="16" class="cls-1"></line>
-                                <line x1="6" x2="17" y1="16" y2="16" class="cls-1"></line>
-                                <line x1="17" x2="26" y1="23" y2="23" class="cls-1"></line>
-                                <line x1="6" x2="11" y1="23" y2="23" class="cls-1"></line>
-                                <path d="M14.5,8.92A2.6,2.6,0,0,1,12,11.5,2.6,2.6,0,0,1,9.5,8.92a2.5,2.5,0,0,1,5,0Z"
-                                      class="cls-2"></path>
-                                <path d="M22.5,15.92a2.5,2.5,0,1,1-5,0,2.5,2.5,0,0,1,5,0Z" class="cls-2"></path>
-                                <path d="M21,16a1,1,0,1,1-2,0,1,1,0,0,1,2,0Z" class="cls-3"></path>
-                                <path d="M16.5,22.92A2.6,2.6,0,0,1,14,25.5a2.6,2.6,0,0,1-2.5-2.58,2.5,2.5,0,0,1,5,0Z"
-                                      class="cls-2"></path>
-                            </svg>
-                            <span>Filter</span>
-                        </a>
+                                <form action="#" id="checkout-form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>
+                                                    Họ
+                                                    <abbr class="required" title="required">*</abbr>
+                                                </label>
+                                                <input type="text" class="form-control" required />
+                                            </div>
+                                        </div>
 
-                        <div class="toolbox-item toolbox-sort">
-                            <label>Sắp Xếp:</label>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>
+                                                    Tên
+                                                    <abbr class="required" title="required">*</abbr>
+                                                </label>
+                                                <input type="text" class="form-control" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="select-custom">
+                                        <label>Tỉnh / Thành Phố <abbr class="required" title="required">*</abbr></label>
+                                        <select name="orderby" class="form-control">
+                                            <option value="" selected="selected">NY</option>
+                                            <option value="1">Brunei</option>
+                                            <option value="2">Bulgaria</option>
+                                        </select>
+                                    </div>
 
-                            <div class="select-custom">
-                                <select name="orderby" class="form-control" id="orderby">
-                                    <option value="name" selected="selected">Tên Sản Phẩm</option>
-                                    <option value="stock">Số Lượng Hàng</option>
-                                    <option value="price_asc">Giá Thấp Đến Cao</option>
-                                    <option value="price_desc">Giá Cao Đến Thấp</option>
-                                </select>
-                            </div>
-                            <!-- End .select-custom -->
-                        </div>
-                        <!-- End .toolbox-item -->
+                                    <div class="select-custom">
+                                        <label>Quận / Huyện <abbr class="required" title="required">*</abbr></label>
+                                        <select name="orderby" class="form-control">
+                                            <option value="" selected="selected">NY</option>
+                                            <option value="1">Brunei</option>
+                                            <option value="2">Bulgaria</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="select-custom">
+                                        <label>Phường / Xã <abbr class="required" title="required">*</abbr></label>
+                                        <select name="orderby" class="form-control">
+                                            <option value="" selected="selected">NY</option>
+                                            <option value="1">Brunei</option>
+                                            <option value="2">Bulgaria</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group mb-1 pb-2">
+                                        <label>
+                                            Địa chỉ đường
+                                            <abbr class="required" title="required">*</abbr>
+                                        </label>
+                                        <input type="text" class="form-control" placeholder="Số nhà và tên đường" required />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Căn hộ, tòa nhà, đơn vị, v.v. (không bắt buộc)" required />
+                                    </div>              
+
+                                    <div class="form-group">
+                                        <label>Số điện thoại <abbr class="required" title="required">*</abbr></label>
+                                        <input type="tel" class="form-control" required />
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
                     </div>
-                    <!-- End .toolbox-left -->
 
-                    <div class="toolbox-right">
-                        <div class="toolbox-item toolbox-show">
-                            <label>Hiển Thị:</label>
+                    <div class="col-lg-5">
+                        <div class="order-summary">
+                            <h3>ĐƠN HÀNG CỦA BẠN</h3>
 
-                            <div class="select-custom">
-                                <select name="count" class="form-control" id="product-count">
-                                    <option value="15">15</option>
-                                    <option value="25">25</option>
-                                    <option value="35">35</option>
-                                </select>
+                            <table class="table table-mini-cart">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Sản phẩm</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="product-col">
+                                            <h3 class="product-title">
+                                                Túi laptop thời trang × <span class="product-qty">2</span>
+                                            </h3>
+                                        </td>
+
+                                        <td class="price-col">
+                                            <span>$418.00</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="cart-subtotal">
+                                        <td><h4>Tạm tính</h4></td>
+                                        <td class="price-col"><span>$1,458.00</span></td>
+                                    </tr>
+                                    <tr class="order-shipping">
+                                        <td class="text-left" colspan="2">
+                                            <h4 class="m-b-sm">Phí vận chuyển</h4>
+
+                                            <div class="form-group form-group-custom-control">
+                                                <div class="custom-control custom-radio d-flex">
+                                                    <input type="radio" class="custom-control-input" name="radio" checked />
+                                                    <label class="custom-control-label">Nhận tại cửa hàng</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group form-group-custom-control mb-0">
+                                                <div class="custom-control custom-radio d-flex mb-0">
+                                                    <input type="radio" name="radio" class="custom-control-input">
+                                                    <label class="custom-control-label">Giao hàng tiêu chuẩn</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="order-total">
+                                        <td><h4>Tổng cộng</h4></td>
+                                        <td><b class="total-price"><span>$1,603.80</span></b></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <div class="payment-methods">
+                                <h4>Phương thức thanh toán</h4>
+
+                                <div class="mb-2">
+                                    <label class="d-flex align-items-center" for="payment-vnpay">
+                                        <img src="~/assets/images/payments/vnpay.png" alt="VNPAY" style="height: 30px; margin-right: 8px;">
+                                        Thanh toán qua VNPAY
+                                    </label>
+                                </div>
                             </div>
-                            <!-- End .select-custom -->
-                        </div>
-                        <!-- End .toolbox-item -->
 
-                        <div class="toolbox-item layout-modes">
-                            <a href="#" class="layout-btn btn-grid active" title="Grid">
-                                <i class="icon-mode-grid"></i>
-                            </a>
+                            <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
+                                Đặt hàng
+                            </button>
                         </div>
-                        <!-- End .layout-modes -->
                     </div>
-                    <!-- End .toolbox-right -->
-                </nav>
-
-                <div class="row" id="product-list">
-
-                    @await Html.PartialAsync("_ProductListPartial", Model)
-
                 </div>
                 <!-- End .row -->
-
-                <nav class="toolbox toolbox-pagination d-flex justify-content-end">
-                    <ul class="pagination toolbox-item">
-                        <!--Pagination -->
-                    </ul>
-                </nav>
             </div>
             <!-- End .container -->
-            <div class="sidebar-overlay"></div>
-
-            <div class="mb-3"></div>
-            <!-- margin -->
         </main>
         <!-- End .main -->
 
         <footer class="footer bg-dark position-relative">
             @await Html.PartialAsync("_Footer")
         </footer>
-        <!-- End .footer -->
     </div>
     <!-- End .page-wrapper -->
 
@@ -347,27 +420,27 @@
 
     <div class="sticky-navbar">
         <div class="sticky-info">
-            <a href="demo4.html">
-                <i class="icon-home"></i>Home
+            <a href="#">
+                <i class="icon-home"></i>Trang Chủ
             </a>
         </div>
         <div class="sticky-info">
-            <a href="category.html" class="">
+            <a href="#" class="">
                 <i class="icon-bars"></i>Categories
             </a>
         </div>
         <div class="sticky-info">
-            <a href="wishlist.html" class="">
+            <a href="#" class="">
                 <i class="icon-wishlist-2"></i>Wishlist
             </a>
         </div>
         <div class="sticky-info">
-            <a href="login.html" class="">
+            <a href="https://www.portotheme.com/html/porto_ecommerce/my-account.html" class="">
                 <i class="icon-user-2"></i>Account
             </a>
         </div>
         <div class="sticky-info">
-            <a href="cart.html" class="">
+            <a href="#" class="">
                 <i class="icon-shopping-cart position-relative">
                     <span class="cart-count badge-circle">3</span>
                 </i>Cart
@@ -375,112 +448,15 @@
         </div>
     </div>
 
-
-
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
     <script src="~/assets/js/jquery.min.js"></script>
     <script src="~/assets/js/bootstrap.bundle.min.js"></script>
     <script src="~/assets/js/plugins.min.js"></script>
-    <script src="~/assets/js/nouislider.min.js"></script>
 
     <!-- Main JS File -->
     <script src="~/assets/js/main.min.js"></script>
     <script src="~/assets/js/cart.js"></script>
-
-    <script>
-        function loadProducts(page = 1) {
-            var count = $('#product-count').val();
-            var sortCriteria = $('#orderby').val();
-            const urlParams = new URLSearchParams(window.location.search);
-            const categoryId = urlParams.get('categoryId') || null;
-            const brandId = urlParams.get('brandId') || null;
-            const search = urlParams.get('search') || "";
-            const baseUrl = window.location.origin;
-
-            // Gọi load sản phẩm
-            $.ajax({
-                url: baseUrl + '/User/Product/FilterProducts',
-                type: 'GET',
-                data: { count: count, search: search, sortCriteria: sortCriteria, pageNumber: page, categoryId: categoryId, brandId: brandId},
-                success: function (result) {
-                    $('#product-list').html(result);
-                },
-                error: function () {
-                    alert("Không thể tải sản phẩm. Vui lòng thử lại.");
-                }
-            });
-
-            // Gọi load tổng số lượng sản phẩm
-            $.ajax({
-                url: baseUrl + '/User/Product/GetTotalProductAjax',
-                type: 'GET',
-                data: { search: search, categoryId: categoryId, brandId: brandId },
-                success: function (total) {
-                    let totalPages = Math.ceil(total / count);
-                    console.log("Tổng số trang: " + totalPages);
-                    renderPagination(totalPages, page);
-                },
-                error: function () {
-                    console.error("Không thể lấy tổng số sản phẩm.");
-                }
-            });
-        }
-
-        // Hàm render số trang vào pagination
-        function renderPagination(totalPages, currentPage) {
-            let paginationHtml = '';
-
-            const maxVisible = 5;
-            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-            let endPage = startPage + maxVisible - 1;
-
-            if (endPage > totalPages) {
-                endPage = totalPages;
-                startPage = Math.max(1, endPage - maxVisible + 1);
-            }
-
-            // Prev button
-            if (currentPage > 1) {
-                paginationHtml += `
-                    <li class="page-item">
-                        <a class="page-link" href="#" data-page="${currentPage - 1}">Prev</a>
-                    </li>`;
-            }
-
-            // Page numbers
-            for (let i = startPage; i <= endPage; i++) {
-                paginationHtml += `
-                    <li class="page-item ${i === currentPage ? 'active' : ''}">
-                        <a class="page-link" href="#" data-page="${i}">${i}</a>
-                    </li>`;
-            }
-
-            // Next button
-            if (currentPage < totalPages) {
-                paginationHtml += `
-                    <li class="page-item">
-                        <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
-                    </li>`;
-            }
-
-            $('.pagination.toolbox-item').html(paginationHtml);
-
-            $('.pagination.toolbox-item .page-link').off('click').on('click', function (e) {
-                e.preventDefault();
-                const selectedPage = parseInt($(this).data('page'));
-                loadProducts(selectedPage);
-            });
-        }
-
-
-        $(document).ready(function () {
-            $('#product-count, #orderby').on('change', function () {
-                loadProducts(1);  
-            });
-            loadProducts();  // lần đầu load trang
-        });
-    </script>
 </body>
 
 </html>

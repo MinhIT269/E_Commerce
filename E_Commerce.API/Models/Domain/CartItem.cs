@@ -20,4 +20,4 @@ namespace E_Commerce.API.Models.Domain
 
         public Product? Product { get; set; }
     }
-}
+} 

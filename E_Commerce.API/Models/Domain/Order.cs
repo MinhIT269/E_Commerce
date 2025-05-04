@@ -9,7 +9,7 @@ namespace E_Commerce.API.Models.Domain
         public Guid OrderId { get; set; } 
 
         [Required]
-        public string UserId { get; set; }  
+        public string UserId { get; set; }  = string.Empty;
 
         public DateTime? OrderDate { get; set; }
 

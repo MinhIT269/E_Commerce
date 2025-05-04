@@ -81,7 +81,7 @@ namespace E_Commerce.UI.Areas.User.Controllers
         [HttpPost("SendEmail")]
         public async Task<IActionResult> SendEmail(ForgotPasswordRequestDto forgotPassword)
         {
-            var response = await _apiRequestHelper.SendPostRequestAsync<ApiMessageResponse>("/Api/Auth/ForgotPassword", forgotPassword);
+            var response = await _apiRequestHelper.SendPostRequestAsync<ApiMessageResponse>("/api/Auth/ForgotPassword", forgotPassword);
             if (response != null)
             {
                 ViewBag.Message = "Liên kết đặt lại mật khẩu đã được gửi đến email của bạn.";
