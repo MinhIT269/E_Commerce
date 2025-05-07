@@ -10,5 +10,6 @@ namespace E_Commerce.API.Repositories.IRepository
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<List<Product>> FindProductsByBrandAsync(string filterQuery, Guid brandId);
         Task<int> CountProductAsync(string? searchQuery, Guid? categoryId, Guid? brandId);
+        Task UpdateProductAsync(Product product);
     }
 }

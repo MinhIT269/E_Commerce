@@ -44,7 +44,7 @@ namespace E_Commerce.API.Mappings
                 .ForMember(dest => dest.CartItemId, opt => opt.Ignore())
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
-
+            CreateMap<UserInfo, UserInfoDto>().ReverseMap();
         }
     }
 }

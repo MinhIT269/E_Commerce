@@ -134,5 +134,9 @@ namespace E_Commerce.API.Repositories.Repository
 
             return await query.CountAsync();
         }
+        public async Task UpdateProductAsync(Product product)
+        {
+            _context.Products.Update(product);
+        }
     }
 }
