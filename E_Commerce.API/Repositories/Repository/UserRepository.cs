@@ -8,9 +8,11 @@ namespace E_Commerce.API.Repositories.Repository
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<User> _userManager;
-        public UserRepository(UserManager<User> userManager)
+        private readonly IUserInfoRepository _userInfoRepository;
+        public UserRepository(UserManager<User> userManager, IUserInfoRepository userInfoRepository)
         {
             _userManager = userManager;
+            _userInfoRepository = userInfoRepository;
         }
         public async Task<User?> FindByIdAsync(string userId)
         {
@@ -54,7 +56,23 @@ namespace E_Commerce.API.Repositories.Repository
 
         public async Task<IdentityResult> CreateAsync(User user, string password)
         {
-            return await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                var userInfo = new UserInfo
+                {
+                    UserId = user.Id,  // Liên kết với User vừa tạo
+                    Address = "", // Địa chỉ mặc định có thể thay đổi sau
+                    FirstName = "", // Tên mặc định
+                    LastName = "",  // Họ mặc định
+                    Gender = true // Gender mặc định
+                };
+
+                // Lưu thông tin người dùng vào UserInfo
+                await _userInfoRepository.AddAsync(userInfo);
+            }
+
+            return result;
         }
 
         public async Task<IdentityResult> AddToRolesAsync(User user, IList<string> roles)
