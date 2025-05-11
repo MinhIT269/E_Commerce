@@ -6,6 +6,6 @@ namespace E_Commerce.API.Services.IService
     public interface IOrderService
     {
         Task<string> CreateOrderAndPaymentAsync(OrderRequestDto request, HttpContext httpContext);
-        Task<string> HandlePaymentCallbackAsync(IQueryCollection query);
+        Task<PaymentResponseDto> HandlePaymentCallbackAsync(IQueryCollection query);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace E_Commerce.API.Controllers
 {
@@ -9,9 +10,11 @@ namespace E_Commerce.API.Controllers
     public class OrdersController : ControllerBase
     { 
         private readonly IOrderService _orderService;
-        public OrdersController(IOrderService orderService)
+        private readonly IConfiguration _config;
+        public OrdersController(IOrderService orderService, IConfiguration config)
         {
             _orderService = orderService;
+            _config = config;
         }
 
         [HttpPost("Checkout")]
@@ -31,8 +34,15 @@ namespace E_Commerce.API.Controllers
         [HttpGet("PaymentBack")]
         public async Task<IActionResult> PaymentCallBack()
         {
-            var htmlContent = await _orderService.HandlePaymentCallbackAsync(Request.Query);
-            return Content(htmlContent, "text/html");
+            var response = await _orderService.HandlePaymentCallbackAsync(Request.Query);
+            var frontendBaseUrl = _config["Frontend:BaseUrl"];
+            var redirectUrl = $"{frontendBaseUrl}/User/CheckOut/Result?" +
+                  $"message={WebUtility.UrlEncode(response.Message)}" +
+                  $"&transactionId={response.TransactionId}" +
+                  $"&amount={response.Amount}" +
+                  $"&statusText={WebUtility.UrlEncode(response.StatusText)}" +
+                  $"&statusClass={response.StatusClass}";
+            return Redirect(redirectUrl);
         }
     }
 }

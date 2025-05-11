@@ -1,7 +1,6 @@
 ﻿using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Services.IService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.API.Controllers

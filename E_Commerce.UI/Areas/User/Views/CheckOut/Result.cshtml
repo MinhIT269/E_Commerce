@@ -1,0 +1,115 @@
+﻿@model E_Commerce.UI.Models.Responses.PaymentResponseDto
+@{
+    Layout = null; // Không dùng _Layout.cshtml
+    var formattedAmount = Model.Amount.ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    @await Html.PartialAsync("_Head")
+    <link rel="stylesheet" href="~/assets/css/style.min.css">
+</head>
+<body>
+    <div class="page-wrapper">
+
+        <header class="header home">
+            @await Component.InvokeAsync("Header")
+        </header>
+        <!-- End .header -->
+
+        <main class="main main-test">
+            <div class="container checkout-container">
+                <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
+                    <li class="disabled">
+                        <a href="#">Giỏ hàng</a>
+                    </li>
+                    <li class="disabled">
+                        <a href="#">Thanh toán</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Hoàn tất đơn hàng</a>
+                    </li>
+                </ul>
+
+                <div class="row">
+                    <div class="container d-flex justify-content-center align-items-center vh-100">
+                        <div class="card text-center shadow p-4" style="max-width: 400px; width: 100%;">
+                            <h2 class="text-@Model.StatusClass">@Model.Message</h2>
+                            <div class="mt-1">
+                                <p style="font-size: 16px"><strong>Mã giao dịch:</strong> @Model.TransactionId</p>
+                                <p style="font-size: 16px"><strong>Số tiền:</strong> @formattedAmount</p>
+                                <p style="font-size: 16px"><strong>Trạng thái:</strong> @Model.StatusText</p>
+                            </div>
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-2">Quay về trang chủ</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End .container -->
+        </main>
+        <!-- End .main -->
+
+        <footer class="footer bg-dark position-relative">
+            @await Html.PartialAsync("_Footer")
+        </footer>
+    </div>
+    <!-- End .page-wrapper -->
+
+    <div class="loading-overlay">
+        <div class="bounce-loader">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+
+    <div class="mobile-menu-overlay"></div>
+    <!-- End .mobil-menu-overlay -->
+
+    <div class="mobile-menu-container">
+        @await Component.InvokeAsync("Menu")
+    </div>
+    <!-- End .mobile-menu-container -->
+
+    <div class="sticky-navbar">
+        <div class="sticky-info">
+            <a href="#">
+                <i class="icon-home"></i>Trang Chủ
+            </a>
+        </div>
+        <div class="sticky-info">
+            <a href="#" class="">
+                <i class="icon-bars"></i>Categories
+            </a>
+        </div>
+        <div class="sticky-info">
+            <a href="#" class="">
+                <i class="icon-wishlist-2"></i>Wishlist
+            </a>
+        </div>
+        <div class="sticky-info">
+            <a href="https://www.portotheme.com/html/porto_ecommerce/my-account.html" class="">
+                <i class="icon-user-2"></i>Account
+            </a>
+        </div>
+        <div class="sticky-info">
+            <a href="#" class="">
+                <i class="icon-shopping-cart position-relative">
+                    <span class="cart-count badge-circle">3</span>
+                </i>Cart
+            </a>
+        </div>
+    </div>
+
+    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/plugins.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="~/assets/js/main.min.js"></script>
+    <script src="~/assets/js/cart.js"></script>
+</body>
+</html>

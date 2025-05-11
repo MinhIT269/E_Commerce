@@ -205,7 +205,7 @@
             <div class="container checkout-container">
                 <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
                     <li>
-                        <a href="#">Giỏ hàng</a>
+                        <a href="@Url.Action("Index", "Cart")">Giỏ hàng</a>
                     </li>
                     <li class="active">
                         <a href="#">Thanh toán</a>
@@ -226,9 +226,9 @@
                             <div class="feature-box-content">
                                 <p>Nếu bạn có mã giảm giá, vui lòng nhập vào bên dưới.</p>
 
-                                <form action="#">
+                                <form id="promotion-form">
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm w-auto" placeholder="Mã giảm giá" required="" />
+                                        <input type="text" id="promotion-code-input" class="form-control form-control-sm w-auto" placeholder="Mã giảm giá"/>
                                         <div class="input-group-append">
                                             <button class="btn btn-sm mt-0" type="submit">
                                                 Áp dụng
@@ -236,6 +236,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                <p id="promotion-error" class="text-danger" style="display:none;"></p>
                             </div>
                         </div>
                     </div>
@@ -255,7 +256,7 @@
                                                     Họ
                                                     <abbr class="required" title="required">*</abbr>
                                                 </label>
-                                                <input type="text" class="form-control" required />
+                                                <input type="text" class="form-control" name="LastName" required />
                                             </div>
                                         </div>
 
@@ -265,36 +266,9 @@
                                                     Tên
                                                     <abbr class="required" title="required">*</abbr>
                                                 </label>
-                                                <input type="text" class="form-control" required />
+                                                <input type="text" class="form-control" name="FirstName" required />
                                             </div>
                                         </div>
-                                    </div>
-                                  
-                                    <div class="select-custom">
-                                        <label>Tỉnh / Thành Phố <abbr class="required" title="required">*</abbr></label>
-                                        <select name="orderby" class="form-control">
-                                            <option value="" selected="selected">NY</option>
-                                            <option value="1">Brunei</option>
-                                            <option value="2">Bulgaria</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="select-custom">
-                                        <label>Quận / Huyện <abbr class="required" title="required">*</abbr></label>
-                                        <select name="orderby" class="form-control">
-                                            <option value="" selected="selected">NY</option>
-                                            <option value="1">Brunei</option>
-                                            <option value="2">Bulgaria</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="select-custom">
-                                        <label>Phường / Xã <abbr class="required" title="required">*</abbr></label>
-                                        <select name="orderby" class="form-control">
-                                            <option value="" selected="selected">NY</option>
-                                            <option value="1">Brunei</option>
-                                            <option value="2">Bulgaria</option>
-                                        </select>
                                     </div>
 
                                     <div class="form-group mb-1 pb-2">
@@ -302,16 +276,12 @@
                                             Địa chỉ đường
                                             <abbr class="required" title="required">*</abbr>
                                         </label>
-                                        <input type="text" class="form-control" placeholder="Số nhà và tên đường" required />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Căn hộ, tòa nhà, đơn vị, v.v. (không bắt buộc)" required />
-                                    </div>              
+                                        <input type="text" class="form-control" placeholder="Số nhà và tên đường" name="Address" required />
+                                    </div> 
 
                                     <div class="form-group">
                                         <label>Số điện thoại <abbr class="required" title="required">*</abbr></label>
-                                        <input type="tel" class="form-control" required />
+                                        <input type="tel" class="form-control" name="PhoneNumber" required />
                                     </div>
                                 </form>
                             </li>
@@ -328,48 +298,25 @@
                                         <th colspan="2">Sản phẩm</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="product-col">
-                                            <h3 class="product-title">
-                                                Túi laptop thời trang × <span class="product-qty">2</span>
-                                            </h3>
-                                        </td>
-
-                                        <td class="price-col">
-                                            <span>$418.00</span>
-                                        </td>
-                                    </tr>
+                                <tbody id="checkout-cart-items">
+                                    <!-- Sản phẩm được chèn bằng JS -->
                                 </tbody>
                                 <tfoot>
-                                    <tr class="cart-subtotal">
+                                    <tr class="subtotal-row">
                                         <td><h4>Tạm tính</h4></td>
-                                        <td class="price-col"><span>$1,458.00</span></td>
+                                        <td class="price-col"><span id="checkout-subtotal">0 ₫</span></td>
                                     </tr>
-                                    <tr class="order-shipping">
-                                        <td class="text-left" colspan="2">
-                                            <h4 class="m-b-sm">Phí vận chuyển</h4>
 
-                                            <div class="form-group form-group-custom-control">
-                                                <div class="custom-control custom-radio d-flex">
-                                                    <input type="radio" class="custom-control-input" name="radio" checked />
-                                                    <label class="custom-control-label">Nhận tại cửa hàng</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group form-group-custom-control mb-0">
-                                                <div class="custom-control custom-radio d-flex mb-0">
-                                                    <input type="radio" name="radio" class="custom-control-input">
-                                                    <label class="custom-control-label">Giao hàng tiêu chuẩn</label>
-                                                </div>
-                                            </div>
-                                        </td>
+                                    <tr class="promotion-discount">
+                                        <td><h4>Giảm giá</h4></td>
+                                        <td class="price-col text-danger"><span id="promotion-discount">-0 ₫</span></td>
                                     </tr>
 
                                     <tr class="order-total">
                                         <td><h4>Tổng cộng</h4></td>
-                                        <td><b class="total-price"><span>$1,603.80</span></b></td>
+                                        <td><b class="total-price"><span id="checkout-total">0 ₫</span></b></td>
                                     </tr>
+
                                 </tfoot>
                             </table>
 
@@ -457,6 +404,112 @@
     <!-- Main JS File -->
     <script src="~/assets/js/main.min.js"></script>
     <script src="~/assets/js/cart.js"></script>
+    <script>
+        let promotionValue = 0; // % giảm
+        let promotionText = '';
+
+        $('#promotion-form').on('submit', function (e) {
+            e.preventDefault();
+            const code = $('#promotion-code-input').val().trim();
+            if (code === promotionText) return;
+            $.ajax({
+                url: `/User/Promotion/validate?code=${code}`,
+                method: 'GET',
+                success: function (res) {
+                    if (res.isValid) {
+                        promotionValue = res.value; // Giảm theo phần trăm
+                        promotionText = code;
+                        $('#promotion-error').hide();
+                        loadCheckoutSummary();
+                    } else {
+                        promotionValue = 0;
+                        $('#promotion-error').text("Mã không hợp lệ hoặc đã hết hạn").show();
+                        loadCheckoutSummary(); // Xóa giảm giá
+                    }
+                },
+                error: function () {
+                    $('#promotion-error').text("Không thể kiểm tra mã giảm giá").show();
+                }
+            });
+        });
+
+        function loadCheckoutSummary() {
+            const tbody = $('#checkout-cart-items');
+            const totalEl = $('#checkout-total');
+            const discountEl = $('#promotion-discount');
+            const discountRow = $('.promotion-discount');
+
+            $.ajax({
+                url: `${window.location.origin}/User/Cart/GetCartItems`,
+                method: 'GET',
+                dataType: 'json',
+                success: function (cart) {
+                    tbody.empty();
+
+                    if (!cart.cartItems || cart.cartItems.length === 0) {
+                        tbody.html('<tr><td colspan="2" class="text-center">Không có sản phẩm trong giỏ hàng.</td></tr>');
+                        totalEl.text('0 ₫');
+                        discountRow.hide();
+                        return;
+                    }
+
+                    let html = '';
+                    let subtotal = 0;
+
+                    cart.cartItems.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        subtotal += itemTotal;
+
+                        const priceFormatted = new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }).format(itemTotal);
+
+                        html += `
+                        <tr>
+                            <td class="product-col">
+                                <h3 class="product-title">${item.productName}<span class="product-qty" style="font-weight: bold"> x ${item.quantity}</span></h3>
+                            </td>
+                            <td class="price-col">
+                                <span>${priceFormatted}</span>
+                            </td>
+                        </tr>`;
+                    });
+
+                    // Tính giảm giá
+                    let discountAmount = 0;
+                    if (promotionValue > 0) {
+                        discountAmount = Math.round(subtotal * promotionValue / 100);
+                        discountEl.text('-' + discountAmount.toLocaleString('vi-VN') + ' ₫');
+                        discountRow.show();
+                    } else {
+                        discountRow.hide();
+                    }
+
+                    const finalTotal = subtotal - discountAmount;
+
+                    const totalFormatted = new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }).format(finalTotal);
+
+                    const subtotalFormatted = new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }).format(subtotal);
+
+                    $('#checkout-subtotal').text(subtotalFormatted);
+                    tbody.html(html);
+                    totalEl.text(totalFormatted);
+                },
+                error: function () {
+                    tbody.html('<tr><td colspan="2" class="text-center text-danger">Lỗi tải giỏ hàng.</td></tr>');
+                    totalEl.text('0 ₫');
+                    discountRow.hide();
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Models.Requests;
+using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
 using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Identity;
@@ -85,11 +86,25 @@ namespace E_Commerce.API.Services.Service
             if (!string.IsNullOrWhiteSpace(request.PromotionCode))
             {
                 promo = await _promotionRepository.GetByCodeAsync(request.PromotionCode);
-                if (promo != null)
-                {
-                    discount = promo.Percentage;
-                }
+                if (promo == null)
+                    throw new Exception("Mã khuyến mãi không tồn tại.");
+
+                if (promo.EndDate < DateTime.UtcNow)
+                    throw new Exception("Mã khuyến mãi đã hết hạn.");
+
+                if (promo.MaxUsage <= 0)
+                    throw new Exception("Mã khuyến mãi đã được sử dụng hết.");
+
+                discount = promo.Percentage;
             }
+
+            decimal discountAmount = 0;
+            if (discount > 0)
+            {
+                discountAmount = (totalAmount * discount) / 100;
+                totalAmount -= discountAmount;
+            }
+
             var order = new Order
             {
                 OrderId = orderId,
@@ -129,88 +144,33 @@ namespace E_Commerce.API.Services.Service
             var paymentUrl = _vnPayService.CreatePaymentUrl(httpContext, vnPayModel);
             return paymentUrl;
         }
-        private string GeneratePaymentHtml(string message, string transactionId, decimal amount, string statusText, string statusClass)
-        {
-            return $@"
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Kết quả thanh toán</title>
-    <style>
-        body {{
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-        }}
-        .payment-result-container {{
-            text-align: center;
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 400px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }}
-        .payment-status.success {{
-            color: #4CAF50;
-        }}
-        .payment-status.failed {{
-            color: #E74C3C;
-        }}
-        .payment-details {{
-            margin-top: 1rem;
-            font-size: 1rem;
-            color: #333;
-        }}
-        .return-button {{
-            margin-top: 1.5rem;
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            font-size: 1rem;
-            color: #fff;
-            background-color: #3498DB;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }}
-        .return-button:hover {{
-            background-color: #2980B9;
-        }}
-    </style>
-</head>
-<body>
-
-<div class='payment-result-container'>
-    <h1 class='payment-status {statusClass}'>{message}</h1>
-    <div class='payment-details'>
-        <p><strong>Mã giao dịch:</strong> {transactionId}</p>
-        <p><strong>Số tiền:</strong> {amount.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))}</p>
-        <p><strong>Trạng thái:</strong> {statusText}</p>
-    </div>
-    <a href='/' class='return-button'>Quay về trang chủ</a>
-</div>
-
-</body>
-</html>";
-        }
-        public async Task<string> HandlePaymentCallbackAsync(IQueryCollection query)
+        public async Task<PaymentResponseDto> HandlePaymentCallbackAsync(IQueryCollection query)
         {
             var response = _vnPayService.PaymentExeCute(query);
             if (response == null || !Guid.TryParse(response.OrderDescription, out var orderId))
             {
-                return GeneratePaymentHtml("Giao dịch thất bại", "Không xác định", 0, "Thất bại", "failed");
+                return new PaymentResponseDto
+                {
+                    Message = "Giao dịch thất bại",
+                    TransactionId = "Không xác định",
+                    Amount = 0,
+                    StatusText = "Thất bại",
+                    StatusClass = "danger"
+                };
             }
             var order = await _orderRepository.GetOrderByIdAsync(orderId);
             var transaction = await _transactionRepository.GetTransactionByOrderIdAsync(orderId);
 
             if (order == null || transaction == null)
             {
-                return GeneratePaymentHtml("Không tìm thấy đơn hàng hoặc giao dịch", orderId.ToString(), 0, "Thất bại", "failed");
+                return new PaymentResponseDto
+                {
+                    Message = "Không tìm thấy đơn hàng hoặc giao dịch",
+                    TransactionId = orderId.ToString().ToUpper(),
+                    Amount = 0,
+                    StatusText = "Thất bại",
+                    StatusClass = "danger"
+                };
             }
 
             if (response.VnPayResponseCode != "00")
@@ -219,10 +179,28 @@ namespace E_Commerce.API.Services.Service
                 transaction.Status = "cancelled";
                 await _orderRepository.SaveChangesAsync();
 
-                return GeneratePaymentHtml("Giao dịch thất bại", transaction.TransactionId.ToString(), transaction.Amount, "Thất bại", "failed");
+                return new PaymentResponseDto
+                {
+                    Message = "Giao dịch thất bại",
+                    TransactionId = transaction.TransactionId.ToString().Substring(transaction.TransactionId.ToString().Length - 8).ToUpper(),
+                    Amount = transaction.Amount,
+                    StatusText = "Thất bại",
+                    StatusClass = "danger"
+                };
             }
             order.Status = "done";
             transaction.Status = "done";
+
+            if (!string.IsNullOrEmpty(order.Promotion?.Code))
+            {
+                var promo = await _promotionRepository.GetByCodeAsync(order.Promotion.Code);
+                if (promo != null && promo.MaxUsage > 0)
+                {
+                    promo.MaxUsage--;
+                    await _promotionRepository.UpdatePromotionAsync(promo);
+                }
+            }
+
             // Cập nhật số lượng tồn kho
             foreach (var item in order.OrderDetails!)
             {
@@ -235,7 +213,14 @@ namespace E_Commerce.API.Services.Service
             }
             await _cartRepository.ClearCartAsync(order.UserId);
             await _orderRepository.SaveChangesAsync();
-            return GeneratePaymentHtml("Giao dịch thành công", transaction.TransactionId.ToString(), transaction.Amount, "Hoàn thành", "success");
+            return new PaymentResponseDto
+            {
+                Message = "Giao dịch thành công",
+                TransactionId = transaction.TransactionId.ToString().Substring(transaction.TransactionId.ToString().Length - 8).ToUpper(),
+                Amount = transaction.Amount,
+                StatusText = "Hoàn thành",
+                StatusClass = "success"
+            };
         }
     }
 }
