@@ -68,6 +68,7 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IUserInfoService, UserInfoService>();
+builder.Services.AddScoped<IPromotionService, PromotionService>();
 
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
