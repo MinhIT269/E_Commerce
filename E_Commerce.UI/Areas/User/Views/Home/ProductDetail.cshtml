@@ -1,14 +1,5 @@
 ﻿@using E_Commerce.UI.Models.Responses
 @model ProductResponseDto
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-      @await Html.PartialAsync("_Head")
-</head>
-
-<body>
     <div class="page-wrapper">
         <header class="header home">
             @await Component.InvokeAsync("Header")
@@ -783,6 +774,3 @@
     <!-- Main JS File -->
     <script src="~/assets/js/main.min.js"></script>
     <script src="~/assets/js/cart.js"></script>
-</body>
-
-</html>

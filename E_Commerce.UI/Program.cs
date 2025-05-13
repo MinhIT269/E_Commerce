@@ -1,4 +1,5 @@
 using E_Commerce.UI.Helpers;
+using E_Commerce.UI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ApiRequestHelper>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.Configure<ChatbotOptions>(
+    builder.Configuration.GetSection("Chatbot"));
+
 
 var app = builder.Build();
 
