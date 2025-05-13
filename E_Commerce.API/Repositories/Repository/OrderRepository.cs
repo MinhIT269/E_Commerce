@@ -85,15 +85,21 @@ namespace E_Commerce.API.Repositories.Repository
         }
         public async Task<int> TotalOrdersSuccess()
         {
-            return await _context.Orders.Where(c => string.Equals(c.Status, "completed", StringComparison.OrdinalIgnoreCase)).CountAsync();
+            return await _context.Orders
+                .Where(c => c.Status!.ToUpper() == "DONE")
+                .CountAsync();
         }
         public async Task<int> TotalOrdersPending()
         {
-            return await _context.Orders.Where(c => string.Equals(c.Status, "pending", StringComparison.OrdinalIgnoreCase)).CountAsync();
+            return await _context.Orders
+                .Where(c => c.Status!.ToUpper() == "PENDING")
+                .CountAsync();
         }
         public async Task<int> TotalOrdersCancel()
         {
-            return await _context.Orders.Where(c => string.Equals(c.Status, "cancel", StringComparison.OrdinalIgnoreCase)).CountAsync();
+            return await _context.Orders
+                .Where(c => c.Status!.ToUpper() == "CANCELLED")
+                .CountAsync();
         }
         public async Task<int> TotalOrdersByUser(string userId)
         {
@@ -104,7 +110,7 @@ namespace E_Commerce.API.Repositories.Repository
         public async Task<int> TotalOrdersSuccessByUser(string userId)
         {
             return await _context.Orders
-                .Where(o => o.UserId == userId && o.Status!.ToLower() == "completed")
+                .Where(o => o.UserId == userId && o.Status!.ToLower() == "done")
                 .CountAsync();
         }
 
@@ -112,12 +118,41 @@ namespace E_Commerce.API.Repositories.Repository
         {
             return await _context.Orders
                 .Where(o => o.UserId == userId &&
-                      (o.Status!.ToLower() == "pending" || o.Status.ToLower() == "cancel"))
+                      (o.Status!.ToLower() == "pending" || o.Status.ToLower() == "cancelled"))
                 .CountAsync();
         }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public IQueryable<Order> GetFilteredOrders(string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = _context.Orders
+                .Include(c => c.User)
+                .Include(c => c.OrderDetails)!
+                .ThenInclude(p => p.Product).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(c => EF.Functions.Collate(c.User!.UserName, "SQL_Latin1_General_CP1_CI_AI")!.Contains(searchQuery));
+            }
+
+            query = sortCriteria switch
+            {
+                "name" => isDescending ? query.OrderByDescending(c => c.User!.UserName) : query.OrderBy(c => c.User!.UserName),
+                "totalAmount" => isDescending ? query.OrderByDescending(c => c.TotalAmount) : query.OrderBy(c => c.TotalAmount),
+                "createDate" => isDescending ? query.OrderByDescending(c => c.OrderDate) : query.OrderBy(c => c.OrderDate),
+                "status" => isDescending ? query.OrderByDescending(c => c.Status) : query.OrderBy(c => c.Status),
+                _ => query
+            };
+            return query;
+        }
+        public async Task<decimal> GetTotalAmountOfCompletedOrdersAsync()
+        {
+            return await _context.Orders
+                .Where(o => o.Status == "done")
+                .SumAsync(o => o.TotalAmount);
         }
     }
 }

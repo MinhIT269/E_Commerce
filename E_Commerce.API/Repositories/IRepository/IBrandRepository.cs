@@ -13,5 +13,8 @@ namespace E_Commerce.API.Repositories.IRepository
         Task<bool> UpdateBrandAsync(Brand brand);
         Task<bool> DeleteBrandAsync(Guid id);
         Task<bool> SaveChangesAsync();
+        IQueryable<Brand> GetFilteredBrandsQuery(string searchQuery, string sortCriteria, bool isDescending);
+        Task<bool> HasProductsByBrandIdAsync(Guid brandId);
+        Task<bool> IsBrandNameExists(string brandName);
     }
 }

@@ -61,5 +61,35 @@ namespace E_Commerce.API.Repositories.Repository
         {
             return await _context.SaveChangesAsync() > 0;
         }
+        public IQueryable<Category> GetFilteredCategoriesQuery(string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = _context.Categories
+                                    .Include(c => c.ProductCategories)!
+                                    .ThenInclude(p => p.Product)
+                                    .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(c => EF.Functions.Collate(c.CategoryName!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchQuery));
+            }
+
+            query = sortCriteria switch
+            {
+                "name" => isDescending ? query.OrderByDescending(c => c.CategoryName) : query.OrderBy(c => c.CategoryName),
+                "productCount" => isDescending ? query.OrderByDescending(c => c.ProductCategories!.Sum(pc => pc.Product!.Quantity)) : query.OrderBy(c => c.ProductCategories!.Sum(pc => pc.Product!.Quantity)),
+                _ => query
+            };
+
+            return query;
+        }
+        public async Task<List<Product>> GetProductByCategoryIdAsync(Guid categoryId)
+        {
+            return await _context.Products.Where(p => p.ProductCategories!.Any(pc => pc.CategoryId == categoryId)).ToListAsync();
+        }
+
+        public async Task<bool> IsCategoryNameExistsAsync(string categoryName)
+        {
+            return await _context.Categories.AnyAsync(c => c.CategoryName == categoryName);
+        }
     }
 }
