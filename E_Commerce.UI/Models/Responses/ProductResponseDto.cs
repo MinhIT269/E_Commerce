@@ -16,5 +16,6 @@
         public string? BrandName { get; set; }
         public List<string>? CategoryNames { get; set; }
         public List<string>? ProductImages { get; set; }
+        public int SoldQuantity { get; set; }
     }
 }

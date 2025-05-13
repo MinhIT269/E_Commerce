@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
 using E_Commerce.API.Services.IService;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.API.Services.Service
 {
@@ -55,6 +57,38 @@ namespace E_Commerce.API.Services.Service
         public async Task<bool> DeleteCategoryAsync(Guid id)
         {
             return await _categoryRepository.DeleteCategoryAsync(id);
+        }
+
+        public async Task<(List<CategoryDetailResponseDto> categories, int totalRecords)> GetFilteredCategoriesAsync(int page, int pageSize, string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = _categoryRepository.GetFilteredCategoriesQuery(searchQuery, sortCriteria, isDescending);
+
+            var totalRecords = await query.CountAsync();
+
+            var pagedCategories = await query.Skip((page - 1) * pageSize)
+                                              .Take(pageSize)
+                                              .ProjectTo<CategoryDetailResponseDto>(_mapper.ConfigurationProvider) 
+                                              .ToListAsync();
+
+            return (pagedCategories, totalRecords);
+        }
+
+        public async Task<int> GetTotalCategoriesAsync(string searchQuery)
+        {
+            var query = _categoryRepository.GetFilteredCategoriesQuery(searchQuery, "name", false);
+            return await query.CountAsync();
+        }
+
+        public async Task<List<ProductResponseDto>> GetProductsByCategoryIdAsync(Guid categoryId)
+        {
+            var products = await _categoryRepository.GetProductByCategoryIdAsync(categoryId);
+
+            return _mapper.Map<List<ProductResponseDto>>(products);
+        }
+
+        public async Task<bool> IsCategoryNameExistsAsync(string categoryName)
+        {
+            return await _categoryRepository.IsCategoryNameExistsAsync(categoryName);
         }
     }
 }

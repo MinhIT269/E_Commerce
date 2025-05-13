@@ -1,4 +1,5 @@
 ﻿using E_Commerce.API.Services.IService;
+using E_Commerce.API.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.API.Controllers
@@ -66,6 +67,37 @@ namespace E_Commerce.API.Controllers
             var product = await _productsService.GetProductByIdAsync(productId);
             if (product == null) return NotFound();
             return Ok(product);
+        }
+
+        [HttpDelete("DeleteProduct/{id}")]
+        public async Task<IActionResult> DeleteProduct([FromRoute] Guid id)
+        {
+            try
+            {
+                await _productsService.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("GetProductStats")]
+        public async Task<IActionResult> GetProductStats()
+        {
+            var totalProducts = await _productsService.GetTotalProduct();
+            var availableProducts = await _productsService.AvailableProducts();
+            var lowStockProducts = await _productsService.GetLowStockProducts();
+            var newProducts = await _productsService.GetNewProducts();
+
+            return Ok(new
+            {
+                TotalProducts = totalProducts,
+                AvailableProducts = availableProducts,
+                LowStockProducts = lowStockProducts,
+                NewProducts = newProducts
+            });
         }
     }
 }

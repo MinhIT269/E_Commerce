@@ -16,5 +16,7 @@ namespace E_Commerce.API.Repositories.IRepository
         Task<int> TotalOrdersSuccessByUser(string userId);
         Task<int> TotalOrdersPendingByUser(string userId);
         Task SaveChangesAsync();
+        IQueryable<Order> GetFilteredOrders(string searchQuery, string sortCriteria, bool isDescending);
+        Task<decimal> GetTotalAmountOfCompletedOrdersAsync();
     }
 }

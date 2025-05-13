@@ -34,4 +34,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}",
     defaults: new { area = "User" });
 
+string wwwroot = app.Environment.WebRootPath;
+Rotativa.AspNetCore.RotativaConfiguration.Setup(wwwroot, "rotativa");
+
 app.Run();

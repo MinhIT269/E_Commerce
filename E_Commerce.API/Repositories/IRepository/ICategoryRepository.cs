@@ -13,5 +13,8 @@ namespace E_Commerce.API.Repositories.IRepository
         Task<bool> UpdateCategoryAsync(Category category);
         Task<bool> DeleteCategoryAsync(Guid id);
         Task<bool> SaveChangesAsync();
+        IQueryable<Category> GetFilteredCategoriesQuery(string searchQuery, string sortCriteria, bool isDescending);
+        Task<bool> IsCategoryNameExistsAsync(string categoryName);
+        Task<List<Product>> GetProductByCategoryIdAsync(Guid categoryId);
     }
 }

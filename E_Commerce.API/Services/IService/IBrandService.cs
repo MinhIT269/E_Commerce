@@ -11,5 +11,9 @@ namespace E_Commerce.API.Services.IService
         Task<bool> CreateBrandAsync(BrandRequestDto brand);
         Task<bool> UpdateBrandAsync(Guid id,BrandRequestDto brand);
         Task<bool> DeleteBrandAsync(Guid id);
+        Task<bool> HasProductsByBrandIdAsync(Guid brandId);
+        Task<int> GetTotalBrandsAsync(string searchQuery);
+        Task<bool> IsBrandNameExists(string brandName);
+        Task<(List<BrandDetailResponseDto> brands, int totalRecods)> GetFilteredCategoriesAsync(int page, int pageSize, string searchQuery, string sortCriteria, bool isDescending);
     }
 }

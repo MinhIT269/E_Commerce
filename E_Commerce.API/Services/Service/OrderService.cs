@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
+using E_Commerce.API.Repositories.Repository;
 using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 namespace E_Commerce.API.Services.Service
 {
     public class OrderService : IOrderService
@@ -222,5 +225,49 @@ namespace E_Commerce.API.Services.Service
                 StatusClass = "success"
             };
         }
+        public async Task<List<OrderDto>> GetFilteredOrders(int page, int pageSize, string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = _orderRepository.GetFilteredOrders(searchQuery, sortCriteria, isDescending);
+
+            var pagedOrders = await query.Skip((page - 1) * pageSize)
+                                             .Take(pageSize)
+                                             .ProjectTo<OrderDto>(_mapper.ConfigurationProvider)
+                                             .ToListAsync();
+            return pagedOrders;
+        }
+
+        public async Task<int> GetTotalOrdersAsync(string searchQuery)
+        {
+            var query = _orderRepository.GetFilteredOrders(searchQuery, "name", false);
+            return await query.CountAsync();
+        }
+        public async Task<int> TotalOrders()
+        {
+            return await _orderRepository.TotalOrders();
+        }
+        public async Task<int> TotalOrdersSuccess()
+        {
+            return await _orderRepository.TotalOrdersSuccess();
+        }
+        public async Task<int> TotalOrdersPending()
+        {
+            return await _orderRepository.TotalOrdersPending();
+        }
+        public async Task<int> TotalOrdersCancel()
+        {
+            return await _orderRepository.TotalOrdersCancel();
+        }
+        public async Task<decimal> GetTotalAmountOfCompletedOrdersAsync()
+        {
+            return await _orderRepository.GetTotalAmountOfCompletedOrdersAsync();
+        }
+        public async Task<OrderDetailResponseDto> GetOrderDetails(Guid id)
+        {
+            var orderDetailDomain = await _orderRepository.GetOrderDetailAsync(id);
+
+            var orderDetailDto = _mapper.Map<OrderDetailResponseDto>(orderDetailDomain);
+            return orderDetailDto;
+        }
+
     }
 }
