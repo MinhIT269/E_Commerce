@@ -5,7 +5,8 @@ namespace E_Commerce.UI.Models.Responses
     public class OrderResponseDto
     {
         public UserInfoDto UserInfo { get; set; } = new();
-        public Guid OrderId { get; set; }        // Foreign Key
+        public Guid OrderId { get; set; }
+        public string Email { get; set; } = string.Empty;
         public string? Status { get; set; }
         public DateTime? OrderDate { get; set; }
         public decimal TotalAmount { get; set; }

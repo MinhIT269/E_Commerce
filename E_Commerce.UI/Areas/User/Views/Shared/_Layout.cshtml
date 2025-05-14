@@ -7,9 +7,16 @@
     @RenderSection("Styles", required: false)
 </head>
 <body>
-        @RenderBody()
+    @RenderBody()
     @await Component.InvokeAsync("Chatbot")
+    <!-- Highlight.js cho hiển thị code -->
+    <!-- Thêm thư viện Marked.js để xử lý Markdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
     <script src="~/js/chatbot.js"></script>
+
 </body>
 </html>
