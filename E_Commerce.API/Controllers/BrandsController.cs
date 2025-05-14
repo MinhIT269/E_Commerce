@@ -1,5 +1,6 @@
 ﻿using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Services.IService;
+using E_Commerce.API.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.API.Controllers
@@ -69,10 +70,32 @@ namespace E_Commerce.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBrand(Guid id)
         {
+            var productsUsingBrand = await _brandService.HasProductsByBrandIdAsync(id);
+            if (productsUsingBrand)
+            {
+                return BadRequest("Thương hiệu này đang được sử dụng bởi các sản phẩm, không thể xóa!");
+            }
             var success = await _brandService.DeleteBrandAsync(id);
             if (!success)
                 return StatusCode(StatusCodes.Status500InternalServerError, "Xóa brand thất bại.");
             return Ok("Xóa brand thành công.");
+        }
+
+        // GET: api/Brands/filtered
+        [HttpGet("GetFilteredBrands")]
+        public async Task<IActionResult> GetFilteredBrands([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+            var (brands, totalRecords) = await _brandService.GetFilteredCategoriesAsync(page, pageSize, searchQuery, sortCriteria, isDescending);
+            return Ok(brands);
+        }
+
+        // GET: api/Brands/TotalPagesBrands?searchQuery=Electronics
+        [HttpGet("TotalPagesBrands")]
+        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await _brandService.GetTotalBrandsAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
         }
     }
 }

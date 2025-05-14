@@ -37,7 +37,17 @@ namespace E_Commerce.API.Services.Service
 
             var products = await _productRepository.GetAllAsync(query, sortBy, isAscending, pageNumber, pageSize, categoryId, brandId);
             if (products == null) return null;
-            return _mapper.Map<List<ProductResponseDto>>(products);
+            var productDtos = _mapper.Map<List<ProductResponseDto>>(products);
+
+            var productIds = productDtos.Select(p => p.ProductId).ToList();
+            var soldQuantities = await _productRepository.GetSoldQuantitiesAsync(productIds);
+
+            foreach (var dto in productDtos)
+            {
+                dto.SoldQuantity = soldQuantities.ContainsKey(dto.ProductId) ? soldQuantities[dto.ProductId] : 0;
+            }
+
+            return productDtos;
         }
 
         public async Task<List<ProductResponseDto>?> GetProductsFromBrand(Guid brandId, string filterQuery)
@@ -61,6 +71,38 @@ namespace E_Commerce.API.Services.Service
             var products = await _productRepository.GetProductsByCategoryAsync(categoryId, count);
             if (products == null) return null;
             return _mapper.Map<List<ProductResponseDto>>(products);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var promotion = await _productRepository.GetProductByIdAsync(id);
+
+            if (promotion != null)
+            {
+                await _productRepository.DeletePromotionAsync(promotion);
+            }
+            else
+            {
+                throw new Exception("Promotion not found");
+            }
+        }
+
+        public async Task<int> GetTotalProduct()
+        {
+            var products = await _productRepository.GetAllProductsAsync();
+            return products.Count;
+        }
+        public async Task<int> AvailableProducts()
+        {
+            return await _productRepository.GetAvailableProduct();
+        }
+        public async Task<int> GetLowStockProducts()
+        {
+            return await _productRepository.GetLowStockProducts();
+        }
+        public async Task<int> GetNewProducts()
+        {
+            return await _productRepository.GetNewProducts();
         }
     }
 }

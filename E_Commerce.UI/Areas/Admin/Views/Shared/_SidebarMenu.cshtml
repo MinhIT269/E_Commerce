@@ -1,0 +1,210 @@
+﻿<!-- ========== App Menu Start ========== -->
+<div class="main-nav">
+    <!-- Sidebar Logo -->
+    <div class="logo-box text-center">
+        <a href="@Url.Action("Index", "Admin")" class="logo-light" style="display: inline-block; text-decoration: none; line-height: 1.2;">
+            <div style="font-weight: bold; font-size: 18px; color: white;">MINHNGUYEN</div>
+            <div style="font-weight: bold; font-size: 14px; color: #0d6efd;">TECHNOLOGY</div>
+        </a>
+    </div>
+
+    <!-- Menu Toggle Button (sm-hover) -->
+    <button type="button" class="button-sm-hover" aria-label="Show Full Sidebar">
+        <iconify-icon icon="solar:double-alt-arrow-right-bold-duotone" class="button-sm-hover-icon"></iconify-icon>
+    </button>
+
+    <div class="scrollbar" data-simplebar>
+        <ul class="navbar-nav" id="navbar-nav">
+
+            <li class="menu-title">Chung</li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Admin")">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:widget-5-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text">Bảng Điều Khiển</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProducts">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Sản Phẩm </span>
+                </a>
+                <div class="collapse" id="sidebarProducts">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("Index", "Product")">Danh Sách</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("CreateProduct", "Product")">Tạo Mới</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarCategory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCategory">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:clipboard-list-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Danh Mục</span>
+                </a>
+                <div class="collapse" id="sidebarCategory">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("Index", "Category")">Danh Sách</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("CreateCategory", "Category")">Thêm Mới</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarAttributes" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAttributes">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:confetti-minimalistic-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Thương Hiệu </span>
+                </a>
+                <div class="collapse" id="sidebarAttributes">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("Index", "Brand")">Danh Sách</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("CreateBrand", "Brand")">Thêm Mới</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarOrders">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:bag-smile-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text">Đơn Hàng</span>
+                </a>
+                <div class="collapse" id="sidebarOrders">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("Index", "Order")">Danh sách</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarPurchases" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPurchases">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:card-send-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Phương Thức Thanh Toán </span>
+                </a>
+                <div class="collapse" id="sidebarPurchases">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("IndexPurchase", "Purchase")">Danh Sách</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="menu-title mt-2">Người Dùng</li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:chat-square-like-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Profile </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarCustomers" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCustomers">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:users-group-two-rounded-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text">Khách Hàng</span>
+                </a>
+                <div class="collapse" id="sidebarCustomers">
+                    <ul class="nav sub-navbar-nav">
+
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("IndexCustomer", "Customer")">Danh Sách</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="menu-title mt-2">Other</li>
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarCoupons" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCoupons">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:leaf-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Khuyến Mãi </span>
+                </a>
+                <div class="collapse" id="sidebarCoupons">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("IndexPromotion", "Promotion")">Danh Sách</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="@Url.Action("CreatePromotion", "Promotion")">Thêm Mới</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("IndexReview", "Review")">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:chat-square-like-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Đánh Giá </span>
+                </a>
+            </li>
+
+            <li class="menu-title mt-2">Other Apps</li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:chat-round-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Chat </span>
+                </a>
+            </li>
+
+
+            <li class="menu-title mt-2">Support</li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:help-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Help Center </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span class="nav-icon">
+                        <iconify-icon icon="solar:document-text-bold-duotone"></iconify-icon>
+                    </span>
+                    <span class="nav-text"> Privacy Policy </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- ========== App Menu End ========== -->

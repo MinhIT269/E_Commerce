@@ -1,5 +1,6 @@
 ﻿using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Services.IService;
+using E_Commerce.API.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -43,6 +44,59 @@ namespace E_Commerce.API.Controllers
                   $"&statusText={WebUtility.UrlEncode(response.StatusText)}" +
                   $"&statusClass={response.StatusClass}";
             return Redirect(redirectUrl);
+        }
+
+        [HttpGet("GetFilterOrdered")]
+        public async Task<IActionResult> GetFilteredCategories([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+            var orders = await _orderService.GetFilteredOrders(page, pageSize, searchQuery, sortCriteria, isDescending);
+
+            return Ok(orders);
+        }
+
+        [HttpGet("TotalPagesOrdered")]
+        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await _orderService.GetTotalOrdersAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
+        }
+
+        [HttpGet("TotalOrders")]
+        public async Task<IActionResult> TotalOrders()
+        {
+            var totalOrders = await _orderService.TotalOrders();
+            return Ok(totalOrders);
+        }
+
+        [HttpGet("GetOrdersStats")]
+        public async Task<IActionResult> GetProductStats()
+        {
+            var totalOrders = await _orderService.TotalOrders();
+            var totalOrdersPending = await _orderService.TotalOrdersPending();
+            var totalOrdersSuccess = await _orderService.TotalOrdersSuccess();
+            var totalOrdersCancel = await _orderService.TotalOrdersCancel();
+            var totalAmount = await _orderService.GetTotalAmountOfCompletedOrdersAsync();
+            return Ok(new
+            {
+                TotalOrders = totalOrders,
+                OrdersPending = totalOrdersPending,
+                OrderSuccess = totalOrdersSuccess,
+                OrderCancel = totalOrdersCancel,
+                TotalAmount = totalAmount
+            });
+        }
+
+        [HttpGet]
+        [Route("OrderDetail/{id:guid}")]
+        public async Task<IActionResult> GetOrderDetail([FromRoute] Guid id)
+        {
+            var orderDetailDTO = await _orderService.GetOrderDetails(id);
+            if (orderDetailDTO == null)
+            {
+                return NotFound();
+            }
+            return Ok(orderDetailDTO);
         }
     }
 }

@@ -73,11 +73,39 @@ namespace E_Commerce.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            var productsUsingCategory = await _categoryService.GetProductsByCategoryIdAsync(id);
+            if (productsUsingCategory.Any())
+            {
+                return BadRequest("Danh mục này đang được sử dụng bởi các sản phẩm, không thể xóa!");
+            }
+
             var success = await _categoryService.DeleteCategoryAsync(id);
             if (!success)
                 return NotFound("Không tìm thấy category để xoá.");
 
             return Ok("Xoá category thành công.");
+        }
+
+        // GET: api/Categories/GetFilteredCategories?searchQuery=Electronics&page=1&pageSize=10&sortCriteria=name&isDescending=false
+        [HttpGet("GetFilteredCategories")]
+        public async Task<IActionResult> GetFilteredCategories([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+            var (categories, totalRecords) = await _categoryService.GetFilteredCategoriesAsync(page, pageSize, searchQuery, sortCriteria, isDescending);
+
+            return Ok(categories);
+        }
+
+         [HttpGet("TotalPagesCategory")]
+        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await _categoryService.GetTotalCategoriesAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
         }
     }
 }

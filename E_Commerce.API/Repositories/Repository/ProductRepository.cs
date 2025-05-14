@@ -134,9 +134,50 @@ namespace E_Commerce.API.Repositories.Repository
 
             return await query.CountAsync();
         }
+
         public async Task UpdateProductAsync(Product product)
         {
             _context.Products.Update(product);
         }
+
+        public async Task<Dictionary<Guid, int>> GetSoldQuantitiesAsync(List<Guid> productIds)
+        {
+            return await _context.OrderDetail
+                .Where(od => productIds.Contains(od.ProductId) && od.Order != null && od.Order.Status == "done")
+                .GroupBy(od => od.ProductId)
+                .Select(g => new
+                {
+                    ProductId = g.Key,
+                    Quantity = g.Sum(od => od.Quantity)
+                })
+                .ToDictionaryAsync(x => x.ProductId, x => x.Quantity);
+        }
+
+        public async Task DeletePromotionAsync(Product product)
+        {
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> GetAvailableProduct()
+        {
+            var product = await _context.Products.Where(p => p.Quantity >= 5).CountAsync();
+            return product;
+        }
+
+        public async Task<int> GetLowStockProducts()
+        {
+            var product = await _context.Products.Where(p => p.Quantity < 5).CountAsync();
+            return product;
+        }
+
+        public async Task<int> GetNewProducts()
+        {
+            var recentDate = DateTime.Now.AddDays(-3);  // Lấy sản phẩm mới trong 
+            var newProducts = await _context.Products.Where(p => p.CreatedDate >= recentDate).ToListAsync();
+
+            return newProducts.Count;
+        }
+
     }
 }

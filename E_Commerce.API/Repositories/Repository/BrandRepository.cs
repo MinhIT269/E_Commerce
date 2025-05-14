@@ -67,5 +67,46 @@ namespace E_Commerce.API.Repositories.Repository
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> HasProductsByBrandIdAsync(Guid brandId)
+        {
+            return await _context.Products.AnyAsync(p => p.BrandId == brandId);
+        }
+
+        public IQueryable<Brand> GetFilteredBrandsQuery(string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = _context.Brands
+                .Include(b => b.Products)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(b =>
+                    EF.Functions.Collate(b.BrandName, "SQL_Latin1_General_CP1_CI_AI")!.Contains(searchQuery) ||
+                    EF.Functions.Collate(b.Description, "SQL_Latin1_General_CP1_CI_AI")!.Contains(searchQuery)
+                );
+            }
+
+            query = sortCriteria switch
+            {
+                "name" => isDescending
+                    ? query.OrderByDescending(b => b.BrandName)
+                    : query.OrderBy(b => b.BrandName),
+
+                "productCount" => isDescending
+                    ? query.OrderByDescending(b => b.Products!.Sum(p => p.Quantity))
+                    : query.OrderBy(b => b.Products!.Sum(p => p.Quantity)),
+
+                _ => query
+            };
+
+            return query;
+        }
+
+        public async Task<bool> IsBrandNameExists(string brandName)
+        {
+            return await _context.Brands.AnyAsync(b => b.BrandName == brandName);
+        }
+
     }
 }
