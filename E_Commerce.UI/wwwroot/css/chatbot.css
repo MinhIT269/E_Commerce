@@ -251,3 +251,125 @@
         bottom: 100px;
     }
 }
+
+.bot-message {
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+    .bot-message p {
+        margin: 0.5em 0;
+    }
+
+        .bot-message p:first-child {
+            margin-top: 0;
+        }
+
+        .bot-message p:last-child {
+            margin-bottom: 0;
+        }
+
+    .bot-message ul, .bot-message ol {
+        margin: 0.5em 0;
+        padding-left: 1.5em;
+    }
+
+    .bot-message h1, .bot-message h2, .bot-message h3,
+    .bot-message h4, .bot-message h5, .bot-message h6 {
+        margin: 0.8em 0 0.4em 0;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+
+    .bot-message h1 {
+        font-size: 1.4em;
+    }
+
+    .bot-message h2 {
+        font-size: 1.3em;
+    }
+
+    .bot-message h3 {
+        font-size: 1.2em;
+    }
+
+    .bot-message h4, .bot-message h5, .bot-message h6 {
+        font-size: 1.1em;
+    }
+
+    .bot-message code {
+        font-family: 'Courier New', monospace;
+        background-color: #f0f0f0;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+
+    .bot-message pre {
+        background-color: #f6f8fa;
+        padding: 0.8em;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 0.8em 0;
+        border: 1px solid #e6e8eb;
+    }
+
+        .bot-message pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 0.9em;
+            color: inherit;
+        }
+
+    .bot-message blockquote {
+        border-left: 3px solid #ddd;
+        margin: 0.5em 0;
+        padding: 0.5em 0 0.5em 1em;
+        color: #666;
+        background-color: #f9f9f9;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .bot-message a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+        .bot-message a:hover {
+            text-decoration: underline;
+        }
+
+    .bot-message table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0.8em 0;
+        font-size: 0.9em;
+    }
+
+    .bot-message th, .bot-message td {
+        border: 1px solid #e0e0e0;
+        padding: 0.5em 0.7em;
+        text-align: left;
+    }
+
+    .bot-message th {
+        background-color: #f5f5f5;
+        font-weight: 600;
+    }
+
+    .bot-message tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .bot-message img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin: 0.5em 0;
+    }
+
+/* Chỉnh sửa kích thước tối đa của bot message */
+.bot-message {
+    max-width: 85%;
+}

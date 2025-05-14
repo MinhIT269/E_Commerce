@@ -1,7 +1,14 @@
 ﻿// Thay PHP config bằng Razor: đặt URL API trong ViewData hoặc appsettings
 const API_URL = '@(Configuration["Chatbot:ApiUrl"])'; // hoặc hard-code
-
 let isChatOpen = false;
+function getSessionId() {
+    let sessionId = sessionStorage.getItem("sessionId");
+    if (!sessionId) {
+        sessionId = uuid.v4();
+        sessionStorage.setItem("sessionId", sessionId);
+    }
+    return sessionId;
+}
 
 function toggleChat() {
     const container = document.getElementById("chat-container");
@@ -45,6 +52,20 @@ function scrollToBottom() {
     const chatBody = document.getElementById("chat-body");
     chatBody.scrollTop = chatBody.scrollHeight;
 }
+// Cấu hình Marked để cho phép hiển thị HTML (nếu cần)
+marked.setOptions({
+    breaks: true, // Tự động thêm line breaks
+    sanitize: false, // Cho phép HTML trong Markdown
+    highlight: function (code, lang) {
+        // Nếu có highlight.js
+        if (typeof hljs !== 'undefined') {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            return hljs.highlight(code, { language }).value;
+        }
+        return code;
+    }
+});
+
 function sendMessage() {
     const input = document.getElementById("user-input");
     const message = input.value.trim();
@@ -65,13 +86,15 @@ function sendMessage() {
     showTypingIndicator();
 
     // Gửi tới API chatbot
-    fetch(API_URL, {
+    fetch("https://vclxyz.app.n8n.cloud/webhook/71bc1b76-7c2b-4f16-b54a-6abb092ef0c6", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        credentials: "include",
-        body: JSON.stringify({ query: message })
+        body: JSON.stringify({
+            prompt: message,
+            sessionId: getSessionId()
+        })
     })
         .then(response => response.json())
         .then(data => {
@@ -82,13 +105,23 @@ function sendMessage() {
                 const botMsg = document.createElement("div");
                 botMsg.className = "bot-message message";
 
-                // Xử lý tin nhắn từ API
-                const responseText = data.response || "Xin lỗi, tôi không thể trả lời lúc này.";
-                botMsg.textContent = responseText;
+                // Xử lý tin nhắn từ API và chuyển đổi Markdown thành HTML
+                const responseText = data.message || "Xin lỗi, tôi không thể trả lời lúc này.";
+
+                // Sử dụng marked để chuyển Markdown thành HTML
+                botMsg.innerHTML = marked.parse(responseText);
+
+                // Nếu có highlight.js, áp dụng syntax highlighting cho code blocks
+                if (typeof hljs !== 'undefined') {
+                    const codeBlocks = botMsg.querySelectorAll('pre code');
+                    codeBlocks.forEach(block => {
+                        hljs.highlightElement(block);
+                    });
+                }
 
                 chatBody.appendChild(botMsg);
                 scrollToBottom();
-            }, 600 + Math.random() * 800); // Thời gian ngẫu nhiên để tạo cảm giác tự nhiên
+            }, 600 + Math.random() * 800);
         })
         .catch(error => {
             setTimeout(() => {
@@ -100,7 +133,6 @@ function sendMessage() {
 
                 chatBody.appendChild(errorMsg);
                 scrollToBottom();
-                console.error("API Error:", error);
             }, 500);
         });
 }
