@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    @await Html.PartialAsync("_Head")
+    <link rel="stylesheet" href="~/css/chatbot.css">
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+        @RenderBody()
+    @await Component.InvokeAsync("Chatbot")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+    <script src="~/js/chatbot.js"></script>
+</body>
+</html>

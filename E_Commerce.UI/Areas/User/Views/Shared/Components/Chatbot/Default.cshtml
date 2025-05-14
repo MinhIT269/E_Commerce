@@ -1,0 +1,36 @@
+﻿@* Views/Shared/Components/Chatbot/Default.cshtml *@
+<div id="chat-button">
+    <i class="fas fa-comment-dots"></i>
+</div>
+
+<div id="chat-container">
+    <div class="chat-header">
+        <div class="logo">
+            <div class="logo-icon"><i class="fas fa-robot"></i></div>
+            <span>AI ASSISTANT</span>
+        </div>
+        <div class="close-btn" onclick="toggleChat()">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+    <div class="chat-body" id="chat-body">
+        <div class="bot-message message">
+            Xin chào! Tôi là AI ASSISTANT. Tôi có thể giúp gì cho bạn hôm nay?
+        </div>
+        <div class="typing-indicator" id="typing-indicator">
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-input-container">
+        <div class="chat-input-wrapper">
+            <input type="text" id="user-input" class="chat-input" placeholder="Nhập tin nhắn..." onkeydown="handleKey(e)">
+            <button class="send-button" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
