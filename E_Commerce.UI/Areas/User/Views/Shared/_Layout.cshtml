@@ -3,9 +3,8 @@
 <html>
 <head>
     @await Html.PartialAsync("_Head")
-    <link rel="stylesheet" href="~/assets/css/style.min.css">
     <link rel="stylesheet" href="~/css/chatbot.css">
-    <link rel="stylesheet" type="text/css" href="~/assets/vendor/fontawesome-free/css/all.min.css">
+    @RenderSection("Styles", required: false)
 </head>
 <body>
         @RenderBody()
