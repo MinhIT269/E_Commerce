@@ -202,11 +202,6 @@
                     </ol>
                 </nav>
                 <div class="product-single-container product-single-default">
-                    <div class="cart-message d-none">
-                        <strong class="single-cart-notice">@Model.Name</strong>
-                        <span>has been added to your cart.</span>
-                    </div>
-
                     <div class="row">
                         <div class="col-lg-5 col-md-6 product-single-gallery">
                             <div class="product-slider-container">
@@ -307,7 +302,7 @@
                                     THÊM VÀO GIỎ HÀNG
                                 </a>
 
-                                <a href="#" class="btn btn-gray view-cart d-none">View cart</a>
+                                <a href="@Url.Action("Index", "Cart")" class="btn btn-gray view-cart d-none">View cart</a>
                             </div>
                             <!-- End .product-action -->
 
@@ -319,8 +314,6 @@
                                 <div class="social-icons mr-2">
                                     <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
                                     <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
-                                    <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>
-                                    <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank" title="Google +"></a>
                                     <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
                                 </div>
                                 <!-- End .social-icons -->
