@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
 using E_Commerce.API.Services.IService;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce.API.Services.Service
 {
@@ -73,6 +75,23 @@ namespace E_Commerce.API.Services.Service
             {
                 throw new Exception("Promotion not found");
             }
+        }
+
+        public async Task<List<PromotionResponseDto>> GetFilteredPromotionsQuery(int page, int pageSize, string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = _promotionRepository.GetFilteredPromotionsQuery(searchQuery, sortCriteria, isDescending);
+
+            var pagedPromotions = await query.Skip((page - 1) * pageSize)
+                                             .Take(pageSize)
+                                             .ProjectTo<PromotionResponseDto>(_mapper.ConfigurationProvider)
+                                             .ToListAsync();
+            return pagedPromotions;
+        }
+
+        public async Task<int> GetTotalPromotionAsync(string searchQuery)
+        {
+            var query = _promotionRepository.GetFilteredPromotionsQuery(searchQuery, "name", false);
+            return await query.CountAsync();
         }
     }
 }

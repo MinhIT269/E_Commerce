@@ -121,6 +121,12 @@ namespace E_Commerce.API.Repositories.Repository
                       (o.Status!.ToLower() == "pending" || o.Status.ToLower() == "cancelled"))
                 .CountAsync();
         }
+        public async Task<decimal> SumCompletedOrdersAmountByUser(string userId)
+        {
+            return await _context.Orders
+                .Where(o => o.UserId == userId && o.Status == "done")
+                .SumAsync(o => o.TotalAmount);
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

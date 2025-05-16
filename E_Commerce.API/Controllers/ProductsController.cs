@@ -1,5 +1,4 @@
 ﻿using E_Commerce.API.Services.IService;
-using E_Commerce.API.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.API.Controllers

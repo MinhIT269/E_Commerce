@@ -1,4 +1,5 @@
 ﻿using E_Commerce.API.Models.Domain;
+using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +42,9 @@ namespace E_Commerce.API.Repositories.Repository
 
         public async Task<User?> FindByNameAsync(string username)
         {
-            return await _userManager.FindByNameAsync(username);
+            return await _userManager.Users
+                .Include(u => u.UserInfo)
+                .FirstOrDefaultAsync(u => u.UserName == username);
         }
 
         public async Task<bool> CheckPasswordAsync(User user, string password)
@@ -93,6 +96,25 @@ namespace E_Commerce.API.Repositories.Repository
         public async Task<IdentityResult?> ResetPasswordAsync(User user, string token, string newPassword)
         {
             return await _userManager.ResetPasswordAsync(user, token, newPassword);
+        }
+
+        public IQueryable<User> GetFilteredUsers(string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = _userManager.Users
+                .Include(c => c.UserInfo)
+                .Include(c => c.Orders).AsQueryable();
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(c => EF.Functions.Collate(c.UserName, "SQL_Latin1_General_CP1_CI_AI")!.Contains(searchQuery) || c.PhoneNumber!.Contains(searchQuery));
+            }
+
+            query = sortCriteria switch
+            {
+                "name" => isDescending ? query.OrderByDescending(c => c.UserName) : query.OrderBy(c => c.UserName),
+                "phone" => isDescending ? query.OrderByDescending(c => c.PhoneNumber) : query.OrderBy(c => c.PhoneNumber),
+                _ => query
+            };
+            return query;
         }
     }
 }

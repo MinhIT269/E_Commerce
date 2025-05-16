@@ -16,7 +16,7 @@ namespace E_Commerce.API.Repositories.Repository
         {
             return _context.Promotions
                 .AsEnumerable() 
-                .FirstOrDefault(p => p.Code.Equals(code, StringComparison.Ordinal));
+                .FirstOrDefault(p => p.Code!.Equals(code, StringComparison.Ordinal));
         }
 
         public async Task<List<Promotion>> GetAllPromotionAsync()
@@ -38,6 +38,7 @@ namespace E_Commerce.API.Repositories.Repository
         public async Task DeletePromotionAsync(Promotion promotion)
         {
             _context.Promotions.Remove(promotion);
+            await _context.SaveChangesAsync();
         }
         public IQueryable<Promotion> GetFilteredPromotionsQuery(string searchQuery, string sortCriteria, bool isDescending)
         {

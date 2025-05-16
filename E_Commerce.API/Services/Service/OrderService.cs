@@ -4,7 +4,6 @@ using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
-using E_Commerce.API.Repositories.Repository;
 using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -268,6 +267,44 @@ namespace E_Commerce.API.Services.Service
             var orderDetailDto = _mapper.Map<OrderDetailResponseDto>(orderDetailDomain);
             return orderDetailDto;
         }
+        public async Task<List<OrderDto>?> GetAllOrders(string id, string searchQuery, int page = 1, int pageSize = 5)
+        {
+            var ordersDomain = await _orderRepository.GetAllOrderAsync(id, searchQuery);
 
+            if (ordersDomain == null || !ordersDomain.Any())
+            {
+                return null;
+            }
+
+            ordersDomain = ordersDomain
+                .Skip((page - 1) * pageSize) 
+                .Take(pageSize) 
+                .ToList();
+
+            var ordersDto = _mapper.Map<List<OrderDto>>(ordersDomain);
+            return ordersDto;
+        }
+        public async Task<int> CountAllOrdersAsync(string userId, string searchQuery)
+        {
+            var query = await _orderRepository.GetAllOrderAsync(userId, searchQuery);
+
+            return query.Count;
+        }
+        public async Task<int> TotalOrdersByUser(string userId)
+        {
+            return await _orderRepository.TotalOrdersByUser(userId);
+        }
+        public async Task<int> TotalOrdersSuccessByUser(string userId)
+        {
+            return await _orderRepository.TotalOrdersSuccessByUser(userId);
+        }
+        public async Task<int> TotalOrdersPendingByUser(string userId)
+        {
+            return await _orderRepository.TotalOrdersPendingByUser(userId);
+        }
+        public async Task<decimal> SumCompletedOrdersAmountByUser(string userId)
+        {
+            return await _orderRepository.SumCompletedOrdersAmountByUser(userId);
+        }
     }
 }
