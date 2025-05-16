@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Responses;

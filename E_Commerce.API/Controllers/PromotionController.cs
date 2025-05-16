@@ -1,6 +1,5 @@
 ﻿using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Services.IService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.API.Controllers
@@ -89,6 +88,21 @@ namespace E_Commerce.API.Controllers
             {
                 return NotFound(new { message = ex.Message });
             }
+        }
+
+        [HttpGet("GetFilteredPromotions")]
+        public async Task<IActionResult> GetFilteredPromotions([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+            var promotions = await _promotionService.GetFilteredPromotionsQuery(page, pageSize, searchQuery, sortCriteria, isDescending);
+            return Ok(promotions);
+        }
+
+        [HttpGet("TotalPagesPromotions")]
+        public async Task<IActionResult> GetTotalPagesPromotion([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await _promotionService.GetTotalPromotionAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
         }
     }
 }

@@ -19,13 +19,13 @@ namespace E_Commerce.API.Mappings
             CreateMap<Category, CategoryDetailResponseDto>()
                  .ForMember(dest => dest.MinPrice, opt => opt.MapFrom(src =>
                      src.ProductCategories!.Any() ?
-                     src.ProductCategories!.Select(pc => pc.Product).Where(p => p != null).Min(p => p.Price) : 0))
+                     src.ProductCategories!.Select(pc => pc.Product).Where(p => p != null).Min(p => p!.Price) : 0))
                  .ForMember(dest => dest.MaxPrice, opt => opt.MapFrom(src =>
                      src.ProductCategories!.Any() ?
-                     src.ProductCategories!.Select(pc => pc.Product).Where(p => p != null).Max(p => p.Price) : 0))
+                     src.ProductCategories!.Select(pc => pc.Product).Where(p => p != null).Max(p => p!.Price) : 0))
                  .ForMember(dest => dest.ProductStock, opt => opt.MapFrom(src =>
                      src.ProductCategories!.Any() ?
-                     src.ProductCategories!.Select(pc => pc.Product).Where(p => p != null).Sum(p => p.Quantity) : 0));
+                     src.ProductCategories!.Select(pc => pc.Product).Where(p => p != null).Sum(p => p!.Quantity) : 0));
             CreateMap<CategoryRequestDto, Category>();
             CreateMap<Brand, BrandResponseDto>();
             CreateMap<BrandRequestDto, Brand>();
@@ -68,7 +68,7 @@ namespace E_Commerce.API.Mappings
             CreateMap<Order, OrderDetailResponseDto>()
                 .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.OrderDetails!.Select(od => new ProductDetailOrder
                 {
-                    PromotionPrice = od.Product.PromotionPrice,
+                    PromotionPrice = od.Product!.PromotionPrice,
                     ImageUrl = od.Product.ImageUrl,
                     Warranty = od.Product.Warranty,
                     Name = od.Product.Name,
@@ -84,6 +84,20 @@ namespace E_Commerce.API.Mappings
                     Address = src.User.UserInfo.Address!,
                     Gender = src.User.UserInfo.Gender,
                 }));
+            CreateMap<User, UserAdminDto>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(dest => dest.Order, opt => opt.MapFrom(src => src.Orders!.Count()))
+                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Orders!.Sum(order => order.TotalAmount)));
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.UserInfo!.FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.UserInfo!.LastName))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.UserInfo!.Address))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber));
         }
     }
 }

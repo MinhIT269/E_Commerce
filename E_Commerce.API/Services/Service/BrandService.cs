@@ -4,7 +4,6 @@ using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
-using E_Commerce.API.Repositories.Repository;
 using E_Commerce.API.Services.IService;
 using Microsoft.EntityFrameworkCore;
 
