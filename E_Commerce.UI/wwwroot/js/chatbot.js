@@ -1,6 +1,4 @@
-﻿// Thay PHP config bằng Razor: đặt URL API trong ViewData hoặc appsettings
-const API_URL = '@(Configuration["Chatbot:ApiUrl"])'; // hoặc hard-code
-let isChatOpen = false;
+﻿let isChatOpen = false;
 function getSessionId() {
     let sessionId = sessionStorage.getItem("sessionId");
     if (!sessionId) {
@@ -84,9 +82,8 @@ function sendMessage() {
 
     // Hiển thị đang nhập...
     showTypingIndicator();
-
     // Gửi tới API chatbot
-    fetch("https://vclxyz.app.n8n.cloud/webhook/71bc1b76-7c2b-4f16-b54a-6abb092ef0c6", {
+    fetch(API_URL_Chatbot, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
