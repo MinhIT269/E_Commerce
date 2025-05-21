@@ -1,0 +1,531 @@
+﻿@model E_Commerce.UI.Models.Responses.CreateProductViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @await Html.PartialAsync("_Header")
+    <link href="~/assets/css/main-design-image.css" rel="stylesheet" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+</head>
+
+<body>
+
+    <!-- START Wrapper -->
+    <div class="wrapper">
+
+        <!-- ========== Topbar Start ========== -->
+        <header class="topbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="d-flex align-items-center">
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <button type="button" class="button-toggle-menu me-2">
+                                <iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
+                            </button>
+                        </div>
+
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Cập Nhật Sản Phẩm</h4>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+
+                        @await Html.PartialAsync("_Topbar")
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Right Sidebar (Theme Settings) -->
+        @await Html.PartialAsync("_SidebarRight")
+        <!-- ========== Topbar End ========== -->
+        <!-- ========== App Menu Start ========== -->
+        @await Html.PartialAsync("_SidebarMenu")
+        <!-- ========== App Menu End ========== -->
+        <!-- ==================================================== -->
+        <!-- Start right Content here -->
+        <!-- ==================================================== -->
+        <div class="page-content">
+
+            <!-- Start Container Fluid -->
+            <div class="container-xxl">
+                <form id="product-form" asp-action="Edit" asp-route-id="@Model.Product.ProductId" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img id="main-image-preview" src="@Model.Product.ImageUrl" alt="Ảnh chính sản phẩm" class="img-fluid rounded bg-light d-block mx-auto">
+                                    <div class="mt-3 text-center">
+                                        <h4>Ảnh Chính</h4>
+                                        <!-- Thay thế nút chọn ảnh -->
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light-subtle">
+                                    <div class="row g-2">
+                                        <div class="col-lg-12">
+                                            <input type="file" id="product-image-main" name="mainImage" class="form-control d-none" accept="image/*" />
+                                            <input type="hidden" id="current-image-url" name="oldImageUrls" value="@Model.Product.ImageUrl" />
+                                            <label for="product-image-main" class="btn btn-outline-secondary w-100">Chọn ảnh</label>
+                                            <p id="file-limit-message-main" style="color: red; display: none;">You can select up to 1 image only.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-8 ">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Ảnh Phụ</h4>
+                                </div>
+                                <div class="card-body" style="padding-top: 0px;">
+                                    <div class="wrap">
+                                        <div class="dandev-reviews">
+                                            <div class="form_upload">
+                                                <label class="dandev_insert_attach"><span>Đính kèm ảnh</span></label>
+                                            </div>
+                                            <div class="list_attach">
+                                                <ul class="dandev_attach_view">
+                                                    @if (Model.Product.ProductImages != null && Model.Product.ProductImages.Any())
+                                                    {
+                                                        foreach (var item in Model.Product.ProductImages)
+                                                        {
+                                                            <li id="li_files_@(item.GetHashCode())">
+                                                                <div class="img-wrap">
+                                                                    <span class="close" onclick="DelImg(this)">×</span>
+                                                                    <div class="img-wrap-box">
+                                                                        <img src="@item" alt="Product Image" />
+                                                                        <!-- Thêm input hidden để gửi đường dẫn của ảnh cũ -->
+                                                                        <input type="hidden" id="oldImageUrls" name="oldImageUrls" value="@item" />
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                                <span class="dandev_insert_attach"><i class="dandev-plus">+</i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title fw-bold">Thông Tin Sản Phẩm</h4>
+                                </div>
+                                <div class="card-body">
+                                    <input type="hidden" id="product-id" name="ProductId" value="@Model.Product.ProductId" />
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="product-name" class="form-label fw-bold">Tên Sản Phẩm</label>
+                                                <input type="text" id="product-name" name="Name" class="form-control" placeholder="Tên sản phẩm" value="@Model.Product.Name" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label for="product-categories" class="form-label fw-bold">Loại Sản Phẩm</label>
+                                            <select class="form-control" id="product-categories" name="CategoryIds[]" multiple data-choices data-choices-groups data-placeholder="Chọn thể loại " required>
+                                                @foreach (var item in Model.Categories!)
+                                                {
+                                                    <option value="@item.CategoryId" @(Model.Product.CategoryNames!.Contains(item.CategoryName) ? "selected" : "")>
+                                                        @item.CategoryName
+                                                    </option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="product-brand" class="form-label fw-bold">Thương Hiệu</label>
+                                                <select class="form-control" id="product-brand" data-choices data-choices-groups data-placeholder="Chọn thương hiệu" name="BrandId" required>
+                                                    <option value="" disabled selected>Chọn thương hiệu</option>
+                                                    @foreach (var item in Model.Brands!)
+                                                    {
+                                                        <option value="@item.BrandId" @(Model.Product.BrandName!.Contains(item.BrandName!) ? "selected" : "")>@item.BrandName</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="product-name" class="form-label fw-bold">Thời Gian Bảo Hành</label>
+                                                <input type="text" id="product-name" name="Warranty" class="form-control" placeholder="Thời gian" value="@Model.Product.Warranty" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 pt-1">
+                                            <div class="mb-3">
+                                                <label for="description" class="form-label fw-bold">Mô Tả Meta</label>
+                                                <textarea class="form-control bg-light-subtle" id="description-meta" rows="7" name="MetaDescription" placeholder="Mô tả ngắn gọn về sản phẩm" oninput="limitWords(this, 30)" required>@Model.Product.MetaDescription</textarea>
+                                                <small id="wordCount" class="text-muted">Tối đa 30 từ</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="product-stock" class="form-label fw-bold">Tồn Kho</label>
+                                                <input type="number" id="product-stock" class="form-control" name="Quantity" placeholder="Số lượng" value="@Model.Product.Quantity" min="0" step="1" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="product-price" class="form-label fw-bold">Giá(VND)</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text fs-20"><i class='fs-6'>VND</i></span>
+                                                <input type="text" id="product-price" name="Price" class="form-control" value="@Math.Round(@Model.Product.Price)" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="product-price" class="form-label fw-bold">Giá Khuyến Mãi (nếu có)</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text fs-20"><i class='fs-6'>VND</i></span>
+                                                <input type="text" id="product-PromotionPrice" name="PromotionPrice" class="form-control" value="@Math.Round(Model.Product.PromotionPrice ?? 0)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label for="description" class="form-label fw-bold">Mô Tả Sản Phẩm</label>
+                                                @{
+                                                    string baseUrl = "https://localhost:7069/";
+                                                    string processedDescription = (@Model.Product.Description ?? "").Replace("src=\"images/", $"src=\"{baseUrl}images/")!;
+                                                }
+                                                <textarea class="form-control bg-light-subtle ckeditor" id="description" name="Description" placeholder="Mô tả chi tiết về sản phẩm">@Html.Raw(processedDescription)</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-3 bg-light mb-3 rounded">
+                                        <div class="row justify-content-end g-2">
+                                            <div class="col-lg-4">
+                                                <button type="submit" class="btn btn-outline-secondary w-100">Cập Nhật</button>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <button type="button" id="cancel-button" class="btn btn-primary w-100" onclick="window.location.href='@Url.Action("Index", "Product")'">Quay Về</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- End Container Fluid -->
+            <!-- ========== Footer Start ========== -->
+            @await Html.PartialAsync("_Footer")
+            <!-- ========== Footer End ========== -->
+
+        </div>
+        <!-- ==================================================== -->
+        <!-- End Page Content -->
+        <!-- ==================================================== -->
+
+
+    </div>
+    <!-- END Wrapper -->
+    <!-- Vendor Javascript (Require in all Page) -->
+    <script src="~/js/vendor.js"></script>
+
+    <!-- App Javascript (Require in all Page) -->
+    <script src="~/js/app.js"></script>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script>
+         const API_URL = "@ViewBag.ApiBaseUrl";
+         document.getElementById('product-form').addEventListener('submit', function (e) {
+            const priceInput = document.getElementById('product-price');
+            const promoInput = document.getElementById('product-PromotionPrice');
+
+            // Làm sạch dấu "." (hàng nghìn) và chuyển dấu "," thành "." nếu dùng thập phân
+            priceInput.value = normalizeCurrency(priceInput.value);
+            promoInput.value = normalizeCurrency(promoInput.value);
+        });
+
+        function normalizeCurrency(value) {
+            if (!value) return "";
+            return value.replace(/\./g, "").replace(",", ".");
+        }
+        // Giới hạn kích thước ảnh chính
+        document.getElementById('product-image-main').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const maxSize = 1 * 1024 * 1024; // 1MB
+
+            if (file && file.size > maxSize) {
+                document.getElementById('file-limit-message-main').style.display = 'block';
+                document.getElementById('file-limit-message-main').textContent = 'Ảnh chính không được vượt quá 1MB.';
+                event.target.value = ''; // Xóa file nếu vượt quá giới hạn
+            } else {
+                document.getElementById('file-limit-message-main').style.display = 'none';
+            }
+        });
+
+        let imageCount = 0; // Khởi tạo số lượng ảnh
+        const maxImages = 5; // Giới hạn số lượng ảnh tối đa
+        document.addEventListener("DOMContentLoaded", function () {
+            // Định dạng giá trị từ DB ngay khi trang tải xong
+            const priceInput = document.getElementById("product-price");
+            const promotionPriceInput = document.getElementById("product-PromotionPrice");
+
+            if (priceInput.value) {
+                formatCurrency(priceInput);
+            }
+
+            if (promotionPriceInput.value) {
+                formatCurrency(promotionPriceInput);
+            }
+
+            imageCount = document.querySelectorAll('.dandev_attach_view li').length; // Lấy số lượng ảnh hiện tại\
+
+            // Định dạng khi nhập dữ liệu vào
+            priceInput.addEventListener("input", function () {
+                formatCurrency(this);
+            });
+
+            promotionPriceInput.addEventListener("input", function () {
+                formatCurrency(this);
+            });
+        });
+
+        // Hàm định dạng số với dấu chấm phân cách hàng nghìn và giới hạn 9 chữ số
+        function formatCurrency(input) {
+            // Loại bỏ tất cả ký tự không phải số
+            let value = input.value.replace(/\./g, '').replace(/\D/g, '');
+
+            // Kiểm tra nếu giá trị rỗng
+            if (!value) {
+                input.value = '';
+                return;
+            }
+
+            // Giới hạn tối đa 9 chữ số
+            if (value.length > 9) {
+                value = value.slice(0, 9);
+            }
+
+            // Định dạng số với dấu chấm phân cách hàng nghìn
+            input.value = new Intl.NumberFormat('vi-VN').format(value);
+        }
+
+        // Thêm sự kiện 'input' cho cả hai trường nhập
+        document.getElementById("product-price").addEventListener("input", function () {
+            formatCurrency(this);
+        });
+
+        document.getElementById("product-PromotionPrice").addEventListener("input", function () {
+            formatCurrency(this);
+        });
+
+        function limitWords(textarea, maxWords) {
+            const words = textarea.value.split(/\s+/).filter(word => word.length > 0);
+            if (words.length > maxWords) {
+                textarea.value = words.slice(0, maxWords).join(" ");
+            }
+            document.getElementById('wordCount').textContent = `Tối đa ${maxWords} từ. Bạn đã nhập ${words.length} từ.`;
+        }
+
+        class MyUploadAdapter {
+            constructor(loader) {
+                // The file loader instance to use during the upload. It sounds scary but do not
+                // worry — the loader will be passed into the adapter later on in this guide.
+                this.loader = loader;
+                this.imageUrls = []; // Mảng lưu trữ URL hình ảnh đã upload
+            }
+
+            upload() {
+                return this.loader.file
+                    .then(file => new Promise((resolve, reject) => {
+                        this._initRequest();
+                        this._initListeners(resolve, reject, file);
+                        this._sendRequest(file);
+                    }));
+            }
+
+            // Aborts the upload process.
+            abort() {
+                if (this.xhr) {
+                    this.xhr.abort();
+                }
+            }
+            // Initializes the XMLHttpRequest object using the URL passed to the constructor.
+            _initRequest() {
+                const xhr = this.xhr = new XMLHttpRequest();
+
+                // Note that your request may look different. It is up to you and your editor
+                // integration to choose the right communication channel. This example uses
+                // a POST request with JSON as a data structure but your configuration
+                // could be different.
+                xhr.open('POST', `${API_URL}/api/products/upload-temp`, true);
+                xhr.responseType = 'json';
+            }
+
+            _initListeners(resolve, reject, file) {
+                const xhr = this.xhr;
+                const loader = this.loader;
+                const genericErrorText = `Couldn't upload file: ${file.name}.`;
+
+                xhr.addEventListener('error', () => reject(genericErrorText));
+                xhr.addEventListener('abort', () => reject());
+                xhr.addEventListener('load', () => {
+                    const response = xhr.response;
+                    console.log("Image URL:", response.urls);
+                    // This example assumes the XHR server's "response" object will come with
+                    // an "error" which has its own "message" that can be passed to reject()
+                    //
+                    // Your integration may handle upload errors in a different way so make sure
+                    // it is done properly. The reject() function must be called when the upload fails.
+                    if (!response || response.error) {
+                        return reject(response && response.error ? response.error.message : genericErrorText);
+                    }
+
+                    // If the upload is successful, resolve the upload promise with an object containing
+                    // at least the "default" URL, pointing to the image on the server.
+                    // This URL will be used to display the image in the content. Learn more in the
+                    // UploadAdapter#upload documentation.
+                    resolve({
+                        default: response.urls
+                    });
+                });
+
+                // Upload progress when it is supported. The file loader has the #uploadTotal and #uploaded
+                // properties which are used e.g. to display the upload progress bar in the editor
+                // user interface.
+                if (xhr.upload) {
+                    xhr.upload.addEventListener('progress', evt => {
+                        if (evt.lengthComputable) {
+                            loader.uploadTotal = evt.total;
+                            loader.uploaded = evt.loaded;
+                        }
+                    });
+                }
+            }
+            // Prepares the data and sends the request.
+            _sendRequest(file) {
+                // Prepare the form data.
+                const data = new FormData();
+
+                data.append('files', file);
+
+                // Important note: This is the right place to implement security mechanisms
+                // like authentication and CSRF protection. For instance, you can use
+                // XMLHttpRequest.setRequestHeader() to set the request headers containing
+                // the CSRF token generated earlier by your application.
+
+                // Send the request.
+                this.xhr.send(data);
+            }
+        }
+
+        function MyCustomUploadAdapterPlugin(editor) {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                // Configure the URL to the upload script in your backend here!
+                return new MyUploadAdapter(loader);
+            };
+        }
+        // Khởi tạo CKEditor
+        ClassicEditor
+            .create(document.querySelector('#description'), {
+                extraPlugins: [MyCustomUploadAdapterPlugin],
+            })
+            .then(editor => {
+                editorInstance = editor;
+            })
+            .catch(error => {
+                console.error('CKEditor initialization error:', error);
+            });
+
+
+        // Xử lý xem trước ảnh chính
+        $(document).ready(function () {
+            $('#product-image-main').on('change', function (event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+
+                if (file) {
+                    reader.onload = function (e) {
+                        $('#main-image-preview').attr('src', e.target.result);  // Cập nhật ảnh xem trước
+                    };
+                    reader.readAsDataURL(file);  // Đọc file và tạo URL ảnh
+                }
+                else {
+                    // Nếu không có tệp nào được chọn, không thay đổi ảnh
+                    $('#main-image-preview').attr('src', '@Model.Product.ImageUrl');  // Giữ nguyên ảnh hiện tại
+                }
+            });
+        });
+
+        $('.dandev_insert_attach').click(function () {
+            if (imageCount >= maxImages) {
+                alert('Bạn đã đạt giới hạn số lượng ảnh tối đa là ' + maxImages + '.');
+                return; // Dừng lại nếu đã đạt giới hạn
+            }
+
+            if ($('.list_attach').hasClass('show-btn') === false) {
+                $('.list_attach').addClass('show-btn');
+            }
+            var _lastimg = jQuery('.dandev_attach_view li').last().find('input[type="file"]').val();
+
+            if (_lastimg != '') {
+                var d = new Date();
+                var _time = d.getTime();
+                var _html = '<li id="li_files_' + _time + '" class="li_file_hide">';
+                _html += '<div class="img-wrap">';
+                _html += '<span class="close" onclick="DelImg(this)">×</span>';
+                _html += ' <div class="img-wrap-box"></div>';
+                _html += '</div>';
+                _html += '<div class="' + _time + '">';
+                _html += '<input type="file"  name="additionalImages" class="hidden"  onchange="uploadImg(this)" id="files_' + _time + '"   />';
+                _html += '</div>';
+                _html += '</li>';
+                jQuery('.dandev_attach_view').append(_html);
+                jQuery('.dandev_attach_view li').last().find('input[type="file"]').click();
+            } else {
+                if (_lastimg == '') {
+                    jQuery('.dandev_attach_view li').last().find('input[type="file"]').click();
+                } else {
+                    if ($('.list_attach').hasClass('show-btn') === true) {
+                        $('.list_attach').removeClass('show-btn');
+                    }
+                }
+            }
+        });
+
+        function uploadImg(el) {
+            var file_data = $(el).prop('files')[0];
+            // Kiểm tra kích thước file
+            const maxSize = 1 * 1024 * 1024; // 1MB
+            if (file_data.size > maxSize) {
+                alert('Ảnh phụ không được vượt quá 1MB.');
+                return;
+            }
+
+            // Tăng số lượng ảnh
+            imageCount++;
+
+            var fileReader = new FileReader();
+            fileReader.onload = function (fileLoadedEvent) {
+                var srcData = fileLoadedEvent.target.result;
+
+                var newImage = document.createElement('img');
+                newImage.src = srcData;
+                var _li = $(el).closest('li');
+                if (_li.hasClass('li_file_hide')) {
+                    _li.removeClass('li_file_hide');
+                }
+                _li.find('.img-wrap-box').append(newImage.outerHTML);
+            }
+            fileReader.readAsDataURL(file_data);
+        }
+
+        function DelImg(el, imageId) {
+            // Xóa ảnh khỏi giao diện
+            $(el).closest('li').remove();
+            imageCount--;
+            $(`input[value='${imageId}']`).remove();  // Xóa input hidden của ảnh đã bị xóa
+        }
+    </script>
+</body>
+</html> 

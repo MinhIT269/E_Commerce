@@ -9,6 +9,18 @@ namespace E_Commerce.API.Mappings
     {
         public AutoMapperProfiles()
         {
+            CreateMap<ProductRequestDto, Product>()
+                .ForMember(dest => dest.ProductCategories, opt => opt.MapFrom(src =>
+                     src.CategoryIds!.Select(id => new ProductCategory
+                     {
+                         CategoryId = id
+                     })))
+                .ForMember(dest => dest.ProductImages, opt => opt.MapFrom((src, dest) =>
+                     src.AdditionalImageUrls?.Select(url => new ProductImage
+                     {
+                         ProductImageId = Guid.NewGuid(),
+                         ImageUrl = url
+                     }).ToList() ?? new List<ProductImage>()));
             CreateMap<Product, ProductResponseDto>()
                 .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand!.BrandName))
                 .ForMember(dest => dest.CategoryNames, opt => opt.MapFrom(src => src.ProductCategories!.Select(pc => pc.Category!.CategoryName)))
@@ -34,7 +46,7 @@ namespace E_Commerce.API.Mappings
               .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Products!.Sum(p => p.Quantity * p.Price)));
             CreateMap<Cart, CartResponseDto>()
                 .ForMember(dest => dest.CartItems, opt => opt.MapFrom(src => src.CartItems));
-            
+
             CreateMap<CartItem, CartItemDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product!.Name))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Product!.ImageUrl))

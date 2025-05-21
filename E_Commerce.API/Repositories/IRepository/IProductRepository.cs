@@ -11,6 +11,8 @@ namespace E_Commerce.API.Repositories.IRepository
         Task<List<Product>> FindProductsByBrandAsync(string filterQuery, Guid brandId);
         Task<int> CountProductAsync(string? searchQuery, Guid? categoryId, Guid? brandId);
         Task UpdateProductAsync(Product product);
+        Task<bool> AddProductAsync(Product product);
+        Task<bool> UpdateProduct(Product product);
         Task<Dictionary<Guid, int>> GetSoldQuantitiesAsync(List<Guid> productIds);
         Task DeletePromotionAsync(Product product);
         Task<int> GetLowStockProducts();

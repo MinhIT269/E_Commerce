@@ -83,8 +83,9 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IUserInfoService, UserInfoService>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
-
+builder.Services.AddHttpClient();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 builder.Services.AddIdentityCore<User>()

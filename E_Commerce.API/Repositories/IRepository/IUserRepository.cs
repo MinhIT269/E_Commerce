@@ -19,6 +19,5 @@ namespace E_Commerce.API.Repositories.IRepository
         Task<User?> FindByEmailAsync(string email);
         Task<IdentityResult?> ResetPasswordAsync(User user, string token, string newPassword);
         IQueryable<User> GetFilteredUsers(string searchQuery, string sortCriteria, bool isDescending);
-
     }
 }

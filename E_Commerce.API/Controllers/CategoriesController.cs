@@ -1,4 +1,5 @@
 ﻿using E_Commerce.API.Models.Requests;
+using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,11 +49,16 @@ namespace E_Commerce.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            if (await _categoryService.IsCategoryNameExistsAsync(categoryRequest.CategoryName!))
+            {
+                return BadRequest("Tên danh mục đã tồn tại.");
+            }
+
             var success = await _categoryService.CreateCategoryAsync(categoryRequest);
             if (!success)
                 return StatusCode(StatusCodes.Status500InternalServerError, "Tạo category thất bại.");
 
-            return Ok("Tạo category thành công.");
+            return Ok(new ApiMessageResponse { Message = "Tạo category thành công." });
         }
 
         // PUT: api/Categories
@@ -61,6 +67,11 @@ namespace E_Commerce.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            if (await _categoryService.IsCategoryNameExistsAsync(categoryRequest.CategoryName!))
+            {
+                return BadRequest("Tên danh mục đã tồn tại.");
+            }
 
             var success = await _categoryService.UpdateCategoryAsync(id, categoryRequest);
             if (!success)
@@ -100,7 +111,7 @@ namespace E_Commerce.API.Controllers
             return Ok(categories);
         }
 
-         [HttpGet("TotalPagesCategory")]
+        [HttpGet("TotalPagesCategory")]
         public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
         {
             var totalRecords = await _categoryService.GetTotalCategoriesAsync(searchQuery);

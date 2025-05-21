@@ -1,4 +1,5 @@
-﻿using E_Commerce.API.Services.IService;
+﻿using E_Commerce.API.Models.Requests;
+using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.API.Controllers
@@ -8,9 +9,11 @@ namespace E_Commerce.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productsService;
-        public ProductsController(IProductService productService)
+        private readonly IImageService _imageService;
+        public ProductsController(IProductService productService, IImageService imageService)
         {
             _productsService = productService;
+            _imageService = imageService;
         }
 
         [HttpGet("GetAllProducts")]
@@ -97,6 +100,77 @@ namespace E_Commerce.API.Controllers
                 LowStockProducts = lowStockProducts,
                 NewProducts = newProducts
             });
+        }
+
+        [HttpPost("CreateProduct")]
+        public async Task<IActionResult> CreateProduct([FromForm] ProductRequestDto model, IFormFile ImageUrl, IList<IFormFile> additionalImages)
+        {
+            try
+            {
+                model.Description = await _imageService.ProcessDescriptionAndUploadImages(model.Description!, model.ProductId);
+                bool isSuccess = await _productsService.AddProductAsync(model, ImageUrl, additionalImages);
+                if (isSuccess)
+                {
+                    return Ok("Product created successfully.");
+                }
+                else
+                {
+                    return BadRequest("Failed to create product. Please check the provided data.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("Upload-Picture")]
+        public async Task<IActionResult> UploadImages(IFormFile files, Guid productId)
+        {
+            if (files == null)
+            {
+                return BadRequest("No files were uploaded.");
+            }
+
+            var uploadedImageUrls = await _imageService.UploadImageAsync(files, productId);
+            return Ok(new { urls = uploadedImageUrls });
+        }
+
+        [HttpPut("UpdateProduct")]
+        public async Task<IActionResult> UpdateProduct([FromForm] ProductRequestDto model, IFormFile? mainImage, IList<IFormFile> additionalImages, [FromForm] string? oldImageUrlsJson)
+        {
+            try
+            {
+                var oldImageUrls = string.IsNullOrEmpty(oldImageUrlsJson) ? new List<string>()
+                    : Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(oldImageUrlsJson);
+
+                model.Description = await _imageService.ProcessDescriptionAndUploadImages(model.Description!, model.ProductId);
+                bool isSuccess = await _productsService.UpdateProductAsync(model, mainImage, additionalImages, oldImageUrls);
+                if (isSuccess)
+                {
+                    return Ok("Product updated successfully.");
+                }
+                else
+                {
+                    return BadRequest("Failed to update product. Please check the provided data.");
+                }
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost("upload-temp")]
+        public async Task<IActionResult> UploadImages(IFormFile files)
+        {
+            if (files == null)
+            {
+                return BadRequest("No files were uploaded.");
+            }
+
+            var uploadedImageUrls = await _imageService.UploadImageTempAsync(files, HttpContext);
+            return Ok(new { urls = uploadedImageUrls }); // Trả về danh sách đường dẫn hình ảnh dưới dạng JSON
         }
     }
 }
