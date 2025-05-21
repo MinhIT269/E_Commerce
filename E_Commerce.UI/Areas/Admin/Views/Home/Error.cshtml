@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @await Html.PartialAsync("_Header")
+</head>
+
+<body>
+
+    <!-- START Wrapper -->
+    <div class="wrapper">
+
+        <!-- ========== Topbar Start ========== -->
+        <header class="topbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="d-flex align-items-center">
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <button type="button" class="button-toggle-menu me-2">
+                                <iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
+                            </button>
+                        </div>
+
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Page 404 (alt)</h4>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+
+                        @await Html.PartialAsync("_Topbar")
+
+                        <!-- App Search-->
+                        <form class="app-search d-none d-md-block ms-2">
+                            <div class="position-relative">
+                                <input type="search" class="form-control" placeholder="Search..." autocomplete="off" value="">
+                                <iconify-icon icon="solar:magnifer-linear" class="search-widget-icon"></iconify-icon>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Right Sidebar (Theme Settings) -->
+        @await Html.PartialAsync("_SidebarRight")
+        <!-- ========== Topbar End ========== -->
+        <!-- ========== App Menu Start ========== -->
+        @await Html.PartialAsync("_SidebarMenu")
+        <!-- ========== App Menu End ========== -->
+        <!-- ==================================================== -->
+        <!-- Start right Content here -->
+        <!-- ==================================================== -->
+        <div class="page-content">
+
+            <!-- Start Container Fluid -->
+            <div class="container-xxl">
+
+                <!-- Start here.... -->
+
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-5">
+                        <div class="card">
+                            <div class="card-body px-3 py-4">
+                                <div class="row align-items-center justify-content-center h-100">
+                                    <div class="col-lg-10">
+                                        <div class="mx-auto text-center">
+                                            <img src="~/images/404-error.png" alt="" class="img-fluid my-3">
+                                        </div>
+                                        <h3 class="fw-bold text-center lh-base">Ooops! The Page You're Looking For Was Not Found</h3>
+                                        <p class="text-muted text-center mt-1 mb-4">Sorry, we couldn't find the page you were looking for. We suggest that you return to main sections</p>
+                                        <div class="text-center">
+                                            <a href="@Url.Action("Index","Home")" class="btn btn-primary">Back To Home</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+
+            </div>
+            <!-- End Container Fluid -->
+            <!-- ========== Footer Start ========== -->
+            @await Html.PartialAsync("_Footer")
+            <!-- ========== Footer End ========== -->
+
+        </div>
+        <!-- ==================================================== -->
+        <!-- End Page Content -->
+        <!-- ==================================================== -->
+
+    </div>
+    <!-- END Wrapper -->
+    <!-- Vendor Javascript (Require in all Page) -->
+    <script src="~/js/vendor.js"></script>
+
+    <!-- App Javascript (Require in all Page) -->
+    <script src="~/js/app.js"></script>
+
+</body>
+
+</html>

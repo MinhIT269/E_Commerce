@@ -114,11 +114,12 @@ namespace E_Commerce.API.Services.Service
 
             response.IsLogedIn = true;
             response.JwtToken = _tokenService.CreateJWTToken(user, roles.ToList());
-            response.RefreshToken = _tokenService.CreateRefreshToken();
+            /*response.RefreshToken = _tokenService.CreateRefreshToken();
 
             user.RefreshToken = response.RefreshToken;
             user.RefreshTokenExpiryTime = System.DateTime.Now.AddDays(7);
-            await _userRepository.UpdateAsync(user);
+            await _userRepository.UpdateAsync(user);*/
+            response.RefreshToken = user.RefreshToken;
 
             return response;
         }
@@ -166,6 +167,22 @@ namespace E_Commerce.API.Services.Service
 
             var result = await _userRepository.ResetPasswordAsync(user, dto.Token, dto.NewPassword);
             return result!.Succeeded;
+        }
+
+        public async Task<User?> FindByRefreshTokenAsync(string refreshToken)
+        {
+            return await _userRepository.FindByRefreshTokenAsync(refreshToken);
+        }
+
+        public async Task LogoutAsync(string username)
+        {
+            var user = await _userRepository.FindByNameAsync(username);
+            if (user != null)
+            {
+                user.RefreshToken = null;
+                user.RefreshTokenExpiryTime = DateTime.MinValue;
+                await _userRepository.UpdateAsync(user);
+            }
         }
     }
 }

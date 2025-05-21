@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @await Html.PartialAsync("_Header")
+    <script src="~/js/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <!-- START Wrapper -->
+    <div class="wrapper">
+
+        <!-- ========== Topbar Start ========== -->
+        <header class="topbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="d-flex align-items-center">
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <button type="button" class="button-toggle-menu me-2">
+                                <iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
+                            </button>
+                        </div>
+
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Phương Thức Thanh Toán</h4>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+
+                        @await Html.PartialAsync("_Topbar")
+
+                        <!-- App Search-->
+                        <form class="app-search d-none d-md-block ms-2">
+                            <div class="position-relative">
+                                <input type="search" name="searchQuery" class="form-control" placeholder="Tìm kiếm..." autocomplete="off" value="">
+                                <iconify-icon icon="solar:magnifer-linear" class="search-widget-icon"></iconify-icon>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+
+        <!-- Right Sidebar (Theme Settings) -->
+        @await Html.PartialAsync("_SidebarRight")
+        <!-- ========== Topbar End ========== -->
+        <!-- ========== App Menu Start ========== -->
+        @await Html.PartialAsync("_SidebarMenu")
+        <!-- ========== App Menu End ========== -->
+        <!-- ==================================================== -->
+        <!-- Start right Content here -->
+        <!-- ==================================================== -->
+        <div class="page-content">
+
+            <!-- Start Container Fluid -->
+            <div class="container-xxl">
+
+                <!-- Start here.... -->
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="~/images/vnpay.png" alt="VNPAY" class="img-fluid mb-3" style="width: 150px; height: 50px; object-fit: contain;">
+                                <b>
+                                    <p class="text-dark mt-1 mb-0" id="VNpay">VNPAY</p>
+                                </b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="~/images/momo.jpg" alt="MOMO" class="img-fluid mb-3" style="width: 230px; height: 50px; object-fit: contain;">
+                                <b>
+                                    <p class="text-dark mt-1 mb-0" id="Momo">MOMO</p>
+                                </b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="~/images/zalopay.png" alt="ZALO PAY" class="img-fluid mb-3" style="width: 200px; height: 50px; object-fit: contain;">
+                                <b>
+                                    <p class="text-dark mt-1 mb-0" id="Zalopay">ZALO PAY</p>
+                                </b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="d-flex card-header justify-content-between align-items-center">
+                                <div>
+                                    <h4 class="card-title">Tất Cả</h4>
+                                </div>
+                                <div class="dropdown">
+                                    <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Sắp xếp
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <!-- item-->
+                                        <a href="#!" class="dropdown-item" onclick="setSortCriteria('All')">Tất Cả</a>
+                                        <!-- item-->
+                                        <a href="#!" class="dropdown-item" onclick="setSortCriteria('VNPay')">VNPay</a>
+                                        <!-- item-->
+                                        <a href="#!" class="dropdown-item" onclick="setSortCriteria('MoMo')">MoMo</a>
+                                        <!-- item-->
+                                        <a href="#!" class="dropdown-item" onclick="setSortCriteria('ZaloPay')">Zalo Pay</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table align-middle mb-0 table-hover table-centered">
+                                        <thead class="bg-light-subtle">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Mã Đơn Hàng</th>
+                                                <th>Khách Hàng</th>
+                                                <th>Ngày Thanh Toán</th>
+                                                <th>Giá Trị Đơn</th>
+                                                <th>Phương Thức</th>
+                                                <th>Trạng Thái</th>
+                                                <th>Hành Động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="purchaseTableBody">
+                                            <tr>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" id="customCheck2">
+                                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                                    </div>
+                                                </td>
+                                                <td><a href="javascript: void(0);" class="text-body">#INV2540</a> </td>
+                                                <td><img src="~/images/users/avatar-2.jpg" class="avatar-sm rounded-circle me-2" alt="..."> Michael A. Miner</td>
+                                                <td> 07 Jan, 2023</td>
+                                                <td> $452 </td>
+                                                <td> Mastercard </td>
+                                                <td> <span class="badge bg-success-subtle text-success py-1 px-2">Completed</span> </td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                        <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- end table-responsive -->
+                            </div>
+                            <div class="card-footer border-top">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-end mb-0" id="pagination">
+                                        <!--Trang-->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- End Container Fluid -->
+            <!-- ========== Footer Start ========== -->
+            @await Html.PartialAsync("_Footer")
+            <!-- ========== Footer End ========== -->
+
+        </div>
+        <!-- ==================================================== -->
+        <!-- End Page Content -->
+        <!-- ==================================================== -->
+
+    </div>
+    <!-- END Wrapper -->
+    <!-- Vendor Javascript (Require in all Page) -->
+    <script src="~/js/vendor.js"></script>
+
+    <!-- App Javascript (Require in all Page) -->
+    <script src="~/js/app.js"></script>
+    <script>
+        const itemsPerPage = 8;
+        let currentPage = 1;
+        const maxVisiblePages = 5;
+        let searchQuery = '';
+        let sortCriteria = 'All';
+
+        function updateUrlParameters() {
+            const url = new URL(window.location);
+            url.searchParams.set('searchQuery', searchQuery);
+            url.searchParams.set('sortCriteria', sortCriteria);
+            url.searchParams.set('currentPage', currentPage);
+            window.history.pushState({}, '', url);
+            console.log('Updated URL:', url.toString());
+        }
+
+        async function setSortCriteria(criteria) {
+            if (sortCriteria === criteria) {
+                // Nếu tiêu chí sắp xếp giống lần trước, đổi trạng thái isDescending
+                isDescending = !isDescending;
+            } else {
+                // Nếu tiêu chí sắp xếp thay đổi, đặt isDescending về false
+                isDescending = false;
+            }
+            sortCriteria = criteria;
+            currentPage = 1;
+            updateUrlParameters();
+            await RenderOrderTable(currentPage);
+            await renderPagination();
+        }
+
+        async function RenderOrderTable(page) {
+            const orders = await getOrders(searchQuery, page, itemsPerPage, sortCriteria);
+            const tableBody = document.getElementById('purchaseTableBody');
+            tableBody.innerHTML = '';
+            orders.forEach((item, index) => {
+                tableBody.innerHTML += createOrdersRow(item, (page - 1) * itemsPerPage + index);
+            });
+        }
+
+        async function renderPagination() {
+            const totalPages = await getTotalPages();
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, currentPage + Math.floor(maxVisiblePages / 2));
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                if (endPage === totalPages) {
+                    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                } else {
+                    endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+                }
+            }
+
+            pagination.innerHTML += `
+                                            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                                                <a class="page-link" href="javascript:void(0);" onclick="changePage(${currentPage - 1})">Trước</a>
+                                            </li>
+                                        `;
+
+            for (let i = startPage; i <= endPage; i++) {
+                pagination.innerHTML += `
+                                                <li class="page-item ${i === currentPage ? 'active' : ''}">
+                                                    <a class="page-link" href="javascript:void(0);" onclick="changePage(${i})">${i}</a>
+                                                </li>
+                                            `;
+            }
+
+            pagination.innerHTML += `
+                                            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                                                <a class="page-link" href="javascript:void(0);" onclick="changePage(${currentPage + 1})">Tiếp Theo</a>
+                                            </li>
+                                        `;
+        }
+
+        async function changePage(page) {
+            const totalPages = await getTotalPages();
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            await RenderOrderTable(page);
+            renderPagination();
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-GB'); // Định dạng DD/MM/YYYY
+        }
+
+        function createOrdersRow(item, index) {
+
+            const price = parseFloat(item.totalAmount);
+            const formattedPrice = isNaN(price) ? '0' : price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            return `
+                                            <tr>
+                                                <td>${index + 1}</td>
+                                                <td>#INV-${item.orderId.toUpperCase().substring(0, 8)}</td>
+                                                <td>${item.userName}</td>
+                                                <td>${formatDate(item.orderDate)}</td>
+                                                <td>${formattedPrice}</td>
+                                                <td>${item.paymentMethod}</td>
+                                                <td>
+                                                ${item.status.toLowerCase() === 'completed' ? '<span class="badge bg-success">Success</span>' :
+                    item.status.toLowerCase() === 'pending' ? '<span class="badge bg-warning">Pending</span>' :
+                        '<span class="badge bg-danger">Cancel</span>'}
+                                                </td>
+
+                                                <td>
+                                                   <div class="d-flex gap-2">
+                                                       <a href="/Admin/Order/DetailOrder/${item.orderId}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                   </div>
+                                                </td>
+                                            </tr>
+                                        `;
+        }
+
+        async function getOrders(textsearch, page, limit, sortCriteria) {
+            const url = `https://localhost:7069/api/Purchase/AllPaymentOrders?searchQuery=${encodeURIComponent(textsearch)}&page=${page}&sortCriteria=${encodeURIComponent(sortCriteria)}`;
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        resolve(data);
+                        console.log('Order received:', data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error:', textStatus, errorThrown);
+                        reject(errorThrown);
+                    }
+                });
+            });
+        }
+
+        async function getTotalPages() {
+            const response = await $.ajax({
+                url: 'https://localhost:7069/api/Purchase/TotalPagesOrdered?searchQuery=' + encodeURIComponent(searchQuery) + '&sortCriteria=' + encodeURIComponent(sortCriteria),
+                type: 'GET',
+                dataType: 'json'
+            });
+            return response > 0 ? response : 1;
+        }
+
+        document.querySelector('input[name="searchQuery"]').addEventListener('keydown', async (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                searchQuery = event.target.value;
+                currentPage = 1;
+                await RenderOrderTable(currentPage);
+                await renderPagination();
+            }
+        });
+        async function loadOrdersStats() {
+            try {
+                const response = await fetch("https://localhost:7069/api/Purchase/GetStatsPayMent");
+                const stats = await response.json();
+                console.log(stats);
+                stats.forEach(stat => {
+                    if (stat.paymentMethodName === "VnPay") {
+                        document.getElementById('VNpay').innerText = `${stat.orderCount}`;
+                    } else if (stat.paymentMethodName === "Momo") {
+                        document.getElementById('Momo').innerText = `${stat.orderCount}`;
+                    } else if (stat.paymentMethodName === "ZaloPay") {
+                        document.getElementById('Zalopay').innerText = `${stat.orderCount}`;
+                    }
+                });
+            } catch (error) {
+                console.error("Failed to load orders stats: ", error);
+            }
+
+        }
+
+        loadOrdersStats();
+        RenderOrderTable(currentPage);
+        renderPagination();
+    </script>
+</body>
+
+</html>

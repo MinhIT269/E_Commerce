@@ -17,5 +17,15 @@ namespace E_Commerce.UI.Areas.Admin.Controllers
             ViewBag.ApiBaseUrl = _config["ApiSettings:BaseUrl"];
             return View();
         }
+        public IActionResult Create()
+        {
+            ViewBag.ApiBaseUrl = _config["ApiSettings:BaseUrl"];
+            return View();
+        }
+        public IActionResult Edit(Guid id)
+        {
+            ViewBag.ApiBaseUrl = _config["ApiSettings:BaseUrl"];
+            return View();
+        }
     }
 }

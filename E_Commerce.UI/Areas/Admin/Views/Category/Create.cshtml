@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @await Html.PartialAsync("_Header")
+</head>
+
+<body>
+
+    <!-- START Wrapper -->
+    <div class="wrapper">
+
+        <!-- ========== Topbar Start ========== -->
+        <header class="topbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="d-flex align-items-center">
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <button type="button" class="button-toggle-menu me-2">
+                                <iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
+                            </button>
+                        </div>
+
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Tạo Danh Mục</h4>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+
+                        @await Html.PartialAsync("_Topbar")
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Right Sidebar (Theme Settings) -->
+        @await Html.PartialAsync("_SidebarRight")
+        <!-- ========== Topbar End ========== -->
+        <!-- ========== App Menu Start ========== -->
+        @await Html.PartialAsync("_SidebarMenu")
+        <!-- ========== App Menu End ========== -->
+        <!-- ==================================================== -->
+        <!-- Start right Content here -->
+        <!-- ==================================================== -->
+        <div class="page-content">
+
+            <!-- Start Container Fluid -->
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Thông Tin</h4>
+                            </div>
+                            <div class="card-body">
+                                <!-- Start of Single Form -->
+                                <form id="category-form" asp-controller="Category" asp-action="Create" method="post" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="category-title" class="form-label fw-bold">Tên Danh Mục</label>
+                                                <input type="text" name="CategoryName" id="category-title" class="form-control" placeholder="Nhập tên" maxlength="100" required>
+                                                <small class="form-text text-muted">100 ký tự</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="crater" class="form-label fw-bold">Người Tạo</label>
+                                            <select class="form-control" id="crater" name="creator" data-choices data-choices-groups data-placeholder="Chọn">
+                                                <option value="Admin">Admin</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mb-0">
+                                                <label for="description" class="form-label fw-bold">Mô Tả</label>
+                                                <textarea class="form-control bg-light-subtle" id="description" rows="7" maxlength="200" name="Description" placeholder="Chi tiết loại danh mục" required></textarea>
+                                                <small id="char-count" class="form-text text-muted">0/200 ký tự</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of Single Form -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="bg-light text-center rounded bg-light">
+                                    <img src="~/images/product/p-1.png" alt="" class="avatar-xxl">
+                                </div>
+                                <div class="mt-3">
+                                    <h4 id="preview-title">Danh Mục</h4>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-4">
+                                            <p class="mb-1 mt-2">Tạo bởi:</p>
+                                            <h5 class="mb-0">Admin</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-4">
+                                            <p class="mb-1 mt-2">Mô tả:</p>
+                                        </div>
+                                        <p id="preview-description" class="text-muted">Chi tiết danh mục</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer border-top">
+                                <div class="row g-2">
+                                    <div class="col-lg-6">
+                                        <!-- Thêm nút submit cho form chính -->
+                                        <button type="submit" form="category-form" class="btn btn-outline-secondary w-100">Tạo Mới</button>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <a href="javascript:void(0);" onclick="confirmCancel()" class="btn btn-primary w-100">Hủy</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Container Fluid -->
+            <!-- ========== Footer Start ========== -->
+            @await Html.PartialAsync("_Footer")
+            <!-- ========== Footer End ========== -->
+
+        </div>
+        <!-- ==================================================== -->
+        <!-- End Page Content -->
+        <!-- ==================================================== -->
+
+
+    </div>
+    <!-- END Wrapper -->
+    <!-- Vendor Javascript (Require in all Page) -->
+    <script src="~/js/vendor.js"></script>
+
+    <!-- App Javascript (Require in all Page) -->
+    <script src="~/js/app.js"></script>
+    <script>
+        function confirmCancel() {
+            const userConfirmed = confirm("Bạn có chắc chắn muốn hủy không?");
+            if (userConfirmed) {
+                window.location.href = 'Index';
+            }
+        }
+        const updateTextContent = (elementId, value, defaultText) => {
+            document.getElementById(elementId).textContent = value || defaultText;
+        };
+
+        document.getElementById("description").addEventListener("input", e => {
+            updateTextContent("char-count", `${e.target.value.length}/200 ký tự`, "");
+            updateTextContent("preview-description", e.target.value, "Chi tiết danh mục");
+        });
+
+        document.getElementById("category-title").addEventListener("input", e => {
+            updateTextContent("preview-title", e.target.value, "Danh Mục");
+        });
+    </script>
+</body>
+
+</html>

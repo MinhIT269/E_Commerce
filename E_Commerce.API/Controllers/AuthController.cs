@@ -89,5 +89,17 @@ namespace E_Commerce.API.Controllers
 
             return Ok(new { message = "Password has been reset successfully." });
         }
+
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout([FromBody] RefreshTokenDto dto)
+        {
+            var user = await _authService.FindByRefreshTokenAsync(dto.RefreshToken);
+            if (user == null)
+                return Unauthorized();
+
+            await _authService.LogoutAsync(user.UserName!);
+
+            return Ok(new { message = "Logout successful" });
+        }
     }
 }

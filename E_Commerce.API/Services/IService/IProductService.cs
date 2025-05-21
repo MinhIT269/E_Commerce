@@ -1,4 +1,6 @@
-﻿using E_Commerce.API.Models.Responses;
+﻿using E_Commerce.API.Models.Domain;
+using E_Commerce.API.Models.Requests;
+using E_Commerce.API.Models.Responses;
 
 namespace E_Commerce.API.Services.IService
 {
@@ -15,5 +17,7 @@ namespace E_Commerce.API.Services.IService
         Task<int> AvailableProducts();
         Task<int> GetLowStockProducts();
         Task<int> GetNewProducts();
+        Task<bool> AddProductAsync(ProductRequestDto model, IFormFile mainImage, IList<IFormFile> additionalImages);
+        Task<bool> UpdateProductAsync(ProductRequestDto model, IFormFile? mainImage, IList<IFormFile>? additionalImages, List<string>? oldImageUrls);
     }
 }

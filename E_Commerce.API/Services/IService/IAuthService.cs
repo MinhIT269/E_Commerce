@@ -1,4 +1,5 @@
-﻿using E_Commerce.API.Models.Requests;
+﻿using E_Commerce.API.Models.Domain;
+using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Response;
 using E_Commerce.API.Models.Responses;
 
@@ -13,5 +14,7 @@ namespace E_Commerce.API.Services.IService
         Task<bool> ConfirmEmailAsync(string userId, string token);
         Task<bool> SendPasswordResetEmailAsync(string email, string origin);
         Task<bool> ResetPasswordAsync(ResetPasswordDto dto);
+        Task<User?> FindByRefreshTokenAsync(string refreshToken);
+        Task LogoutAsync(string username);
     }
 }

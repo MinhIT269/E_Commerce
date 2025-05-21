@@ -153,6 +153,37 @@ namespace E_Commerce.API.Repositories.Repository
                 .ToDictionaryAsync(x => x.ProductId, x => x.Quantity);
         }
 
+        public async Task<bool> AddProductAsync(Product product)
+        {
+            _context.Products.Add(product);
+            int result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
+
+        public async Task<bool> UpdateProduct(Product product)
+        {
+            try
+            {
+                if (product.ProductImages != null)
+                {
+                    foreach (var image in product.ProductImages)
+                    {
+                        _context.Entry(image).State = EntityState.Detached == _context.Entry(image).State
+                            ? EntityState.Added
+                            : _context.Entry(image).State;
+                    }
+                }
+
+                _context.Products.Update(product);
+                return await _context.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Update error: {ex.Message}");
+                return false;
+            }
+        }
+
         public async Task DeletePromotionAsync(Product product)
         {
             _context.Products.Remove(product);
