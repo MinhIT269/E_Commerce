@@ -6,7 +6,7 @@ namespace E_Commerce.API.Repositories.IRepository
     {
         Task<Order> CreateOrderAsync(Order order);
         Task<Order?> GetOrderByIdAsync(Guid orderId);
-        Task<List<Order>> GetAllOrderAsync(string? id, string searchQuery);
+        Task<List<Order>> GetAllOrderAsync(string? id, string? searchQuery);
         Task<Order> GetOrderDetailAsync(Guid? id);
         Task<int> TotalOrders();
         Task<int> TotalOrdersSuccess();

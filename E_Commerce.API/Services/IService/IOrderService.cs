@@ -15,7 +15,7 @@ namespace E_Commerce.API.Services.IService
         Task<decimal> GetTotalAmountOfCompletedOrdersAsync();
         Task<int> TotalOrdersCancel();
         Task<OrderDetailResponseDto> GetOrderDetails(Guid id);
-        Task<List<OrderDto>?> GetAllOrders(string id, string searchQuery, int page = 1, int pageSize = 5);
+        Task<List<OrderDto>?> GetAllOrders(string id, string? searchQuery, int page = 1, int pageSize = 5);
         Task<int> TotalOrdersByUser(string userId);
         Task<int> TotalOrdersSuccessByUser(string userId);
         Task<int> TotalOrdersPendingByUser(string userId);

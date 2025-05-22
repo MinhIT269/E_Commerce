@@ -127,7 +127,7 @@ namespace E_Commerce.API.Services.Service
         {
             var uri = new Uri(imageUrl);
             var path = uri.AbsolutePath.Trim('/');
-            return Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path)).Replace('\\', '/');
+            return Path.Combine(Path.GetDirectoryName(path)!, Path.GetFileNameWithoutExtension(path)).Replace('\\', '/');
         }
     }
 }

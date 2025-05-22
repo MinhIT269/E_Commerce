@@ -168,7 +168,6 @@
             url.searchParams.set('sortCriteria', sortCriteria);
             url.searchParams.set('currentPage', currentPage);
             window.history.pushState({}, '', url);
-            console.log('Updated URL:', url.toString());
         }
 
         function setSortCriteria(criteria) {
@@ -283,7 +282,6 @@
                     dataType: 'json',
                     success: function (data) {
                         resolve(data);
-                        console.log('Data received:', data);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error('Error:', textStatus, errorThrown);
@@ -346,7 +344,6 @@
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const brands = await response.json(); // `brands` là danh sách thương hiệu trả về từ API
-                console.log(brands);
 
                 document.getElementById('BrandsTotal').innerText = `${brands.length} `;
             } catch (error) {
