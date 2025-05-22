@@ -267,7 +267,7 @@ namespace E_Commerce.API.Services.Service
             var orderDetailDto = _mapper.Map<OrderDetailResponseDto>(orderDetailDomain);
             return orderDetailDto;
         }
-        public async Task<List<OrderDto>?> GetAllOrders(string id, string searchQuery, int page = 1, int pageSize = 5)
+        public async Task<List<OrderDto>?> GetAllOrders(string id, string? searchQuery, int page = 1, int pageSize = 5)
         {
             var ordersDomain = await _orderRepository.GetAllOrderAsync(id, searchQuery);
 

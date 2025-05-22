@@ -22,7 +22,7 @@ namespace E_Commerce.API.Repositories.Repository
         {
             var order = await _context.Orders
                 .Include(o => o.User)
-                    .ThenInclude(u => u.UserInfo)
+                    .ThenInclude(u => u!.UserInfo)
                 .Include(o => o.Promotion)
                 .Include(o => o.OrderDetails)!
                     .ThenInclude(od => od.Product)
@@ -31,7 +31,7 @@ namespace E_Commerce.API.Repositories.Repository
 
             return order;
         }
-        public async Task<List<Order>> GetAllOrderAsync(string? id, string searchQuery)
+        public async Task<List<Order>> GetAllOrderAsync(string? id, string? searchQuery)
         {
             if (id != null)
             {
@@ -70,7 +70,7 @@ namespace E_Commerce.API.Repositories.Repository
         {
             var order = await _context.Orders
                 .Include(o => o.User)               
-                    .ThenInclude(u => u.UserInfo)
+                    .ThenInclude(u => u!.UserInfo)
                 .Include(o => o.OrderDetails!)      
                     .ThenInclude(od => od.Product)  
                 .Include(o => o.Promotion)          

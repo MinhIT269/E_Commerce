@@ -193,7 +193,6 @@
             url.searchParams.set('sortCriteria', sortCriteria);
             url.searchParams.set('currentPage', currentPage);
             window.history.pushState({}, '', url);
-            console.log('Updated URL:', url.toString());
         }
 
         async function setSortCriteria(criteria) {
@@ -323,7 +322,6 @@
                     dataType: 'json',
                     success: function (data) {
                         resolve(data);
-                        console.log('Data received:', data);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error('Error:', textStatus, errorThrown);
