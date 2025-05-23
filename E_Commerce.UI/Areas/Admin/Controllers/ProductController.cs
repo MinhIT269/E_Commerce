@@ -104,7 +104,7 @@ namespace E_Commerce.UI.Areas.Admin.Controllers
             }
 
             ModelState.AddModelError("", "Failed to create product. Please try again."); // Thêm lỗi vào ModelState
-            return RedirectToAction("Error", "Admin"); // Trả lại view với model để hiển thị lỗi nếu có
+            return RedirectToAction("Error", "Home"); 
         }
 
         [HttpGet]
@@ -199,7 +199,7 @@ namespace E_Commerce.UI.Areas.Admin.Controllers
             {
                 var errorMessage = await response.Content.ReadAsStringAsync();
                 Console.WriteLine($"Error: {response.StatusCode}, Message: {errorMessage}");
-                return RedirectToAction("Error", "Admin");
+                return RedirectToAction("Error", "Home");
             }
         }
     }

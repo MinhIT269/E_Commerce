@@ -51,6 +51,18 @@
             <!-- Start Container Fluid -->
             <div class="container-xxl">
                 <div class="row">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger mt-3">
+                            @foreach (var modelState in ViewData.ModelState.Values)
+                            {
+                                foreach (var error in modelState.Errors)
+                                {
+                                    <p>@error.ErrorMessage</p>
+                                }
+                            }
+                        </div>
+                    }
                     <div class="col-xl-9 col-lg-8">
                         <div class="card">
                             <div class="card-header">

@@ -36,7 +36,7 @@ namespace E_Commerce.UI.Areas.Admin.Controllers
             }
 
             ModelState.AddModelError(string.Empty, "Lỗi khi tạo danh mục");
-            return RedirectToAction("Error", "");
+            return View();
         }
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -46,9 +46,9 @@ namespace E_Commerce.UI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromForm] CategoryRequestDto category)
+        public async Task<IActionResult> Edit([FromForm] CategoryResponseDto category)
         {
-            var result = await _apiRequestHelper.SendPutRequestAsync<ApiMessageResponse>($"/api/Categories/{category.Id}", category);
+            var result = await _apiRequestHelper.SendPutRequestAsync<ApiMessageResponse>($"/api/Categories/{category.CategoryId}", category);
 
             if (result != null)
             {
@@ -56,7 +56,7 @@ namespace E_Commerce.UI.Areas.Admin.Controllers
             }
 
             ModelState.AddModelError(string.Empty, "Lỗi khi cập nhật danh mục");
-            return RedirectToAction("Error", "Home");
+            return View(category);
         }
     }
 }
