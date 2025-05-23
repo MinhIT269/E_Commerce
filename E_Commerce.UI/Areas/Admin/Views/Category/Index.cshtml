@@ -353,7 +353,6 @@
         function confirmDelete(categoryId) {
             const userConfirmed = confirm("Bạn có chắc chắn muốn xóa danh mục này?");
             if (userConfirmed) {
-                // Gửi yêu cầu xóa tới API
                 deleteCategory(categoryId);
             }
         }
@@ -365,11 +364,9 @@
                 });
 
                 if (response.ok) {
-                    // Nếu xóa thành công, cập nhật lại giao diện (có thể xóa dòng khỏi bảng)
                     alert('Danh mục đã được xóa!');
-                    window.location.reload(); // Tải lại trang hoặc xóa dòng khỏi bảng
+                    window.location.reload(); 
                 } else {
-                    // Xử lý nếu có lỗi
                     alert('Không thể xóa danh mục!');
                 }
             } catch (error) {

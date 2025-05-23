@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @await Html.PartialAsync("_Header")
+</head>
+
+<body>
+
+    <!-- START Wrapper -->
+    <div class="wrapper">
+
+        <!-- ========== Topbar Start ========== -->
+        <header class="topbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="d-flex align-items-center">
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <button type="button" class="button-toggle-menu me-2">
+                                <iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
+                            </button>
+                        </div>
+
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">TẠO MÃ KHUYẾN MÃI</h4>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+
+                        @await Html.PartialAsync("_Topbar")
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Right Sidebar (Theme Settings) -->
+        @await Html.PartialAsync("_SidebarRight")
+        <!-- ========== Topbar End ========== -->
+        <!-- ========== App Menu Start ========== -->
+        @await Html.PartialAsync("_SidebarMenu")
+        <!-- ========== App Menu End ========== -->
+        <!-- ==================================================== -->
+        <!-- Start right Content here -->
+        <!-- ==================================================== -->
+        <div class="page-content">
+
+            <!-- Start Container Fluid -->
+            <div class="container-xxl">
+
+                <form id="couponForm" method="post" enctype="multipart/form-data">
+                        @if (ViewData.ModelState[""]?.Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger mt-3">
+                                @foreach (var error in ViewData.ModelState[""]?.Errors)
+                                {
+                                    <p>@error.ErrorMessage</p>
+                                }
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Lịch Ngày</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="start-date" class="form-label text-dark">Ngày Bắt Đầu</label>
+                                            <input type="text" id="start-date" name="StartDate" class="form-control" placeholder="yyyy-mm-dd" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="end-date" class="form-label text-dark">Ngày Kết Thúc</label>
+                                            <input type="text" id="end-date" name="EndDate" class="form-control" placeholder="yyyy-mm-dd" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Thông Tin Phiếu Giảm Giá</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="coupons-code" class="form-label">Mã Giảm Giá</label>
+                                                    <input type="text" id="coupons-code" name="Code" class="form-control" placeholder="Nhập mã giảm giá" pattern=".{5,}" title="Mã giảm giá phải có ít nhất 5 ký tự" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="coupons-limits" class="form-label">Giới Hạn Sử Dụng</label>
+                                                    <input type="number" id="coupons-limits" name="MaxUsage" class="form-control" placeholder="Nhập số lượng tối đa" min="0" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="card-title mb-3 mt-2">Loại Phiếu Giảm Giá</h4>
+                                        <div class="row mb-3">
+                                            <div class="col-lg-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="DiscountType" value="Percentage" id="flexRadioDefault13" required>
+                                                    <label class="form-check-label" for="flexRadioDefault13">
+                                                        Phần Trăm
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="">
+                                                    <label for="discount-value" class="form-label">Giá Trị Giảm Giá</label>
+                                                    <input type="number" id="discount-value" name="Percentage" class="form-control" placeholder="Nhập giá trị" min="0" max="100" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer border-top">
+                                        <button type="submit" id="submit-button-id" class="btn btn-primary">Tạo Phiếu Giảm Giá</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+            </div>
+            <!-- End Container Fluid -->
+            <!-- ========== Footer Start ========== -->
+            @await Html.PartialAsync("_Footer")
+            <!-- ========== Footer End ========== -->
+
+        </div>
+        <!-- ==================================================== -->
+        <!-- End Page Content -->
+        <!-- ==================================================== -->
+
+    </div>
+    <!-- END Wrapper -->
+    <!-- Vendor Javascript (Require in all Page) -->
+    <script src="~/js/vendor.js"></script>
+
+    <!-- App Javascript (Require in all Page) -->
+    <script src="~/js/app.js"></script>
+    <script src="~/js/pages/coupons-add.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('#submit-button-id').addEventListener('click', function (e) {
+                e.preventDefault(); // Ngăn chặn hành vi submit mặc định
+
+                // Lấy form và kiểm tra validation HTML mặc định
+                const form = document.querySelector('#couponForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity(); // Hiển thị các thông báo lỗi mặc định
+                    return;
+                }
+
+                const startDate = document.getElementById('start-date').value;
+                const endDate = document.getElementById('end-date').value;
+                // Kiểm tra định dạng ngày (dd-mm-yyyy)
+                const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+                if (!datePattern.test(startDate) || !datePattern.test(endDate)) {
+                    alert('Định dạng ngày không hợp lệ. Vui lòng nhập ngày theo định dạng yyyy-mm-dd.');
+                    return;
+                }
+
+                // Chuyển đổi chuỗi ngày thành đối tượng Date
+                const startDateObj = new Date(startDate);
+                const endDateObj = new Date(endDate);
+
+                // Kiểm tra logic ngày
+                if (startDateObj > endDateObj) {
+                    alert('Ngày bắt đầu không được lớn hơn ngày kết thúc.');
+                    return;
+                }
+
+                // Nếu tất cả hợp lệ, submit form
+                form.submit();
+            });
+        });
+
+    </script>
+</body>
+
+</html>

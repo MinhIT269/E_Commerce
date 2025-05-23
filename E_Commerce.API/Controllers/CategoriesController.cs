@@ -77,7 +77,7 @@ namespace E_Commerce.API.Controllers
             if (!success)
                 return NotFound("Không tìm thấy category để cập nhật.");
 
-            return Ok("Cập nhật category thành công.");
+            return Ok(new ApiMessageResponse { Message = "Cập nhật category thành công." });
         }
 
         // DELETE: api/Categories/{id}
