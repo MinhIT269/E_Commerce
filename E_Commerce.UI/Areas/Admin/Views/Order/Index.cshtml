@@ -225,7 +225,6 @@
             url.searchParams.set('sortCriteria', sortCriteria);
             url.searchParams.set('currentPage', currentPage);
             window.history.pushState({}, '', url);
-            console.log('Updated URL:', url.toString());
         }
 
         async function setSortCriteria(criteria) {
@@ -339,7 +338,6 @@
                     dataType: 'json',
                     success: function (data) {
                         resolve(data);
-                        console.log('Order received:', data);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error('Error:', textStatus, errorThrown);
@@ -371,7 +369,6 @@
             try {
                 const response = await fetch(`${API_URL}/api/Orders/GetOrdersStats`);
                 const stats = await response.json();
-                console.log(stats);
                 document.getElementById('TotalOrders').innerText = `${stats.totalOrders}`;
                 document.getElementById('OrderSuccess').innerText = `${stats.orderSuccess}`;
                 document.getElementById('OrderPending').innerText = `${stats.ordersPending}`;

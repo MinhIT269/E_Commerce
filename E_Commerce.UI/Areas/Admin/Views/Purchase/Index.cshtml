@@ -341,7 +341,6 @@
             try {
                 const response = await fetch(`${API_URL}/api/Purchase/GetStatsPayMent`);
                 const stats = await response.json();
-                console.log(stats);
                 stats.forEach(stat => {
                     if (stat.paymentMethodName === "VnPay") {
                         document.getElementById('VNpay').innerText = `${stat.orderCount}`;

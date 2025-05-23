@@ -13,6 +13,8 @@ namespace E_Commerce.API.Services.IService
         Task UpdateAsync(Guid id, PromotionRequestDto promotionDto);
         Task DeleteAsync(Guid id);
         Task<int> GetTotalPromotionAsync(string searchQuery);
+        Task<PromotionResponseDto?> AddPromotion(PromotionRequestDto promotionAdd);
+        Task<PromotionResponseDto> GetPromotion(Guid code);
         Task<List<PromotionResponseDto>> GetFilteredPromotionsQuery(int page, int pageSize, string searchQuery, string sortCriteria, bool isDescending);
     }
 }

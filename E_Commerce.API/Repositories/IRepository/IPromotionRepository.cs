@@ -6,10 +6,11 @@ namespace E_Commerce.API.Repositories.IRepository
     {
         Task<Promotion?> GetByCodeAsync(string code);
         Task<List<Promotion>> GetAllPromotionAsync();
-        Task AddPromotionAsync(Promotion promotion);
-        Task UpdatePromotionAsync(Promotion promotion);
+        Task<Promotion> AddPromotionAsync(Promotion promotion);
+        Task<Promotion> UpdatePromotionAsync(Promotion promotion);
         Task DeletePromotionAsync(Promotion promotion);
         IQueryable<Promotion> GetFilteredPromotionsQuery(string searchQuery, string sortCriteria, bool isDescending);
         Task<object> GetPromotionStatsAsync();
+        Task<Promotion?> GetPromotionByIdAsync(Guid code);
     }
 }

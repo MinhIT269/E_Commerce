@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model E_Commerce.UI.Models.Responses.PromotionResponseDto
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,7 +7,6 @@
 </head>
 
 <body>
-
     <!-- START Wrapper -->
     <div class="wrapper">
 
@@ -24,7 +24,7 @@
 
                         <!-- Menu Toggle Button -->
                         <div class="topbar-item">
-                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">TẠO MÃ KHUYẾN MÃI</h4>
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">CẬP NHẬT MÃ KHUYẾN MÃI</h4>
                         </div>
                     </div>
 
@@ -50,8 +50,7 @@
 
             <!-- Start Container Fluid -->
             <div class="container-xxl">
-
-                <form id="couponForm" method="post" enctype="multipart/form-data">
+                <form id="couponForm" method="post" enctype="multipart/form-data" asp-action="Edit" asp-controller="Promotion" asp-area="Admin">
                     @if (!ViewData.ModelState.IsValid)
                     {
                         <div class="alert alert-danger mt-3">
@@ -73,16 +72,18 @@
                                 <div class="card-body">
                                     <div class="mb-3">
                                         <label for="start-date" class="form-label text-dark">Ngày Bắt Đầu</label>
-                                        <input type="text" id="start-date" name="StartDate" class="form-control" placeholder="yyyy-mm-dd" required>
+                                        <input type="text" id="start-date" name="StartDate" class="form-control" placeholder="yyyy-mm-dd" required value="@Model.StartDate.ToString("yyyy-MM-dd")">
+                                        <input type="hidden" id="start-date-hidden" name="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")">
                                     </div>
                                     <div class="mb-3">
                                         <label for="end-date" class="form-label text-dark">Ngày Kết Thúc</label>
-                                        <input type="text" id="end-date" name="EndDate" class="form-control" placeholder="yyyy-mm-dd" required>
+                                        <input type="text" id="end-date" name="EndDate" class="form-control" placeholder="yyyy-mm-dd" required value="@Model.EndDate.ToString("yyyy-MM-dd")">
+                                        <input type="hidden" id="end-date-hidden" name="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <input type="hidden" name="promotionId" class="form-control" required value="@Model.PromotionId">
                         <div class="col-lg-7">
                             <div class="card">
                                 <div class="card-header">
@@ -93,13 +94,13 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="coupons-code" class="form-label">Mã Giảm Giá</label>
-                                                <input type="text" id="coupons-code" name="Code" class="form-control" placeholder="Nhập mã giảm giá" pattern=".{5,}" title="Mã giảm giá phải có ít nhất 5 ký tự" required>
+                                                <input type="text" id="coupons-code" name="Code" class="form-control" placeholder="Nhập mã giảm giá" pattern=".{5,}" title="Mã giảm giá phải có ít nhất 5 ký tự" required value="@Model.Code">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="coupons-limits" class="form-label">Giới Hạn Sử Dụng</label>
-                                                <input type="number" id="coupons-limits" name="MaxUsage" class="form-control" placeholder="Nhập số lượng tối đa" min="0" required>
+                                                <input type="number" id="coupons-limits" name="MaxUsage" class="form-control" placeholder="Nhập số lượng tối đa" min="0" required value="@Model.MaxUsage">
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +108,7 @@
                                     <div class="row mb-3">
                                         <div class="col-lg-4">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="DiscountType" value="Percentage" id="flexRadioDefault13" required>
+                                                <input class="form-check-input" type="radio" name="DiscountType" value="Percentage" id="flexRadioDefault13" required checked>
                                                 <label class="form-check-label" for="flexRadioDefault13">
                                                     Phần Trăm
                                                 </label>
@@ -118,13 +119,14 @@
                                         <div class="col-lg-12">
                                             <div class="">
                                                 <label for="discount-value" class="form-label">Giá Trị Giảm Giá</label>
-                                                <input type="number" id="discount-value" name="Percentage" class="form-control" placeholder="Nhập giá trị" min="0" max="100" required>
+                                                <input type="number" id="discount-value" name="Percentage" class="form-control" placeholder="Nhập giá trị" min="0" max="100" required
+                                                       value="@(Math.Floor(Model.Percentage).ToString("F0", System.Globalization.CultureInfo.InvariantCulture))">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer border-top">
-                                    <button type="submit" id="submit-button-id" class="btn btn-primary">Tạo Phiếu Giảm Giá</button>
+                                    <button type="submit" id="submit-button-id" class="btn btn-primary">Cập Nhật Phiếu</button>
                                 </div>
                             </div>
                         </div>
@@ -153,6 +155,33 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Lấy giá trị ngày hiện tại
+            const currentDate = new Date().toISOString().split('T')[0]; // Định dạng yyyy-mm-dd
+
+            // Lấy giá trị StartDate từ mô hình và chuyển thành đối tượng Date
+            const startDateValue = '@Model.StartDate.ToString("yyyy-MM-dd")';
+            const startDateObj = new Date(startDateValue);
+
+            // So sánh ngày hiện tại với ngày StartDate
+            if (startDateValue < currentDate) {
+                // Nếu StartDate nhỏ hơn ngày hiện tại, đặt readonly
+                document.getElementById('start-date').setAttribute('disabled', 'true');
+            } else {
+                // Nếu StartDate lớn hơn hoặc bằng ngày hiện tại, cho phép chỉnh sửa
+                document.getElementById('start-date').removeAttribute('readonly');
+            }
+
+            // Tương tự cho EndDate
+            const endDateValue = '@Model.EndDate.ToString("yyyy-MM-dd")';
+
+            if (endDateValue < currentDate) {
+                // Nếu EndDate nhỏ hơn ngày hiện tại, đặt readonly
+                document.getElementById('end-date').setAttribute('disabled', 'true');
+            } else {
+                // Nếu EndDate lớn hơn hoặc bằng ngày hiện tại, cho phép chỉnh sửa
+                document.getElementById('end-date').removeAttribute('readonly');
+            }
+
             document.querySelector('#submit-button-id').addEventListener('click', function (e) {
                 e.preventDefault(); // Ngăn chặn hành vi submit mặc định
 
@@ -189,5 +218,4 @@
 
     </script>
 </body>
-
 </html>

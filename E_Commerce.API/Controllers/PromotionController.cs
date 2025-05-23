@@ -1,5 +1,7 @@
 ﻿using E_Commerce.API.Models.Requests;
+using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Services.IService;
+using E_Commerce.API.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.API.Controllers
@@ -30,6 +32,17 @@ namespace E_Commerce.API.Controllers
             var promotion = await _promotionService.GetByCodeAsync(code);
             if (promotion == null) return NotFound();
             return Ok(promotion);
+        }
+
+        [HttpGet("GetOne/{code}")]
+        public async Task<IActionResult> GetPromotionByCode([FromRoute] Guid code)
+        {
+            var promotionDTO = await _promotionService.GetPromotion(code);
+            if (promotionDTO == null)
+            {
+                return NotFound();
+            }
+            return Ok(promotionDTO);
         }
 
         // GET: api/promotion/filter?searchQuery=...&sortCriteria=...&isDescending=true
@@ -67,7 +80,7 @@ namespace E_Commerce.API.Controllers
             try
             {
                 await _promotionService.UpdateAsync(id, dto);
-                return NoContent();
+                return Ok(new ApiMessageResponse { Message = "thành công." }) ;
             }
             catch (Exception ex)
             {
@@ -103,6 +116,17 @@ namespace E_Commerce.API.Controllers
             var totalRecords = await _promotionService.GetTotalPromotionAsync(searchQuery);
             var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
             return Ok(totalPages);
+        }
+
+        [HttpPost("Add")]
+        public async Task<IActionResult> AddPromotion(PromotionRequestDto promotionAdd)
+        {
+            var promotion = await _promotionService.AddPromotion(promotionAdd);
+            if (promotion == null)
+            {
+                return BadRequest("Trung Ma Code");
+            }
+            return Ok(promotion);
         }
     }
 }

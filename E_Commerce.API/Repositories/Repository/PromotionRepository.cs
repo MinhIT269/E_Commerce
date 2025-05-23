@@ -19,20 +19,32 @@ namespace E_Commerce.API.Repositories.Repository
                 .FirstOrDefault(p => p.Code!.Equals(code, StringComparison.Ordinal));
         }
 
+        public async Task<Promotion?> GetPromotionByIdAsync(Guid code)
+        {
+            var promotion = await _context.Promotions
+                                           .AsNoTracking()
+                                           .FirstOrDefaultAsync(x => x.PromotionId == code);
+            return promotion;
+        }
+
         public async Task<List<Promotion>> GetAllPromotionAsync()
         {
             var promotions = await _context.Promotions.AsNoTracking().ToListAsync();
             return promotions;
         }
 
-        public async Task AddPromotionAsync(Promotion promotion)
+        public async Task<Promotion> AddPromotionAsync(Promotion promotion)
         {
             await _context.Promotions.AddAsync(promotion);
+            await _context.SaveChangesAsync();
+            return promotion;
         }
 
-        public async Task UpdatePromotionAsync(Promotion promotion)
+        public async Task<Promotion> UpdatePromotionAsync(Promotion promotion)
         {
             _context.Promotions.Update(promotion);
+            await _context.SaveChangesAsync();
+            return promotion;
         }
 
         public async Task DeletePromotionAsync(Promotion promotion)

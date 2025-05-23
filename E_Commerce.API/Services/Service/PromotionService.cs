@@ -26,6 +26,13 @@ namespace E_Commerce.API.Services.Service
             return promotion == null ? null : _mapper.Map<PromotionResponseDto>(promotion);
         }
 
+        public async Task<PromotionResponseDto> GetPromotion(Guid code)
+        {
+            var promotion = await _promotionRepository.GetPromotionByIdAsync(code);
+            var promotionDto = _mapper.Map<PromotionResponseDto>(promotion);
+            return promotionDto;
+        }
+
         public async Task<List<PromotionResponseDto>> GetAllAsync()
         {
             var promotions = await _promotionRepository.GetAllPromotionAsync();
@@ -92,6 +99,22 @@ namespace E_Commerce.API.Services.Service
         {
             var query = _promotionRepository.GetFilteredPromotionsQuery(searchQuery, "name", false);
             return await query.CountAsync();
+        }
+
+        public async Task<PromotionResponseDto?> AddPromotion(PromotionRequestDto promotionAdd)
+        {
+            var promotion = _mapper.Map<Promotion>(promotionAdd);
+            var promotions = await GetAllAsync();
+            foreach (var i in promotions)
+            {
+                if (i.Code == promotionAdd.Code)
+                {
+                    return null;
+                }
+            }
+            var promotionDomain = await _promotionRepository.AddPromotionAsync(promotion);
+            var promotionDto = _mapper.Map<PromotionResponseDto>(promotionDomain);
+            return promotionDto;
         }
     }
 }
