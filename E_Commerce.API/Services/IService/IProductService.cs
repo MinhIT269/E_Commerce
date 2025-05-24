@@ -1,5 +1,4 @@
-﻿using E_Commerce.API.Models.Domain;
-using E_Commerce.API.Models.Requests;
+﻿using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Models.Responses;
 
 namespace E_Commerce.API.Services.IService
