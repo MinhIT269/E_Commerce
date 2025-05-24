@@ -1,5 +1,6 @@
 ﻿using E_Commerce.API.Models.Requests;
 using E_Commerce.API.Services.IService;
+using E_Commerce.API.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -141,6 +142,20 @@ namespace E_Commerce.API.Controllers
                 OrderSuccess = totalOrdersSuccess,
                 SumOrder = sumOrder
             });
+        }
+
+        [HttpGet("Statistics")]
+        public async Task<IActionResult> GetOrderStatistics(string period)
+        {
+            try
+            {
+                var stats = await _orderService.GetOrderStatistics(period);
+                return Ok(stats);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

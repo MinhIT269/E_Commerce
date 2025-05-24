@@ -21,5 +21,6 @@ namespace E_Commerce.API.Services.IService
         Task<int> TotalOrdersPendingByUser(string userId);
         Task<decimal> SumCompletedOrdersAmountByUser(string userId);
         Task<int> CountAllOrdersAsync(string userId, string searchQuery);
+        Task<Dictionary<string, decimal>> GetOrderStatistics(string period);
     }
 }

@@ -14,9 +14,8 @@ namespace E_Commerce.API.Repositories.Repository
         }
         public async Task<Promotion?> GetByCodeAsync(string code)
         {
-            return _context.Promotions
-                .AsEnumerable() 
-                .FirstOrDefault(p => p.Code!.Equals(code, StringComparison.Ordinal));
+            return await _context.Promotions
+                .FirstOrDefaultAsync(p => EF.Functions.Collate(p.Code!, "SQL_Latin1_General_CP1_CS_AS") == code);
         }
 
         public async Task<Promotion?> GetPromotionByIdAsync(Guid code)
