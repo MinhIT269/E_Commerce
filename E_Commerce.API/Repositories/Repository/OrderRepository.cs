@@ -2,6 +2,7 @@
 using E_Commerce.API.Models.Domain;
 using E_Commerce.API.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace E_Commerce.API.Repositories.Repository
 {
@@ -159,6 +160,66 @@ namespace E_Commerce.API.Repositories.Repository
             return await _context.Orders
                 .Where(o => o.Status == "done")
                 .SumAsync(o => o.TotalAmount);
+        }
+
+        public async Task<Dictionary<string, decimal>> GetOrderStatistics(string period)
+        {
+            var now = DateTime.Now;
+            IQueryable<Order> query = _context.Orders.Where(o => o.Status == "done"); // Lọc chỉ đơn hàng thành công
+
+            var statistics = new Dictionary<string, decimal>();
+
+            switch (period.ToLower())
+            {
+                case "week":
+                    var startOfWeek = now.AddDays(-(int)now.DayOfWeek);
+                    var ordersThisWeek = await query
+                        .Where(o => o.OrderDate >= startOfWeek)
+                        .ToListAsync(); 
+
+                    var grouped = ordersThisWeek
+                        .GroupBy(o => o.OrderDate!.Value.DayOfWeek)
+                        .Select(g => new { Day = g.Key, TotalAmount = g.Sum(o => o.TotalAmount) })
+                        .ToList();
+
+                    foreach (var day in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>())
+                    {
+                        var dayTotal = grouped.FirstOrDefault(g => g.Day == day)?.TotalAmount ?? 0;
+                        statistics[day.ToString()] = dayTotal;
+                    }
+                    break;
+
+                case "month":
+                    var ordersThisMonth = await query
+                        .Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Month == now.Month && o.OrderDate.Value.Year == now.Year)
+                        .GroupBy(o => o.OrderDate!.Value.Day)
+                        .Select(g => new { Day = g.Key, TotalAmount = g.Sum(o => o.TotalAmount) })
+                        .ToListAsync();
+
+                    for (int i = 1; i <= DateTime.DaysInMonth(now.Year, now.Month); i++)
+                    {
+                        statistics[i.ToString()] = ordersThisMonth.FirstOrDefault(o => o.Day == i)?.TotalAmount ?? 0;
+                    }
+                    break;
+
+                case "year":
+                    var ordersThisYear = await query
+                        .Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Year == now.Year)
+                        .GroupBy(o => o.OrderDate!.Value.Month)
+                        .Select(g => new { Month = g.Key, TotalAmount = g.Sum(o => o.TotalAmount) })
+                        .ToListAsync();
+
+                    for (int i = 1; i <= 12; i++)
+                    {
+                        statistics[CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)] = ordersThisYear.FirstOrDefault(o => o.Month == i)?.TotalAmount ?? 0;
+                    }
+                    break;
+
+                default:
+                    throw new ArgumentException("Invalid period. Allowed values are 'week', 'month', or 'year'.");
+            }
+
+            return statistics;
         }
     }
 }

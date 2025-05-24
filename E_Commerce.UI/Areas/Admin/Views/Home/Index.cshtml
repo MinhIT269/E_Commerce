@@ -87,7 +87,7 @@
                             </div> <!-- end card body -->
                             <div class="card-footer py-2 bg-light bg-opacity-50">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <a href="@Url.Action("IndexOrder", "Order")" class="text-reset fw-semibold fs-12">Xem thêm</a>
+                                    <a href="@Url.Action("Index", "Order")" class="text-reset fw-semibold fs-12">Xem thêm</a>
                                 </div>
                             </div> <!-- end card body -->
                         </div> <!-- end card -->
@@ -109,7 +109,7 @@
                             </div> <!-- end card body -->
                             <div class="card-footer py-2 bg-light bg-opacity-50">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <a href="@Url.Action("IndexOrder", "Order")" class="text-reset fw-semibold fs-12">Xem thêm</a>
+                                    <a href="@Url.Action("Index", "Order")" class="text-reset fw-semibold fs-12">Xem thêm</a>
                                 </div>
                             </div> <!-- end card body -->
                         </div> <!-- end card -->
@@ -131,7 +131,7 @@
                             </div> <!-- end card body -->
                             <div class="card-footer py-2 bg-light bg-opacity-50">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <a href="@Url.Action("IndexCustomer", "Customer")" class="text-reset fw-semibold fs-12">Xem thêm</a>
+                                    <a href="@Url.Action("Index", "Customer")" class="text-reset fw-semibold fs-12">Xem thêm</a>
                                 </div>
                             </div> <!-- end card body -->
                         </div> <!-- end card -->
@@ -185,6 +185,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         let orderChart;
+        const API_URL = "@ViewBag.ApiBaseUrl";
 
         // Tạo biểu đồ mặc định
         function createChart(labels = [], values = []) {
@@ -235,7 +236,7 @@
             errorMessage.textContent = ''; // Xóa lỗi cũ
 
             try {
-                const response = await fetch(`https://localhost:7069/api/Order/statistics?period=${period}`);
+                const response = await fetch(`${API_URL}/api/Orders/statistics?period=${period}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch data. Please check the API endpoint.');
                 }
@@ -277,7 +278,7 @@
         });
         async function loadOrdersStats() {
             try {
-                const response = await fetch("https://localhost:7069/api/Order/GetOrdersStats");
+                const response = await fetch(`${API_URL}/api/Orders/GetOrdersStats`);
                 const stats = await response.json();
                 console.log(stats);
                 document.getElementById('OrderSuccess').innerText = `${stats.orderSuccess}`;
@@ -293,7 +294,7 @@
         }
         async function loadUsersStats() {
             try {
-                const response = await fetch("https://localhost:7069/api/User/TotalUsers");
+                const response = await fetch(`${API_URL}/api/User/TotalUsers`);
                 const stats = await response.json();
                 console.log(stats);
                 document.getElementById('UserTotal').innerText = stats.totalUsers || 0;

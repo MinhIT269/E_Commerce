@@ -306,5 +306,9 @@ namespace E_Commerce.API.Services.Service
         {
             return await _orderRepository.SumCompletedOrdersAmountByUser(userId);
         }
+        public async Task<Dictionary<string, decimal>> GetOrderStatistics(string period)
+        {
+            return await _orderRepository.GetOrderStatistics(period);
+        }
     }
 }
