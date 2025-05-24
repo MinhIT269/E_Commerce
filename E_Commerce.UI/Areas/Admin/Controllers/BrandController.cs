@@ -1,6 +1,4 @@
-﻿using E_Commerce.UI.Helpers;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {

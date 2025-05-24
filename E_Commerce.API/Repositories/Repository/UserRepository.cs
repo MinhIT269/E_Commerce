@@ -1,5 +1,4 @@
 ﻿using E_Commerce.API.Models.Domain;
-using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,4 @@
-﻿using CloudinaryDotNet.Actions;
-using E_Commerce.API.Models.Domain;
+﻿using E_Commerce.API.Models.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

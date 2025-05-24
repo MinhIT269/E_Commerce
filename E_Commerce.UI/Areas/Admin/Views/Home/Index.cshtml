@@ -280,7 +280,6 @@
             try {
                 const response = await fetch(`${API_URL}/api/Orders/GetOrdersStats`);
                 const stats = await response.json();
-                console.log(stats);
                 document.getElementById('OrderSuccess').innerText = `${stats.orderSuccess}`;
                 const formattedTotalAmount = new Intl.NumberFormat('vi-VN', {
                     style: 'currency',
@@ -296,7 +295,6 @@
             try {
                 const response = await fetch(`${API_URL}/api/User/TotalUsers`);
                 const stats = await response.json();
-                console.log(stats);
                 document.getElementById('UserTotal').innerText = stats.totalUsers || 0;
             } catch (error) {
                 console.error("Failed to load user stats: ", error);

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace E_Commerce.API.Models.Requests
+﻿namespace E_Commerce.API.Models.Requests
 {
     public class ProductRequestDto
     {
