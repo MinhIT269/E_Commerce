@@ -1,4 +1,5 @@
 ﻿using E_Commerce.API.Models.Requests;
+using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Services.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,10 +48,14 @@ namespace E_Commerce.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            if (await _brandService.IsBrandNameExists(brandRequest.BrandName!))
+            {
+                return BadRequest("Tên thương hiệu đã tồn tại.");
+            }
             var success = await _brandService.CreateBrandAsync(brandRequest);
             if (!success)
                 return StatusCode(StatusCodes.Status500InternalServerError, "Tạo brand thất bại.");
-            return Ok("Tạo brand thành công.");
+            return Ok(new ApiMessageResponse { Message = "Tạo brand thành công."});
         }
 
         // PUT: api/Brands/{id}

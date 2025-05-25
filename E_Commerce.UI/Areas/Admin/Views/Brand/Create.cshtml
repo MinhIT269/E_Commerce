@@ -2,269 +2,144 @@
 <html lang="en">
 
 <head>
-	@await Html.PartialAsync("_Header")
+    @await Html.PartialAsync("_Header")
 </head>
 
 <body>
+    <!-- START Wrapper -->
+    <div class="wrapper">
+        <!-- ========== Topbar Start ========== -->
+        <header class="topbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="d-flex align-items-center">
+                        <!-- Menu Toggle Button -->
+                        <div class="topbar-item">
+                            <button type="button" class="button-toggle-menu me-2">
+                                <iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
+                            </button>
+                        </div>
 
-	<!-- START Wrapper -->
-	<div class="wrapper">
+                        <div class="topbar-item">
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Tạo Thương Hiệu</h4>
+                        </div>
+                    </div>
 
-		<!-- ========== Topbar Start ========== -->
-		<header class="topbar">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<div class="d-flex align-items-center">
-						<!-- Menu Toggle Button -->
-						<div class="topbar-item">
-							<button type="button" class="button-toggle-menu me-2">
-								<iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
-							</button>
-						</div>
+                    <div class="d-flex align-items-center gap-1">
+                        @await Html.PartialAsync("_Topbar")
+                    </div>
+                </div>
+            </div>
+        </header>
 
-						<!-- Menu Toggle Button -->
-						<div class="topbar-item">
-							<h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Tạo Thương Hiệu</h4>
-						</div>
-					</div>
+        <!-- Sidebar -->
+        @await Html.PartialAsync("_SidebarRight")
+        @await Html.PartialAsync("_SidebarMenu")
 
-					<div class="d-flex align-items-center gap-1">
+        <!-- Page Content -->
+        <div class="page-content">
+            <div class="container-xxl">
+                <div class="row">
+                    <form id="brand-form" method="post" enctype="multipart/form-data">
+                        <!-- Brand Information -->
+                        <div class="col-xl-9 col-lg-8 offset-xl-1">
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="alert alert-danger mt-3">
+                                    @foreach (var modelState in ViewData.ModelState.Values)
+                                    {
+                                        foreach (var error in modelState.Errors)
+                                        {
+                                            <p>@error.ErrorMessage</p>
+                                        }
+                                    }
+                                </div>
+                            }
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Thông Tin</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="brand-title" class="form-label fw-bold">Thương Hiệu Mới</label>
+                                                <input type="text" name="BrandName" id="brand-title" class="form-control" placeholder="Nhập tên" maxlength="110" required>
+                                                <small id="char-count" class="form-text text-muted">110 ký tự</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="creator" class="form-label fw-bold">Người Tạo</label>
+                                            <select class="form-control" id="creator" name="creator">
+                                                <option value="Admin">Admin</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mb-0">
+                                                <label for="description" class="form-label fw-bold">Mô Tả</label>
+                                                <textarea class="form-control bg-light-subtle" id="description" rows="7" maxlength="500" name="Description" placeholder="Chi tiết thương hiệu" required></textarea>
+                                                <small id="char-count-description" class="form-text text-muted">0/500 ký tự</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-						@await Html.PartialAsync("_Topbar")
+                        <!-- Submit Buttons -->
+                        <div class="col-xl-9 col-lg-8 offset-xl-1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="p-3 bg-light mb-3 rounded">
+                                        <div class="row justify-content-end g-2">
+                                            <div class="col-lg-4">
+                                                <button type="submit" class="btn btn-outline-secondary w-100">Tạo Thương Hiệu</button>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <button type="button" id="cancel-button" class="btn btn-primary w-100">Hủy</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-					</div>
-				</div>
-			</div>
-		</header>
+            <!-- Footer -->
+            @await Html.PartialAsync("_Footer")
+        </div>
+    </div>
 
-		<!-- Right Sidebar (Theme Settings) -->
-		@await Html.PartialAsync("_SidebarRight")
-		<!-- ========== Topbar End ========== -->
-		<!-- ========== App Menu Start ========== -->
-		@await Html.PartialAsync("_SidebarMenu")
-		<!-- ========== App Menu End ========== -->
-		<!-- ==================================================== -->
-		<!-- Start right Content here -->
-		<!-- ==================================================== -->
-		<div class="page-content">
+    <!-- Scripts -->
+    <script src="~/js/vendor.js"></script>
+    <script src="~/js/app.js"></script>
 
-			<!-- Start Container Fluid -->
-			<!-- Start Container Fluid -->
-			<div class="container-xxl">
-				<div class="row">
-					<form id="brand-form" method="post" enctype="multipart/form-data">
-						<!-- Brand Information Form -->
-						<div class="col-xl-9 col-lg-8 offset-xl-1">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title">Thông Tin</h4>
-								</div>
-								<div class="card-body">
-									<!-- Start of Single Form -->
+    <script>
+        const updateTextContent = (elementId, value, defaultText) => {
+            document.getElementById(elementId).textContent = value || defaultText;
+        };
 
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="mb-3">
-												<label for="brand-title" class="form-label fw-bold">Thương Hiệu Mới</label>
-												<input type="text" name="BrandName" id="brand-title" class="form-control" placeholder="Nhập tên" maxlength="110" required>
-												<small id="char-count" class="form-text text-muted">110 ký tự</small>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<label for="creator" class="form-label fw-bold">Người Tạo</label>
-											<select class="form-control" id="creator" name="creator">
-												<option value="Admin">Admin</option>
-											</select>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label for="description" class="form-label fw-bold">Mô Tả</label>
-												<textarea class="form-control bg-light-subtle" id="description" rows="7" maxlength="500" name="Description" placeholder="Chi tiết thương hiệu" required></textarea>
-												<small id="char-count-description" class="form-text text-muted">0/500 ký tự</small>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Locations Form -->
-						<div class="col-xl-9 col-lg-8 offset-xl-1" id="locations-container">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title">Địa Điểm</h4>
-								</div>
-								<div class="card-body">
-									<div id="location-forms">
-										<div class="location-item">
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="mb-3">
-														<label for="location-name" class="form-label fw-bold">Vị Trí</label>
-														<input type="text" name="Locations[0].Name" class="form-control" placeholder="Nhập vị trí" maxlength="180" required>
-														<small id="char-count" class="form-text text-muted">180 ký tự</small>
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="mb-3">
-														<label for="youtube-link" class="form-label fw-bold">Map Link</label>
-														<input type="url" name="Locations[0].YoutubeLink" class="form-control" placeholder="Nhập link map">
-													</div>
-												</div>
-												<div class="col-lg-12">
-													<div class="mb-3">
-														<label for="location-description" class="form-label fw-bold">Mô Tả</label>
-														<textarea class="form-control bg-light-subtle" rows="4" maxlength="360" name="Locations[0].Description" placeholder="Chi tiết vị trí" required></textarea>
-														<small id="char-count-description" class="form-text text-muted">360 ký tự</small>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<button type="button" onclick="addLocation()" class="btn btn-outline-secondary mt-3">Thêm Địa Điểm Khác</button>
-								</div>
-							</div>
-						</div>
+        // Đếm ký tự cho BrandName
+        document.getElementById("brand-title").addEventListener("input", e => {
+            updateTextContent("char-count", `${e.target.value.length}/110 ký tự`, "");
+        });
 
-						<div class="col-xl-9 col-lg-8 offset-xl-1">
-							<div class="card">
-								<div class="card-body">
-									<div class="p-3 bg-light mb-3 rounded">
-										<div class="row justify-content-end g-2">
-											<div class="col-lg-4">
-												<button type="submit" class="btn btn-outline-secondary w-100">Tạo Thương Hiệu</button>
-											</div>
-											<div class="col-lg-2">
-												<button type="button" id="cancel-button" class="btn btn-primary w-100">Hủy</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!-- End Container Fluid -->
-			<!-- ========== Footer Start ========== -->
-			@await Html.PartialAsync("_Footer")
-			<!-- ========== Footer End ========== -->
+        // Đếm ký tự cho Description
+        document.getElementById("description").addEventListener("input", e => {
+            updateTextContent("char-count-description", `${e.target.value.length}/500 ký tự`, "");
+        });
 
-		</div>
-		<!-- ==================================================== -->
-		<!-- End Page Content -->
-		<!-- ==================================================== -->
+        // Nút hủy
+        document.getElementById("cancel-button").addEventListener("click", function () {
+            const userConfirmed = confirm("Bạn có chắc chắn hủy");
 
-
-	</div>
-	<!-- END Wrapper -->
-	<!-- Vendor Javascript (Require in all Page) -->
-	<script src="~/js/vendor.js"></script>
-
-	<!-- App Javascript (Require in all Page) -->
-	<script src="~/js/app.js"></script>
-	<script>
-		let locationIndex = 1;
-		function addLocation() {
-			const container = document.getElementById("locations-container");
-			const newCard = document.createElement("div");
-
-			newCard.classList.add("card", "mt-4");
-			newCard.innerHTML = `
-				<div class="card-header">
-					<h4 class="card-title">Địa Điểm</h4>
-				</div>
-				<div class="card-body">
-					<div class="location-item">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="mb-3">
-									<label class="form-label fw-bold">Vị Trí</label>
-									<input type="text" name="Locations[${locationIndex}].Name" class="form-control location-name" placeholder="Nhập vị trí" maxlength="180" required>
-									<small class="form-text text-muted char-count">180 ký tự</small>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="mb-3">
-									<label class="form-label fw-bold">Map Link</label>
-									<input type="url" name="Locations[${locationIndex}].YoutubeLink" class="form-control" placeholder="Nhập link map">
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<div class="mb-3">
-									<label class="form-label fw-bold">Mô Tả</label>
-									<textarea class="form-control bg-light-subtle location-description" rows="4" maxlength="360" name="Locations[${locationIndex}].Description" placeholder="Chi tiết vị trí" required></textarea>
-									<small class="form-text text-muted description-char-count">0/360 ký tự</small>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Nút xóa địa điểm -->
-					<button type="button" class="btn btn-danger btn-sm mt-2" onclick="removeLocation(this)">Xóa Địa Điểm</button>
-				</div>
-			`;
-
-			container.appendChild(newCard);
-			locationIndex++;
-
-			// Gọi lại hàm updateCharacterCount() để gắn sự kiện cho các input mới
-			updateCharacterCount();
-		}
-
-		// Hàm xóa địa điểm
-		function removeLocation(button) {
-			const card = button.closest('.card');
-			card.remove();
-		}
-
-		const updateTextContent = (elementId, value, defaultText) => {
-			document.getElementById(elementId).textContent = value || defaultText;
-		};
-
-		// Xử lý cập nhật số ký tự cho input 'BrandName' và textarea 'Description'
-		document.getElementById("brand-title").addEventListener("input", e => {
-			updateTextContent("char-count", `${e.target.value.length}/110 ký tự`, "");
-		});
-
-		document.getElementById("description").addEventListener("input", e => {
-			updateTextContent("char-count-description", `${e.target.value.length}/500 ký tự`, "");
-		});
-
-		document.getElementById("cancel-button").addEventListener("click", function () {
-			var userConfirmed = confirm("Bạn có chắc chắn hủy");
-
-			if (userConfirmed) {
-				window.location.href = "/Admin/Brand/IndexBrand";
-			}
-		});
-
-		function updateCharacterCount() {
-			// Chọn tất cả các input có class 'location-name' và textarea có class 'location-description'
-			const inputFields = document.querySelectorAll('.location-name, .location-description');
-
-			inputFields.forEach(function (field) {
-				const charCountElement = field.closest('.mb-3').querySelector('.char-count, .description-char-count');
-
-				field.addEventListener('input', function () {
-					const maxLength = field.getAttribute('maxlength');
-					const currentLength = field.value.length;
-
-					// Cập nhật thông tin số ký tự còn lại
-					if (charCountElement) {
-						if (field.classList.contains('location-description')) {
-							charCountElement.textContent = `${currentLength}/360 ký tự`;
-						} else {
-							charCountElement.textContent = `${180 - currentLength} ký tự còn lại`;
-						}
-					}
-				});
-			});
-		}
-
-		// Gọi hàm khi load trang để gắn sự kiện cho các input đã có
-		document.addEventListener('DOMContentLoaded', function () {
-			updateCharacterCount();
-		});
-	</script>
+            if (userConfirmed) {
+                window.location.href = "/Admin/Brand";
+            }
+        });
+    </script>
 </body>
 
 </html>
