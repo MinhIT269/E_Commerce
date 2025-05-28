@@ -3,7 +3,7 @@
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ReviewController : Controller
+    public class ReviewController : AdminBaseController
     {
         public IActionResult Index()
         {

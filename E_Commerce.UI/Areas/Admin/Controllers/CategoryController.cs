@@ -6,7 +6,7 @@ using E_Commerce.UI.Helpers;
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class CategoryController : AdminBaseController
     {
         private readonly IConfiguration _config;
         private readonly ApiRequestHelper _apiRequestHelper;

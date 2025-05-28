@@ -6,7 +6,7 @@ using E_Commerce.UI.Models.Requests;
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BrandController : Controller
+    public class BrandController : AdminBaseController
     {
         private readonly IConfiguration _config;
         private readonly ApiRequestHelper _apiRequestHelper;

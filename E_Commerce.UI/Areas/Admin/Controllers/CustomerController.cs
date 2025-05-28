@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CustomerController : Controller
+    public class CustomerController : AdminBaseController
     {
         private readonly IConfiguration _configuration;
         private readonly ApiRequestHelper _apiHelper;

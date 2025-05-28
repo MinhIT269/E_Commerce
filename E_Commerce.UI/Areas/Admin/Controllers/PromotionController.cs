@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PromotionController : Controller
+    public class PromotionController : AdminBaseController
     {
         private readonly IConfiguration _configuration;
         private readonly ApiRequestHelper _apiRequestHelper;
