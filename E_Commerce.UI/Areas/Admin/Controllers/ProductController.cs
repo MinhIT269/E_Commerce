@@ -9,7 +9,7 @@ using System.Text.Json;
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductController : Controller
+    public class ProductController : AdminBaseController
     {
         private readonly IConfiguration _config;
         private readonly ApiRequestHelper _apiHelper;

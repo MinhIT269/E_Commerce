@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Minh Nguyen Technology</title>
+
+    <meta name="description" content="Minh Nguyen Technology eCommerce">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/assets/images/icons/favicon.png">
+
+
+    <script>
+        WebFontConfig = {
+            google: {
+                families: ['Open+Sans:300,400,600,700', 'Poppins:300,400,500,600,700,800', 'Oswald:300,400,500,600,700,800', 'Playfair+Display:900', 'Shadows+Into+Light:400']
+            }
+        };
+        (function(d) {
+            var wf = d.createElement('script'),
+                s = d.scripts[0];
+            wf.src = '@Url.Content("~/assets/js/webfont.js")';
+            wf.async = true;
+            s.parentNode.insertBefore(wf, s);
+        })(document);
+    </script>
+
+    <!-- Vendor css (Required on all Pages) -->
+    <link href="~/css/vendor.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/js/config.js"></script>
+</head>
+<body class="h-100">
+    <div class="text-center mt-5">
+        <h1 class="display-4 text-danger">403 - Access Denied</h1>
+        <p class="lead">Bạn không có quyền truy cập vào trang này.</p>
+        <a href="/" class="btn btn-primary mt-3">Quay về trang chủ</a>
+    </div>
+</body>
+</html>

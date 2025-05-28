@@ -1,159 +1,57 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Headers;
 using System.Text;
-using System.Net.Http.Headers;
+using System.Text.Json;
 
-namespace E_Commerce.UI.Helpers
+namespace E_Commerce.UI.Helpers;
+
+public class ApiRequestHelper
 {
-    public class ApiRequestHelper
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly string _baseUrl;
+
+    public ApiRequestHelper(IHttpClientFactory httpClientFactory, IConfiguration config, IHttpContextAccessor httpContextAccessor)
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly string _baseUrl;
+        _httpClientFactory = httpClientFactory;
+        _httpContextAccessor = httpContextAccessor;
+        _baseUrl = config["ApiSettings:BaseUrl"]!;
+    }
 
-        public ApiRequestHelper(IHttpClientFactory httpClientFactory, IConfiguration config, IHttpContextAccessor httpContextAccessor)
+    private HttpClient CreateClient()
+    {
+        var client = _httpClientFactory.CreateClient();
+        var token = _httpContextAccessor.HttpContext?.Request.Cookies["JwtToken"];
+        if (!string.IsNullOrEmpty(token))
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        return client;
+    }
+
+    private async Task<T?> SendAsync<T>(HttpMethod method, string relativeUrl, object? data = null)
+    {
+        try
         {
-            _httpClientFactory = httpClientFactory;
-            _baseUrl = config["ApiSettings:BaseUrl"]!;
-            _httpContextAccessor = httpContextAccessor;
+            var client = CreateClient();
+            var request = new HttpRequestMessage(method, $"{_baseUrl}{relativeUrl}");
+
+            if (data != null)
+            {
+                var json = JsonSerializer.Serialize(data);
+                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+            }
+
+            var response = await client.SendAsync(request);
+            return response.IsSuccessStatusCode
+                ? await response.Content.ReadFromJsonAsync<T>()
+                : default;
         }
-
-        public async Task<T?> SendGetRequestAsync<T>(string relativeUrl)
+        catch
         {
-            try
-            {
-                var token = _httpContextAccessor.HttpContext?.Request.Cookies["JwtToken"];
-                var client = _httpClientFactory.CreateClient();
-
-                if (!string.IsNullOrEmpty(token))
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                }
-
-                var httpMessage = new HttpRequestMessage()
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri($"{_baseUrl}{relativeUrl}")
-                };
-
-                var httpResponse = await client.SendAsync(httpMessage);
-                if (!httpResponse.IsSuccessStatusCode)
-                {
-                    return default;
-                }
-
-                return await httpResponse.Content.ReadFromJsonAsync<T>();
-            }
-            catch (Exception)
-            {
-                return default;
-            }
-        }
-
-        public async Task<T?> SendPostRequestAsync<T>(string relativeUrl, object data)
-        {
-            try
-            {
-                var token = _httpContextAccessor.HttpContext?.Request.Cookies["JwtToken"];
-                var client = _httpClientFactory.CreateClient();
-
-                if (!string.IsNullOrEmpty(token))
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                }
-
-                var content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
-                var httpMessage = new HttpRequestMessage()
-                {
-                    Method = HttpMethod.Post,
-                    RequestUri = new Uri($"{_baseUrl}{relativeUrl}"),
-                    Content = content
-                };
-
-                var httpResponse = await client.SendAsync(httpMessage);
-                if (!httpResponse.IsSuccessStatusCode)
-                {
-                    return default;
-                }
-
-                return await httpResponse.Content.ReadFromJsonAsync<T>();
-            }
-            catch (Exception)
-            {
-                return default;
-            }
-        }
-   
-        public async Task<T?> SendDeleteRequestAsync<T>(string relativeUrl, object data)
-        {
-            try
-            {
-                var token = _httpContextAccessor.HttpContext?.Request.Cookies["JwtToken"];
-                var client = _httpClientFactory.CreateClient();
-
-                if (!string.IsNullOrEmpty(token))
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                }
-
-                var request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Delete,
-                    RequestUri = new Uri($"{_baseUrl}{relativeUrl}")
-                };
-
-                if (data != null)
-                {
-                    var json = JsonSerializer.Serialize(data);
-                    request.Content = new StringContent(json, Encoding.UTF8, "application/json");
-                }
-
-                var response = await client.SendAsync(request);
-
-                if (!response.IsSuccessStatusCode)
-                    return default;
-
-                return await response.Content.ReadFromJsonAsync<T>();
-            }
-            catch
-            {
-                return default;
-            }
-        }
-
-        public async Task<T?> SendPutRequestAsync<T>(string relativeUrl, object data)
-        {
-            try
-            {
-                var token = _httpContextAccessor.HttpContext?.Request.Cookies["JwtToken"];
-                var client = _httpClientFactory.CreateClient();
-
-                if (!string.IsNullOrEmpty(token))
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                }
-
-                var content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
-
-                var httpMessage = new HttpRequestMessage()
-                {
-                    Method = HttpMethod.Put,
-                    RequestUri = new Uri($"{_baseUrl}{relativeUrl}"),
-                    Content = content
-                };
-
-                var httpResponse = await client.SendAsync(httpMessage);
-
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    return await httpResponse.Content.ReadFromJsonAsync<T>();
-                }
-
-                return default;
-            }
-            catch (Exception)
-            {
-                return default;
-            }
+            return default;
         }
     }
+
+    public Task<T?> SendGetRequestAsync<T>(string url) => SendAsync<T>(HttpMethod.Get, url);
+    public Task<T?> SendPostRequestAsync<T>(string url, object data) => SendAsync<T>(HttpMethod.Post, url, data);
+    public Task<T?> SendPutRequestAsync<T>(string url, object data) => SendAsync<T>(HttpMethod.Put, url, data);
+    public Task<T?> SendDeleteRequestAsync<T>(string url, object data) => SendAsync<T>(HttpMethod.Delete, url, data);
 }

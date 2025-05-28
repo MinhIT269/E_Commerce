@@ -114,12 +114,12 @@ namespace E_Commerce.API.Services.Service
 
             response.IsLogedIn = true;
             response.JwtToken = _tokenService.CreateJWTToken(user, roles.ToList());
-            /*response.RefreshToken = _tokenService.CreateRefreshToken();
+            response.RefreshToken = _tokenService.CreateRefreshToken();
 
             user.RefreshToken = response.RefreshToken;
             user.RefreshTokenExpiryTime = System.DateTime.Now.AddDays(7);
-            await _userRepository.UpdateAsync(user);*/
-            response.RefreshToken = user.RefreshToken;
+            await _userRepository.UpdateAsync(user);
+            //response.RefreshToken = user.RefreshToken;
 
             return response;
         }

@@ -6,7 +6,7 @@ using Rotativa.AspNetCore;
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class OrderController : Controller
+    public class OrderController : AdminBaseController
     {
         private readonly IConfiguration _config;
         private readonly ApiRequestHelper _apiHelper;

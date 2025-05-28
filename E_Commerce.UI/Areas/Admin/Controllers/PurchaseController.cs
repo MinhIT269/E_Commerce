@@ -3,7 +3,7 @@
 namespace E_Commerce.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PurchaseController : Controller
+    public class PurchaseController : AdminBaseController
     {
         private readonly IConfiguration _config;
         public PurchaseController(IConfiguration configuration)
