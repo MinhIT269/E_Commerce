@@ -62,14 +62,26 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <input id="password" name="Password" type="password" class="form-control" placeholder="Nhập mật khẩu của bạn" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$" title="Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường và 1 con số">
+                                            <input id="password"
+                                                   name="Password"
+                                                   type="password"
+                                                   class="form-control"
+                                                   placeholder="Nhập mật khẩu của bạn"
+                                                   required
+                                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+                                                   title="Mật khẩu phải có ít nhất 8 ký tự, gồm ít nhất 1 chữ hoa, 1 chữ thường và 1 con số.">
                                         </div>
 
                                         <div class="mb-3">
-                                            <input id="confirmPassword" name="ConfirmPassword" class="form-control" placeholder="Nhập lại mật khẩu của bạn" required type="password" />
-                                            <span id="confirmPasswordError" class="text-danger"></span>
+                                            <input id="confirmPassword"
+                                                   name="ConfirmPassword"
+                                                   type="password"
+                                                   class="form-control"
+                                                   placeholder="Nhập lại mật khẩu của bạn"
+                                                   required
+                                                   oninput="validateConfirmPassword()">
+                                            <span id="confirmPasswordError" class="text-danger small"></span>
                                         </div>
-
                                         <div class="mb-3">
                                             <div class="form-check">
                                                 <input type="checkbox" class="form-check-input" id="checkbox-signup" required />

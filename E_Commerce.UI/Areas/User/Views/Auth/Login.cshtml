@@ -64,7 +64,13 @@
                                             <input name="UserName" type="email" class="form-control" placeholder="Nhập tên người dùng" required>
                                         </div>
                                         <div class="mb-4">
-                                            <input name="Password" type="password" class="form-control" placeholder="Nhập mật khẩu của bạn" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$" title="Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường và 1 con số">
+                                            <input name="Password"
+                                                   type="password"
+                                                   class="form-control"
+                                                   placeholder="Nhập mật khẩu của bạn"
+                                                   required
+                                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+                                                   title="Mật khẩu phải có ít nhất 8 ký tự, gồm ít nhất 1 chữ hoa, 1 chữ thường và 1 số.">
                                         </div>
                                         <div class="mb-1 text-center d-grid">
                                             <button class="btn btn-soft-primary mb-2" type="submit">Đăng Nhập</button>
@@ -75,7 +81,6 @@
                                 <p class="text-danger text-center">
                                     Don't have an account? <a href="@Url.Action("Register", "Auth")" class="text-dark fw-bold ms-1">Đăng ký</a>
                                 </p>
-
                             </div>
                         </div>
                     </div>
