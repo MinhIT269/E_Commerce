@@ -1,77 +1,77 @@
 ﻿@using E_Commerce.UI.Models.Responses
 @model HomeViewModel
 
-    <div class="page-wrapper">
-        <header class="header home">
-            @await Component.InvokeAsync("Header")
-        </header>
-        <!-- End .header -->
+<div class="page-wrapper">
+    <header class="header home">
+        @await Component.InvokeAsync("Header")
+    </header>
+    <!-- End .header -->
 
-        <main class="main home">
-            <div class="container mb-2">
-                <div class="info-boxes-container row row-joined mb-2 font2">
-                    <div class="info-box info-box-icon-left col-lg-4">
-                        <i class="icon-shipping"></i>
+    <main class="main home">
+        <div class="container mb-2">
+            <div class="info-boxes-container row row-joined mb-2 font2">
+                <div class="info-box info-box-icon-left col-lg-4">
+                    <i class="icon-shipping"></i>
 
-                        <div class="info-box-content">
-                            <h4>MIỄN PHÍ VẬN CHUYỂN &amp; HOÀN TRẢ</h4>
-                            <p class="text-body">Miễn phí vận chuyển cho đơn hàng trên 900.000đ</p>
-                        </div>
-                        <!-- End .info-box-content -->
+                    <div class="info-box-content">
+                        <h4>MIỄN PHÍ VẬN CHUYỂN &amp; HOÀN TRẢ</h4>
+                        <p class="text-body">Miễn phí vận chuyển cho đơn hàng trên 900.000đ</p>
                     </div>
-                    <!-- End .info-box -->
-
-                    <div class="info-box info-box-icon-left col-lg-4">
-                        <i class="icon-money"></i>
-
-                        <div class="info-box-content">
-                            <h4>CAM KẾT HOÀN TIỀN</h4>
-                            <p class="text-body">Cam kết hoàn tiền 100%</p>
-                        </div>
-                        <!-- End .info-box-content -->
-                    </div>
-                    <!-- End .info-box -->
-
-                    <div class="info-box info-box-icon-left col-lg-4">
-                        <i class="icon-support"></i>
-
-                        <div class="info-box-content">
-                            <h4>HỖ TRỢ TRỰC TUYẾN 24/7</h4>
-                            <p class="text-body">Chúng tôi luôn sẵn sàng hỗ trợ bạn mọi lúc mọi nơi.</p>
-                        </div>
-                        <!-- End .info-box-content -->
-                    </div>
-                    <!-- End .info-box -->
+                    <!-- End .info-box-content -->
                 </div>
+                <!-- End .info-box -->
+
+                <div class="info-box info-box-icon-left col-lg-4">
+                    <i class="icon-money"></i>
+
+                    <div class="info-box-content">
+                        <h4>CAM KẾT HOÀN TIỀN</h4>
+                        <p class="text-body">Cam kết hoàn tiền 100%</p>
+                    </div>
+                    <!-- End .info-box-content -->
+                </div>
+                <!-- End .info-box -->
+
+                <div class="info-box info-box-icon-left col-lg-4">
+                    <i class="icon-support"></i>
+
+                    <div class="info-box-content">
+                        <h4>HỖ TRỢ TRỰC TUYẾN 24/7</h4>
+                        <p class="text-body">Chúng tôi luôn sẵn sàng hỗ trợ bạn mọi lúc mọi nơi.</p>
+                    </div>
+                    <!-- End .info-box-content -->
+                </div>
+                <!-- End .info-box -->
+            </div>
 
 
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="home-slider slide-animate owl-carousel owl-theme mb-2" data-owl-options="{
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="home-slider slide-animate owl-carousel owl-theme mb-2" data-owl-options="{
                         'loop': false,
                         'dots': true,
                         'nav': false
                         }">
-                            <div class="home-slide home-slide1 banner banner-md-vw banner-sm-vw d-flex align-items-center">
-                                <img class="slide-bg" style="background-color: #2699D0;" src="~/assets/images/demoes/demo1/slider/slide-1.png" width="880" height="428" alt="home-slider">
-                                <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
-                                    <h4 class="text-white mb-0">Khám Phá Công Nghệ Mới, Sở Hữu Ngay!</h4>
-                                    <h2 class="text-white mb-0">Giảm Giá Mùa Hè</h2>
-                                    <h2 class="text-white m-b-3">Lên Tới 70%</h2>
-                                    <h5 class="text-white text-uppercase d-inline-block mb-0 ls-n-20 align-text-bottom">
-                                        Bắt Đầu Từ <b class="coupon-sale-text bg-secondary text-white d-inline-block">
-                                            <em class="align-text-top">300</em>.000 VND
-                                        </b>
-                                    </h5>
-                                    <a href="demo1-shop.html" class="btn btn-dark btn-md ls-10">Mua Ngay!</a>
-                                </div>
-                                <!-- End .banner-layer -->
+                        <div class="home-slide home-slide1 banner banner-md-vw banner-sm-vw d-flex align-items-center">
+                            <img class="slide-bg" style="background-color: #2699D0;" src="~/assets/images/demoes/demo1/slider/slide-1.png" width="880" height="428" alt="home-slider">
+                            <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
+                                <h4 class="text-white mb-0">Khám Phá Công Nghệ Mới, Sở Hữu Ngay!</h4>
+                                <h2 class="text-white mb-0">Giảm Giá Mùa Hè</h2>
+                                <h2 class="text-white m-b-3">Lên Tới 70%</h2>
+                                <h5 class="text-white text-uppercase d-inline-block mb-0 ls-n-20 align-text-bottom">
+                                    Bắt Đầu Từ <b class="coupon-sale-text bg-secondary text-white d-inline-block">
+                                        <em class="align-text-top">300</em>.000 VND
+                                    </b>
+                                </h5>
+                                <a href="demo1-shop.html" class="btn btn-dark btn-md ls-10">Mua Ngay!</a>
                             </div>
-                            <!-- End .home-slide -->
+                            <!-- End .banner-layer -->
                         </div>
-                        <!-- End .home-slider -->
+                        <!-- End .home-slide -->
+                    </div>
+                    <!-- End .home-slider -->
 
-                        <div class="banners-container m-b-2 owl-carousel owl-theme" data-owl-options="{
+                    <div class="banners-container m-b-2 owl-carousel owl-theme" data-owl-options="{
                         'dots': false,
                         'margin': 20,
                         'loop': false,
@@ -84,54 +84,54 @@
                         }
                         }
                         }">
-                            <div class="banner banner1 banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
-                                <figure class="w-100">
-                                    <img src="~/assets/images/demoes/demo1/banners/banner-1.jpg" style="background-color: #dadada;" alt="banner">
-                                </figure>
-                                <div class="banner-layer">
-                                    <h3 class="m-b-2">Porto Watches</h3>
-                                    <h4 class="m-b-4 text-primary"><sup class="text-dark"><del>20%</del></sup>30%<sup>OFF</sup></h4>
-                                    <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
-                                </div>
+                        <div class="banner banner1 banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
+                            <figure class="w-100">
+                                <img src="~/assets/images/demoes/demo1/banners/banner-1.jpg" style="background-color: #dadada;" alt="banner">
+                            </figure>
+                            <div class="banner-layer">
+                                <h3 class="m-b-2">Porto Watches</h3>
+                                <h4 class="m-b-4 text-primary"><sup class="text-dark"><del>20%</del></sup>30%<sup>OFF</sup></h4>
+                                <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
                             </div>
-                            <!-- End .banner -->
-                            <div class="banner banner2 text-uppercase banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInUpShorter" data-animation-delay="200">
-                                <figure class="w-100">
-                                    <img src="~/assets/images/demoes/demo1/banners/banner-2.jpg" style="background-color: #dadada;" alt="banner">
-                                </figure>
-                                <div class="banner-layer text-center">
-                                    <h3 class="m-b-1 ls-n-20">Deal Promos</h3>
-                                    <h4 class="text-body">Starting at $99</h4>
-                                    <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
-                                </div>
-                            </div>
-                            <!-- End .banner -->
-                            <div class="banner banner3 banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="500">
-                                <figure class="w-100">
-                                    <img src="~/assets/images/demoes/demo1/banners/banner-3.jpg" style="background-color: #dadada;" alt="banner">
-                                </figure>
-                                <div class="banner-layer text-right">
-                                    <h3 class="m-b-2">Handbags</h3>
-                                    <h4 class="mb-3 text-secondary text-uppercase">Starting at $99</h4>
-                                    <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
-                                </div>
-                            </div>
-                            <!-- End .banner -->
                         </div>
+                        <!-- End .banner -->
+                        <div class="banner banner2 text-uppercase banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInUpShorter" data-animation-delay="200">
+                            <figure class="w-100">
+                                <img src="~/assets/images/demoes/demo1/banners/banner-2.jpg" style="background-color: #dadada;" alt="banner">
+                            </figure>
+                            <div class="banner-layer text-center">
+                                <h3 class="m-b-1 ls-n-20">Deal Promos</h3>
+                                <h4 class="text-body">Starting at $99</h4>
+                                <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
+                            </div>
+                        </div>
+                        <!-- End .banner -->
+                        <div class="banner banner3 banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="500">
+                            <figure class="w-100">
+                                <img src="~/assets/images/demoes/demo1/banners/banner-3.jpg" style="background-color: #dadada;" alt="banner">
+                            </figure>
+                            <div class="banner-layer text-right">
+                                <h3 class="m-b-2">Handbags</h3>
+                                <h4 class="mb-3 text-secondary text-uppercase">Starting at $99</h4>
+                                <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
+                            </div>
+                        </div>
+                        <!-- End .banner -->
+                    </div>
 
-                        <h2 class="section-title ls-n-10 m-b-4 appear-animate" data-animation-name="fadeInUpShorter">
-                            MÁY TÍNH XÁCH TAY
-                        </h2>
-                        @{
-                            var laptopBlock = Model.CategoryBlocks?.FirstOrDefault(x => x.CategoryName == "Laptop");
-                        }
-                        @if (Model.CategoryBlocks != null)
-                        {
-                            @await Html.PartialAsync("_ProductSlider", laptopBlock?.Products)
-                        }
-                        <!-- End .featured-proucts -->
+                    <h2 class="section-title ls-n-10 m-b-4 appear-animate" data-animation-name="fadeInUpShorter">
+                        MÁY TÍNH XÁCH TAY
+                    </h2>
+                    @{
+                        var laptopBlock = Model.CategoryBlocks?.FirstOrDefault(x => x.CategoryName == "Laptop");
+                    }
+                    @if (Model.CategoryBlocks != null)
+                    {
+                        @await Html.PartialAsync("_ProductSlider", laptopBlock?.Products)
+                    }
+                    <!-- End .featured-proucts -->
 
-                        <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="700" data-owl-options="{
+                    <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="700" data-owl-options="{
                             'margin': 0,
                             'responsive': {
                                 '768': {
@@ -145,298 +145,298 @@
                                 }
                             }
                         }">
-                            <img src="~/assets/images/brands/small/DELL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/ASUS.jfif" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/HP.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/JBL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/Apple.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/MSI.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/GIGABYTE.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/ACER.png" width="140" height="60" style="width:140px; height:55px" alt="brand">
-                            <img src="~/assets/images/brands/small/SONY.png" width="140" height="60" style="width:140px; height:55px" alt="brand">
-                            <img src="~/assets/images/brands/small/LG.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/LENOVO.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
-                            <img src="~/assets/images/brands/small/MICROSOFT.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/DELL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/ASUS.jfif" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/HP.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/JBL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/Apple.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/MSI.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/GIGABYTE.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/ACER.png" width="140" height="60" style="width:140px; height:55px" alt="brand">
+                        <img src="~/assets/images/brands/small/SONY.png" width="140" height="60" style="width:140px; height:55px" alt="brand">
+                        <img src="~/assets/images/brands/small/LG.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/LENOVO.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                        <img src="~/assets/images/brands/small/MICROSOFT.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
+                    </div>
+                    <!-- End .brands-slider -->
+
+                    <h2 class="section-title ls-n-10 m-b-4 appear-animate" data-animation-name="fadeInUpShorter">
+                        PC
+                    </h2>
+
+                    @{
+                        var pcBlock = Model.CategoryBlocks?.FirstOrDefault(x => x.CategoryName == "PC");
+                    }
+                    @if (pcBlock != null)
+                    {
+                        @await Html.PartialAsync("_ProductSlider", pcBlock.Products)
+                    }
+                    <!-- End .featured-proucts -->
+
+                    <h2 class="section-title ls-n-10 m-b-4 appear-animate" data-animation-name="fadeInUpShorter">
+                        LOA, TAI NGHE, WEBCAM, HỘI NGHỊ
+                    </h2>
+
+                    @{
+                        var headphoneBlock = Model.CategoryBlocks?.FirstOrDefault(x => x.CategoryName == "Headphone");
+                    }
+                    @if (headphoneBlock != null)
+                    {
+                        @await Html.PartialAsync("_ProductSlider", headphoneBlock.Products)
+                    }
+                    <!-- End .featured-proucts -->
+
+
+                    <div class="row products-widgets">
+                        <div class="col-sm-6 col-md-4 pb-4 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="200">
+                            <div class="product-column">
+                                <h3 class="section-sub-title ls-n-20">Top Sản Phẩm Được Đánh Giá</h3>
+
+                                <div class="product-default left-details product-widget">
+                                    <figure>
+                                        <a href="demo1-product.html">
+                                            <img src="~/assets/images/demoes/demo1/products/small/product-4.jpg" width="84" height="84" alt="product">
+                                            <img src="~/assets/images/demoes/demo1/products/small/product-4-2.jpg" width="84" height="84" alt="product">
+                                        </a>
+                                    </figure>
+                                    <div class="product-details">
+                                        <h3 class="product-title">
+                                            <a href="demo1-product.html">
+                                                Porto Extended
+                                                Camera
+                                            </a>
+                                        </h3>
+                                        <div class="ratings-container">
+                                            <div class="product-ratings">
+                                                <span class="ratings" style="width:100%"></span>
+                                                <!-- End .ratings -->
+                                                <span class="tooltiptext tooltip-top"></span>
+                                            </div>
+                                            <!-- End .product-ratings -->
+                                        </div>
+                                        <!-- End .product-container -->
+                                        <div class="price-box">
+                                            <span class="product-price">$49.00</span>
+                                        </div>
+                                        <!-- End .price-box -->
+                                    </div>
+                                    <!-- End .product-details -->
+                                </div>
+                            </div>
+                            <!-- End .product-column -->
                         </div>
-                        <!-- End .brands-slider -->
+                        <!-- End .col-md-4 -->
 
-                        <h2 class="section-title ls-n-10 m-b-4 appear-animate" data-animation-name="fadeInUpShorter">
-                           PC
-                        </h2>
+                        <div class="col-sm-6 col-md-4 pb-4 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
+                            <div class="product-column">
+                                <h3 class="section-sub-title ls-n-20">Sản Phẩm Bán Chạy Nhất</h3>
 
-                        @{
-                            var pcBlock = Model.CategoryBlocks?.FirstOrDefault(x => x.CategoryName == "PC");
-                        }
-                        @if (pcBlock != null)
-                        {
-                            @await Html.PartialAsync("_ProductSlider", pcBlock.Products)
-                        }
-                        <!-- End .featured-proucts -->
-
-                        <h2 class="section-title ls-n-10 m-b-4 appear-animate" data-animation-name="fadeInUpShorter">
-                            LOA, TAI NGHE, WEBCAM, HỘI NGHỊ
-                        </h2>
-
-                        @{
-                            var headphoneBlock = Model.CategoryBlocks?.FirstOrDefault(x => x.CategoryName == "Headphone");
-                        }
-                        @if (headphoneBlock != null)
-                        {
-                            @await Html.PartialAsync("_ProductSlider", headphoneBlock.Products)
-                        }
-                        <!-- End .featured-proucts -->
-
-
-                        <div class="row products-widgets">
-                            <div class="col-sm-6 col-md-4 pb-4 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="200">
-                                <div class="product-column">
-                                    <h3 class="section-sub-title ls-n-20">Top Sản Phẩm Được Đánh Giá</h3>
-
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="demo1-product.html">
-                                                <img src="~/assets/images/demoes/demo1/products/small/product-4.jpg" width="84" height="84" alt="product">
-                                                <img src="~/assets/images/demoes/demo1/products/small/product-4-2.jpg" width="84" height="84" alt="product">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-title">
-                                                <a href="demo1-product.html">
-                                                    Porto Extended
-                                                    Camera
-                                                </a>
-                                            </h3>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span>
-                                                    <!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <!-- End .product-ratings -->
+                                <div class="product-default left-details product-widget ">
+                                    <figure>
+                                        <a href="demo1-product.html">
+                                            <img src="~/assets/images/demoes/demo1/products/small/product-2.jpg" width="84" height="84" alt="product">
+                                        </a>
+                                    </figure>
+                                    <div class="product-details">
+                                        <h3 class="product-title">
+                                            <a href="demo1-product.html">Battery Charger</a>
+                                        </h3>
+                                        <div class="ratings-container">
+                                            <div class="product-ratings">
+                                                <span class="ratings" style="width:100%"></span>
+                                                <!-- End .ratings -->
+                                                <span class="tooltiptext tooltip-top"></span>
                                             </div>
-                                            <!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div>
-                                            <!-- End .price-box -->
+                                            <!-- End .product-ratings -->
                                         </div>
-                                        <!-- End .product-details -->
+                                        <!-- End .product-container -->
+                                        <div class="price-box">
+                                            <span class="product-price">$49.00</span>
+                                        </div>
+                                        <!-- End .price-box -->
                                     </div>
+                                    <!-- End .product-details -->
                                 </div>
-                                <!-- End .product-column -->
+                            </div>
+                            <!-- End .product-column -->
+                        </div>
+                        <!-- End .col-md-4 -->
+
+                        <div class="col-sm-6 col-md-4 pb-4 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
+                            <div class="product-column">
+                                <h3 class="section-sub-title ls-n-20">Sản Phẩm Mới Nhất</h3>
+
+                                <div class="product-default left-details product-widget ">
+                                    <figure>
+                                        <a href="demo1-product.html">
+                                            <img src="~/assets/images/demoes/demo1/products/small/product-9.jpg" width="84" height="84" alt="product">
+                                            <img src="~/assets/images/demoes/demo1/products/small/product-9-2.jpg" width="84" height="84" alt="product">
+                                        </a>
+                                    </figure>
+                                    <div class="product-details">
+                                        <h3 class="product-title">
+                                            <a href="demo1-product.html">
+                                                Ultimate 3D
+                                                Bluetooth Speaker
+                                            </a>
+                                        </h3>
+                                        <div class="ratings-container">
+                                            <div class="product-ratings">
+                                                <span class="ratings" style="width:100%"></span>
+                                                <!-- End .ratings -->
+                                                <span class="tooltiptext tooltip-top"></span>
+                                            </div>
+                                            <!-- End .product-ratings -->
+                                        </div>
+                                        <!-- End .product-container -->
+                                        <div class="price-box">
+                                            <span class="product-price">$49.00</span>
+                                        </div>
+                                        <!-- End .price-box -->
+                                    </div>
+                                    <!-- End .product-details -->
+                                </div>
+                            </div>
+                            <!-- End .product-column -->
+                        </div>
+                        <!-- End .col-md-4 -->
+                    </div>
+                    <!-- End .row -->
+
+                    <hr class="mt-1 mb-3 pb-2">
+
+                    <div class="feature-boxes-container">
+                        <div class="row">
+                            <div class="col-md-4 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="200">
+                                <div class="feature-box  feature-box-simple text-center">
+                                    <i class="icon-earphones-alt"></i>
+
+                                    <div class="feature-box-content p-0">
+                                        <h3 class="mb-0 pb-1">Hỗ Trợ Khách Hàng</h3>
+                                        <h5 class="mb-1 pb-1">Luôn sẵn sàng trợ giúp</h5>
+
+                                        <p>Đội ngũ chăm sóc khách hàng nhiệt tình, sẵn sàng hỗ trợ bạn mọi lúc, mọi nơi.</p>
+                                    </div>
+                                    <!-- End .feature-box-content -->
+                                </div>
+                                <!-- End .feature-box -->
                             </div>
                             <!-- End .col-md-4 -->
 
-                            <div class="col-sm-6 col-md-4 pb-4 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
-                                <div class="product-column">
-                                    <h3 class="section-sub-title ls-n-20">Sản Phẩm Bán Chạy Nhất</h3>
+                            <div class="col-md-4 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="400">
+                                <div class="feature-box feature-box-simple text-center">
+                                    <i class="icon-credit-card"></i>
 
-                                    <div class="product-default left-details product-widget ">
-                                        <figure>
-                                            <a href="demo1-product.html">
-                                                <img src="~/assets/images/demoes/demo1/products/small/product-2.jpg" width="84" height="84" alt="product">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-title">
-                                                <a href="demo1-product.html">Battery Charger</a>
-                                            </h3>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span>
-                                                    <!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <!-- End .product-ratings -->
-                                            </div>
-                                            <!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div>
-                                            <!-- End .price-box -->
-                                        </div>
-                                        <!-- End .product-details -->
+                                    <div class="feature-box-content p-0">
+                                        <h3 class="mb-0 pb-1">Thanh Toán An Toàn</h3>
+                                        <h5 class="mb-1 pb-1">Nhanh chóng & bảo mật</h5>
+
+                                        <p>Chấp nhận nhiều phương thức thanh toán an toàn, bảo vệ thông tin khách hàng tuyệt đối.</p>
                                     </div>
+                                    <!-- End .feature-box-content -->
                                 </div>
-                                <!-- End .product-column -->
+                                <!-- End .feature-box -->
                             </div>
                             <!-- End .col-md-4 -->
 
-                            <div class="col-sm-6 col-md-4 pb-4 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
-                                <div class="product-column">
-                                    <h3 class="section-sub-title ls-n-20">Sản Phẩm Mới Nhất</h3>
+                            <div class="col-md-4 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="600">
+                                <div class="feature-box feature-box-simple text-center">
+                                    <i class="icon-action-undo"></i>
 
-                                    <div class="product-default left-details product-widget ">
-                                        <figure>
-                                            <a href="demo1-product.html">
-                                                <img src="~/assets/images/demoes/demo1/products/small/product-9.jpg" width="84" height="84" alt="product">
-                                                <img src="~/assets/images/demoes/demo1/products/small/product-9-2.jpg" width="84" height="84" alt="product">
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-title">
-                                                <a href="demo1-product.html">
-                                                    Ultimate 3D
-                                                    Bluetooth Speaker
-                                                </a>
-                                            </h3>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span>
-                                                    <!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <!-- End .product-ratings -->
-                                            </div>
-                                            <!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div>
-                                            <!-- End .price-box -->
-                                        </div>
-                                        <!-- End .product-details -->
+                                    <div class="feature-box-content p-0">
+                                        <h3 class="mb-0 pb-1">Đổi Trả Dễ Dàng</h3>
+                                        <h5 class="mb-1 pb-1">Miễn phí & linh hoạt</h5>
+
+                                        <p>Cam kết đổi trả miễn phí nếu sản phẩm lỗi hoặc không đúng mô tả.</p>
                                     </div>
+                                    <!-- End .feature-box-content -->
                                 </div>
-                                <!-- End .product-column -->
+                                <!-- End .feature-box -->
                             </div>
                             <!-- End .col-md-4 -->
                         </div>
                         <!-- End .row -->
-
-                        <hr class="mt-1 mb-3 pb-2">
-
-                        <div class="feature-boxes-container">
-                            <div class="row">
-                                <div class="col-md-4 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="200">
-                                    <div class="feature-box  feature-box-simple text-center">
-                                        <i class="icon-earphones-alt"></i>
-
-                                        <div class="feature-box-content p-0">
-                                            <h3 class="mb-0 pb-1">Hỗ Trợ Khách Hàng</h3>
-                                            <h5 class="mb-1 pb-1">Luôn sẵn sàng trợ giúp</h5>
-
-                                            <p>Đội ngũ chăm sóc khách hàng nhiệt tình, sẵn sàng hỗ trợ bạn mọi lúc, mọi nơi.</p>
-                                        </div>
-                                        <!-- End .feature-box-content -->
-                                    </div>
-                                    <!-- End .feature-box -->
-                                </div>
-                                <!-- End .col-md-4 -->
-
-                                <div class="col-md-4 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="400">
-                                    <div class="feature-box feature-box-simple text-center">
-                                        <i class="icon-credit-card"></i>
-
-                                        <div class="feature-box-content p-0">
-                                            <h3 class="mb-0 pb-1">Thanh Toán An Toàn</h3>
-                                            <h5 class="mb-1 pb-1">Nhanh chóng & bảo mật</h5>
-
-                                            <p>Chấp nhận nhiều phương thức thanh toán an toàn, bảo vệ thông tin khách hàng tuyệt đối.</p>
-                                        </div>
-                                        <!-- End .feature-box-content -->
-                                    </div>
-                                    <!-- End .feature-box -->
-                                </div>
-                                <!-- End .col-md-4 -->
-
-                                <div class="col-md-4 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="600">
-                                    <div class="feature-box feature-box-simple text-center">
-                                        <i class="icon-action-undo"></i>
-
-                                        <div class="feature-box-content p-0">
-                                            <h3 class="mb-0 pb-1">Đổi Trả Dễ Dàng</h3>
-                                            <h5 class="mb-1 pb-1">Miễn phí & linh hoạt</h5>
-
-                                            <p>Cam kết đổi trả miễn phí nếu sản phẩm lỗi hoặc không đúng mô tả.</p>
-                                        </div>
-                                        <!-- End .feature-box-content -->
-                                    </div>
-                                    <!-- End .feature-box -->
-                                </div>
-                                <!-- End .col-md-4 -->
-                            </div>
-                            <!-- End .row -->
-                        </div>
-                        <!-- End .feature-boxes-container -->
                     </div>
-                    <!-- End .col-lg-9 -->
-
-                    <div class="sidebar-overlay"></div>
-                    <div class="sidebar-toggle custom-sidebar-toggle"><i class="fas fa-sliders-h"></i></div>
-                    <aside class="sidebar-home col-lg-3 order-lg-first mobile-sidebar">
-                        @await Html.PartialAsync("_Sidebar")
-                    </aside>
-                    <!-- End .col-lg-3 -->
+                    <!-- End .feature-boxes-container -->
                 </div>
-                <!-- End .row -->
+                <!-- End .col-lg-9 -->
+
+                <div class="sidebar-overlay"></div>
+                <div class="sidebar-toggle custom-sidebar-toggle"><i class="fas fa-sliders-h"></i></div>
+                <aside class="sidebar-home col-lg-3 order-lg-first mobile-sidebar">
+                    @await Html.PartialAsync("_Sidebar")
+                </aside>
+                <!-- End .col-lg-3 -->
             </div>
-            <!-- End .container -->
-        </main>
-        <!-- End .main -->
+            <!-- End .row -->
+        </div>
+        <!-- End .container -->
+    </main>
+    <!-- End .main -->
 
-        <footer class="footer bg-dark position-relative">
-            @await Html.PartialAsync("_Footer")
-        </footer>
-        <!-- End .footer -->
+    <footer class="footer bg-dark position-relative">
+        @await Html.PartialAsync("_Footer")
+    </footer>
+    <!-- End .footer -->
+</div>
+<!-- End .page-wrapper -->
+
+<div class="loading-overlay">
+    <div class="bounce-loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
     </div>
-    <!-- End .page-wrapper -->
+</div>
 
-    <div class="loading-overlay">
-        <div class="bounce-loader">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
+<div class="mobile-menu-overlay"></div>
+<!-- End .mobil-menu-overlay -->
+
+<div class="mobile-menu-container">
+    @await Component.InvokeAsync("Menu")
+</div>
+<!-- End .mobile-menu-container -->
+
+<div class="sticky-navbar">
+    <div class="sticky-info">
+        <a href="/">
+            <i class="icon-home"></i>Home
+        </a>
     </div>
-
-    <div class="mobile-menu-overlay"></div>
-    <!-- End .mobil-menu-overlay -->
-
-    <div class="mobile-menu-container">
-        @await Component.InvokeAsync("Menu")
+    <div class="sticky-info">
+        <a href="demo1-shop.html" class="">
+            <i class="icon-bars"></i>Categories
+        </a>
     </div>
-    <!-- End .mobile-menu-container -->
-
-    <div class="sticky-navbar">
-        <div class="sticky-info">
-            <a href="demo1.html">
-                <i class="icon-home"></i>Home
-            </a>
-        </div>
-        <div class="sticky-info">
-            <a href="demo1-shop.html" class="">
-                <i class="icon-bars"></i>Categories
-            </a>
-        </div>
-        <div class="sticky-info">
-            <a href="wishlist.html" class="">
-                <i class="icon-wishlist-2"></i>Wishlist
-            </a>
-        </div>
-        <div class="sticky-info">
-            <a href="login.html" class="">
-                <i class="icon-user-2"></i>Account
-            </a>
-        </div>
-        <div class="sticky-info">
-            <a href="cart.html" class="">
-                <i class="icon-shopping-cart position-relative">
-                    <span class="cart-count badge-circle">3</span>
-                </i>Cart
-            </a>
-        </div>
+    <div class="sticky-info">
+        <a href="wishlist.html" class="">
+            <i class="icon-wishlist-2"></i>Wishlist
+        </a>
     </div>
+    <div class="sticky-info">
+        <a href="login.html" class="">
+            <i class="icon-user-2"></i>Account
+        </a>
+    </div>
+    <div class="sticky-info">
+        <a href="cart.html" class="">
+            <i class="icon-shopping-cart position-relative">
+                <span class="cart-count badge-circle">3</span>
+            </i>Cart
+        </a>
+    </div>
+</div>
 
-    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+<a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
-    <!-- Plugins JS File -->
-    <script src="~/assets/js/jquery.min.js"></script>
-    <script src="~/assets/js/plugins.min.js"></script>
-    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="~/assets/js/jquery.appear.min.js"></script>
-    <script src="~/assets/js/jquery.plugin.min.js"></script>
-    <script src="~/assets/js/jquery.countdown.min.js"></script>
+<!-- Plugins JS File -->
+<script src="~/assets/js/jquery.min.js"></script>
+<script src="~/assets/js/plugins.min.js"></script>
+<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/js/jquery.appear.min.js"></script>
+<script src="~/assets/js/jquery.plugin.min.js"></script>
+<script src="~/assets/js/jquery.countdown.min.js"></script>
 
-    <!-- Main JS File -->
-    <script src="~/assets/js/main.min.js"></script>
-    <script src="~/assets/js/cart.js"></script>
+<!-- Main JS File -->
+<script src="~/assets/js/main.min.js"></script>
+<script src="~/assets/js/cart.js"></script>
