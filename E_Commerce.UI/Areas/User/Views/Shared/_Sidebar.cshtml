@@ -4,20 +4,20 @@
     var chunkSize = 6;
     var categories = Model.Categories;
     var brands = Model.Brands;
-    var columns = categories.Select((x, i) => new { x, i })
+    var columns = categories!.Select((x, i) => new { x, i })
                             .GroupBy(g => g.i / chunkSize)
                             .ToList();
-    var brandColumns = brands.Select((x, i) => new { x, i })
+    var brandColumns = brands!.Select((x, i) => new { x, i })
       .GroupBy(g => g.i / chunkSize)
       .ToList();
 }
 
 <div class="side-menu-wrapper text-uppercase mb-2 d-none d-lg-block">
-    <h2 class="side-menu-title bg-gray ls-n-25">Browse Categories</h2>
+    <h2 class="side-menu-title bg-gray ls-n-25">Danh Mục</h2>
 
     <nav class="side-nav">
         <ul class="menu menu-vertical sf-arrows">
-            <li class="active"><a href="#"><i class="icon-home"></i>Home</a></li>
+            <li class="active"><a href="#"><i class="icon-home"></i>Trang Chủ</a></li>
             <li>
                 <a class="sf-with-ul">
                     <i class="sicon-badge"></i>Danh Mục

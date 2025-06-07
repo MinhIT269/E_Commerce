@@ -1,0 +1,70 @@
+﻿@using E_Commerce.UI.Models.Responses
+@model MenuViewModel
+
+<ul class="menu">
+    <li><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+
+    <li>
+        <a>Danh Mục</a>
+        <div class="megamenu megamenu-fixed-width megamenu-3cols">
+            <div class="row">
+                @{
+                    var categoryChunks = Model.Categories!
+                    .Select((category, index) => new { category, index })
+                    .GroupBy(x => x.index / 5)
+                    .Select(g => g.Select(x => x.category).ToList())
+                    .ToList();
+                }
+
+                @foreach (var group in categoryChunks)
+                {
+                    <div class="col-lg-4">
+                        <ul class="submenu">
+                            @foreach (var category in group)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Product", new { area = "User", categoryId = category.CategoryId })">
+                                        @category.CategoryName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </li>
+    <li>
+        <a>Thương Hiệu</a>
+        <div class="megamenu megamenu-fixed-width megamenu-3cols">
+            <div class="row">
+                @{
+                    var brandChunk = Model.Brands!
+                    .Select((brand, index) => new { brand, index })
+                    .GroupBy(x => x.index / 5)
+                    .Select(g => g.Select(x => x.brand).ToList())
+                    .ToList();
+                }
+
+                @foreach (var group in brandChunk)
+                {
+                    <div class="col-lg-4">
+                        <ul class="submenu">
+                            @foreach (var brand in group)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Product", new { area = "User", brandId = brand.BrandId })">
+                                        @brand.BrandName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </li>
+    <li><a href="#">Tin Tức</a></li>
+    <li><a href="#">Về Chúng Tôi</a></li>
+    <li><a href="@Url.Action("Contact", "Home")">Liên Hệ</a></li>
+</ul>
