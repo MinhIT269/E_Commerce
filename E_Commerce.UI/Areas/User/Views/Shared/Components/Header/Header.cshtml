@@ -1,4 +1,5 @@
 ﻿﻿@{
+    var userId = TempData["userId"]?.ToString();
     var isLoggedIn = Context.Request.Cookies["JwtToken"] != null;
 }
 <div class="header-top bg-primary text-uppercase">
@@ -31,6 +32,18 @@
                             <li><a href="@Url.Action("Login", "Auth")">Đăng Nhập</a></li>
                         }
                     </ul>
+                    @if (isLoggedIn && !string.IsNullOrEmpty(userId))
+                    {
+                        <script>
+                            sessionStorage.setItem("sessionId", "@userId");
+                        </script>
+                    }
+                    else if (!isLoggedIn)
+                    {
+                        <script>
+                            sessionStorage.clear();
+                        </script>
+                    }
                 </div>
                 <!-- End .header-menu -->
             </div>
