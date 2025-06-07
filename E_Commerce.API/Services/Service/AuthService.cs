@@ -95,7 +95,8 @@ namespace E_Commerce.API.Services.Service
             {
                 IsLogedIn = true,
                 JwtToken = jwtToken,
-                RefreshToken = refreshToken
+                RefreshToken = refreshToken,
+                userId = identityUser.Id
             };
         }
 

@@ -6,5 +6,6 @@
         public string? RefreshToken { get; set; }
         public string? JwtToken { get; set; }
         public string? ErrorMessage { get; set; }
+        public string? userId { get; set; }
     }
 }
