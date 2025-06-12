@@ -176,7 +176,7 @@ function sendMessage() {
     // Hiển thị đang nhập...
     showTypingIndicator();
     // Gửi tới API chatbot
-    fetch("http://localhost:5678/webhook/905a2477-34b8-4b91-8906-e1661f3286ea", {
+    fetch("http://localhost:5678/webhook/c5bbbfc6-5bad-4869-9d6a-213273d219ff", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

@@ -63,7 +63,7 @@
                                         <em class="align-text-top">300</em>.000 VND
                                     </b>
                                 </h5>
-                                <a href="demo1-shop.html" class="btn btn-dark btn-md ls-10">Mua Ngay!</a>
+                                <a href="#" class="btn btn-dark btn-md ls-10">Mua Ngay!</a>
                             </div>
                             <!-- End .banner-layer -->
                         </div>
@@ -71,55 +71,48 @@
                     </div>
                     <!-- End .home-slider -->
 
-                    <div class="banners-container m-b-2 owl-carousel owl-theme" data-owl-options="{
-                        'dots': false,
-                        'margin': 20,
-                        'loop': false,
-                        'responsive': {
-                        '480': {
-                        'items': 2
-                        },
-                        '768': {
-                        'items': 3
+                    <div class="banners-container owl-carousel owl-theme" data-owl-options='{
+                        "dots": true,
+                        "margin": 20,
+                        "loop": true,
+                        "autoplay": true,
+                        "autoplayTimeout": 5000,
+                        "responsive": {
+                            "480": { "items": 1 },
+                            "768": { "items": 2 },
+                            "992": { "items": 3 }
                         }
-                        }
-                        }">
-                        <div class="banner banner1 banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
-                            <figure class="w-100">
-                                <img src="~/assets/images/demoes/demo1/banners/banner-1.jpg" style="background-color: #dadada;" alt="banner">
-                            </figure>
-                            <div class="banner-layer">
-                                <h3 class="m-b-2">Porto Watches</h3>
-                                <h4 class="m-b-4 text-primary"><sup class="text-dark"><del>20%</del></sup>30%<sup>OFF</sup></h4>
-                                <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
-                            </div>
+                    }'>
+
+                        <!-- Banner 1: Laptop -->
+                        <div class="banner appear-animate"
+                             data-animation-name="fadeInLeftShorter"
+                             data-animation-delay="300"
+                             style="background: url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8') center center / cover no-repeat; color: #ffffff; border-radius: 10px; padding: 30px; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            <h3 style="margin-bottom: 10px; font-size: 1.8rem; font-weight: 600; color: white">Laptop Cao Cấp</h3>
+                            <p style="margin-bottom: 15px; font-size: 1.2rem;">Hiệu năng mạnh – Ưu đãi lên đến <strong>25%</strong></p>
                         </div>
-                        <!-- End .banner -->
-                        <div class="banner banner2 text-uppercase banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInUpShorter" data-animation-delay="200">
-                            <figure class="w-100">
-                                <img src="~/assets/images/demoes/demo1/banners/banner-2.jpg" style="background-color: #dadada;" alt="banner">
-                            </figure>
-                            <div class="banner-layer text-center">
-                                <h3 class="m-b-1 ls-n-20">Deal Promos</h3>
-                                <h4 class="text-body">Starting at $99</h4>
-                                <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
-                            </div>
+
+                        <!-- Banner 2: Tai nghe -->
+                        <div class="banner appear-animate"
+                             data-animation-name="fadeInUpShorter"
+                             data-animation-delay="400"
+                             style="background: url('/images/pexels-photo-3394651.jpeg') center center / cover no-repeat; color: #ffffff; border-radius: 10px; padding: 30px; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            <h3 style="margin-bottom: 10px; font-size: 1.8rem; font-weight: 600; color: white">Tai Nghe Bluetooth</h3>
+                            <p style="margin-bottom: 15px; font-size: 1.2rem;">Giá chỉ từ <strong>990.000đ</strong></p>
                         </div>
-                        <!-- End .banner -->
-                        <div class="banner banner3 banner-hover-shadow d-flex align-items-center mb-2 w-100 appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="500">
-                            <figure class="w-100">
-                                <img src="~/assets/images/demoes/demo1/banners/banner-3.jpg" style="background-color: #dadada;" alt="banner">
-                            </figure>
-                            <div class="banner-layer text-right">
-                                <h3 class="m-b-2">Handbags</h3>
-                                <h4 class="mb-3 text-secondary text-uppercase">Starting at $99</h4>
-                                <a href="demo1-shop.html" class="text-dark text-uppercase ls-10">Shop Now</a>
-                            </div>
+
+                        <!-- Banner 3: TV -->
+                        <div class="banner appear-animate"
+                             data-animation-name="fadeInRightShorter"
+                             data-animation-delay="500"
+                             style="background: url('/images/pexels-photo-12786602.jpeg') center center / cover no-repeat; color: #ffffff; border-radius: 10px; padding: 30px; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            <h3 style="margin-bottom: 10px; font-size: 1.8rem; font-weight: 600; color: white">Phụ kiện công nghệ</h3>
+                            <p style="margin-bottom: 15px; font-size: 1.2rem;">Bàn phím, chuột, USB – Ưu đãi đến <strong>20%</strong></p>
                         </div>
-                        <!-- End .banner -->
                     </div>
 
-                    <h2 class="section-title ls-n-10 m-b-4 appear-animate" data-animation-name="fadeInUpShorter">
+                    <h2 class="section-title ls-n-10 m-b-4 appear-animate pt-5" data-animation-name="fadeInUpShorter">
                         MÁY TÍNH XÁCH TAY
                     </h2>
                     @{
@@ -131,20 +124,22 @@
                     }
                     <!-- End .featured-proucts -->
 
-                    <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="700" data-owl-options="{
-                            'margin': 0,
-                            'responsive': {
-                                '768': {
-                                    'items': 4
-                                },
-                                '991': {
-                                    'items': 4
-                                },
-                                '1200': {
-                                    'items': 5
-                                }
-                            }
-                        }">
+                    <div class="brands-slider owl-carousel owl-theme images-center appear-animate"
+                         data-animation-name="fadeIn"
+                         data-animation-duration="700"
+                         data-owl-options='{
+                         "margin": 0,
+                         "loop": true,
+                         "autoplay": true,
+                         "autoplayTimeout": 3000,
+                         "responsive": {
+                             "0": { "items": 2 },
+                             "576": { "items": 3 },
+                             "768": { "items": 4 },
+                             "991": { "items": 4 },
+                             "1200": { "items": 5 }
+                         }
+                     }'>
                         <img src="~/assets/images/brands/small/DELL.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
                         <img src="~/assets/images/brands/small/ASUS.jfif" width="140" height="60" style="width:140px; height:60px" alt="brand">
                         <img src="~/assets/images/brands/small/HP.png" width="140" height="60" style="width:140px; height:60px" alt="brand">
@@ -404,7 +399,7 @@
         </a>
     </div>
     <div class="sticky-info">
-        <a href="demo1-shop.html" class="">
+        <a href="#" class="">
             <i class="icon-bars"></i>Categories
         </a>
     </div>
@@ -436,7 +431,19 @@
 <script src="~/assets/js/jquery.appear.min.js"></script>
 <script src="~/assets/js/jquery.plugin.min.js"></script>
 <script src="~/assets/js/jquery.countdown.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Khởi tạo carousel cho brands-slider
+        var $brandsCarousel = $('.brands-slider');
+        var brandsOptions = $brandsCarousel.data('owl-options');
+        $brandsCarousel.owlCarousel(brandsOptions);
 
+        // Khởi tạo carousel cho banners-container
+        var $bannersCarousel = $('.banners-container');
+        var bannersOptions = $bannersCarousel.data('owl-options');
+        $bannersCarousel.owlCarousel(bannersOptions);
+    });
+</script>
 <!-- Main JS File -->
 <script src="~/assets/js/main.min.js"></script>
 <script src="~/assets/js/cart.js"></script>

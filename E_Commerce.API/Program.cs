@@ -127,7 +127,7 @@ builder.Services.AddSingleton<IVnPayService, VnPayService>();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<DataContext>();
@@ -135,7 +135,7 @@ using (var scope = app.Services.CreateScope())
     {
         context.Database.Migrate(); // Apply any pending migrations for the context to the database.
     }
-}
+}*/
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

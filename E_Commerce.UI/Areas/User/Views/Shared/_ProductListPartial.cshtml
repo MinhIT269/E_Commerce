@@ -49,14 +49,13 @@
                     </div>
 
                     <div class="product-action">
-                        <a href="wishlist.html" class="btn-icon-wish" title="wishlist">
+                        <a href="#" class="btn-icon-wish" title="wishlist">
                             <i class="icon-heart"></i>
                         </a>
-                        <a href="#" class="btn-icon btn-add-cart product-type-simple">
-                            <i class="icon-shopping-cart"></i><span>ADD TO CART</span>
-                        </a>
-                        <a href="#" class="btn-quickview" title="Quick View">
-                            <i class="fas fa-external-link-alt"></i>
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = item.ProductId })"
+                           class="btn-icon btn-add-cart product-type-simple"
+                           onclick="event.stopPropagation();">
+                            <i class="icon-shopping-cart"></i><span>XEM CHI TIẾT</span>
                         </a>
                     </div>
                 </div>
