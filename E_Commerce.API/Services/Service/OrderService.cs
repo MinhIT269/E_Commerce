@@ -277,8 +277,8 @@ namespace E_Commerce.API.Services.Service
             }
 
             ordersDomain = ordersDomain
-                .Skip((page - 1) * pageSize) 
-                .Take(pageSize) 
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
 
             var ordersDto = _mapper.Map<List<OrderDto>>(ordersDomain);

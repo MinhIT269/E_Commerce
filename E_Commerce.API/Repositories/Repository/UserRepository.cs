@@ -2,7 +2,6 @@
 using E_Commerce.API.Repositories.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace E_Commerce.API.Repositories.Repository
 {
