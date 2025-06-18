@@ -18,8 +18,8 @@ namespace E_Commerce.API.Repositories.Repository
         }
         public async Task AddAsync(UserInfo userInfo)
         {
-            await _context.UserInfos.AddAsync(userInfo); 
-            await SaveChangesAsync();          
+            await _context.UserInfos.AddAsync(userInfo);
+            await SaveChangesAsync();
         }
         public async Task<UserInfo> CreateAsync(UserInfo userInfo)
         {
@@ -29,13 +29,17 @@ namespace E_Commerce.API.Repositories.Repository
         }
         public async Task<UserInfo?> UpdateAsync(string userId, UserInfo updatedInfo)
         {
-            var existing = await _context.UserInfos.FirstOrDefaultAsync(x => x.UserId == userId);
+            var existing = await _context.UserInfos
+                                .Include(x => x.User)
+                                .FirstOrDefaultAsync(x => x.UserId == userId);
             if (existing == null) return null;
 
             existing.FirstName = updatedInfo.FirstName;
             existing.LastName = updatedInfo.LastName;
             existing.Address = updatedInfo.Address;
             existing.Gender = updatedInfo.Gender;
+            existing.User!.PhoneNumber = updatedInfo.User?.PhoneNumber ?? existing.User.PhoneNumber;
+            existing.User!.Email = updatedInfo.User?.Email ?? existing.User.Email;
 
             await SaveChangesAsync();
             return existing;

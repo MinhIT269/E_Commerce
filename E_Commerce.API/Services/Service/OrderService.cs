@@ -284,6 +284,19 @@ namespace E_Commerce.API.Services.Service
             var ordersDto = _mapper.Map<List<OrderDto>>(ordersDomain);
             return ordersDto;
         }
+
+        public async Task<List<OrderDto>?> GetAllOrders_UserPagenation(string id, string? searchQuery, int page = 1, int pageSize = 5)
+        {
+            var ordersDomain = await _orderRepository.GetAllOrderAsync(id, searchQuery);
+
+            if (ordersDomain == null || !ordersDomain.Any())
+            {
+                return null;
+            }
+            var ordersDto = _mapper.Map<List<OrderDto>>(ordersDomain);
+            return ordersDto;
+        }
+
         public async Task<int> CountAllOrdersAsync(string userId, string searchQuery)
         {
             var query = await _orderRepository.GetAllOrderAsync(userId, searchQuery);

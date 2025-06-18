@@ -51,7 +51,8 @@ namespace E_Commerce.API.Mappings
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product!.Name))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Product!.ImageUrl))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Product!.Price))
-                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(dest => dest.PromotionPrice, opt => opt.MapFrom(src => src.Product!.PromotionPrice));
 
             CreateMap<AddToCartRequestDto, Cart>()
                 .ForMember(dest => dest.CartId, opt => opt.MapFrom(src => Guid.NewGuid()))
@@ -110,6 +111,15 @@ namespace E_Commerce.API.Mappings
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.UserInfo!.LastName))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.UserInfo!.Address))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber));
+            CreateMap<UserInfoDto, UserInfo>()
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => new User
+                {
+                    PhoneNumber = src.PhoneNumber,
+                    Email = src.Email
+                }));
+            CreateMap<UserInfo, UserInfoDto>()
+              .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.User!.PhoneNumber))
+              .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User!.Email));
         }
     }
 }

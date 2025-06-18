@@ -75,8 +75,28 @@
                         <hr class="short-divider">
 
                         <div class="price-box">
-                            <span class="old-price">@Model.Price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
-                            <span class="new-price">@Model.PromotionPrice.GetValueOrDefault().ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
+                            @{
+                                var price = Model?.Price ?? 0m;
+                                var promo = Model?.PromotionPrice ?? 0m;
+                            }
+
+                            @if (promo > 0 && promo < price)
+                            {
+                                <span class="old-price text-muted">@price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                <div class="product-price text-danger mt-1">@promo.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                            }
+                            else if (promo > 0)
+                            {
+                                <div class="product-price text-danger mt-1">@promo.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                            }
+                            else if (price > 0)
+                            {
+                                <div class="product-price text-danger mt-1">@price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                            }
+                            else
+                            {
+                                <div class="product-price text-danger mt-1">Giá: Liên hệ</div>
+                            }
                         </div>
                         <!-- End .price-box -->
                         <!-- End .product-desc -->
@@ -119,15 +139,16 @@
                             </ul>
                         </div>
 
+                        @if ((Model.Price > 0) || (Model.PromotionPrice > 0))
+                        {
+                            <div class="product-action">
+                                <a href="javascript:;" class="btn btn-dark add-cart mr-2" data-product-id="@Model.ProductId">
+                                    THÊM VÀO GIỎ HÀNG
+                                </a>
 
-                        <div class="product-action">
-
-                            <<a href="javascript:;" class="btn btn-dark add-cart mr-2" data-product-id="@Model.ProductId">
-                                THÊM VÀO GIỎ HÀNG
-                            </a>
-
-                            <a href="@Url.Action("Index", "Cart")" class="btn btn-gray view-cart d-none">View cart</a>
-                        </div>
+                                <a href="@Url.Action("Index", "Cart")" class="btn btn-gray view-cart d-none">XEM GIỎ HÀNG</a>
+                            </div>
+                        }
                         <!-- End .product-action -->
 
                         <hr class="divider mb-0 mt-0">
@@ -377,7 +398,7 @@
                     html += `
                     <div class="product-default inner-quickview inner-icon">
                         <figure class="img-effect">
-                            <a href="/product/detail/${p.ProductId}">
+                            <a href="${productUrl}">
                                 <img src="${p.ImageUrl}" alt="${p.Name}" style="width: 172px; height: 172px;">
                             </a>
                             <div class="btn-icon-group">
@@ -404,7 +425,37 @@
                                 </div>
                             </div>
                             <div class="price-box">
-                                <span class="product-price">${(p.PromotionPrice || p.Price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                ${
+                                    p.PromotionPrice && p.PromotionPrice < p.Price
+                                        ? `
+                                            <span class="old-price text-muted d-block">
+                                                ${p.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                            </span>
+                                            <span class="product-price text-danger mt-1 d-block">
+                                                ${p.PromotionPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                            </span>
+                                        `
+                                        : p.PromotionPrice && p.PromotionPrice > 0
+                                            ? `
+                                            <span class="old-price d-block" style="visibility: hidden;">&nbsp;</span>
+                                            <span class="product-price text-danger mt-1 d-block">
+                                                ${p.PromotionPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                            </span>
+                                            `
+                                            : p.Price && p.Price > 0
+                                                ? `
+                                                <span class="old-price d-block" style="visibility: hidden;">&nbsp;</span>
+                                                <span class="product-price text-danger mt-1 d-block">
+                                                    ${p.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                                </span>
+                                                `
+                                                : `
+                                                <span class="old-price d-block" style="visibility: hidden;">&nbsp;</span>
+                                                <span class="product-price text-danger mt-1 d-block">
+                                                    Giá: Liên hệ
+                                                </span>
+                                                `
+                                }   
                             </div>
                         </div>
                     </div>`;

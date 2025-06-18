@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	@await Html.PartialAsync("_Head")
+	<link rel="stylesheet" href="~/assets/css/style.min.css">
+</head>
+
+<body>
+	<div class="page-wrapper">
+
+		<header class="header home">
+			@await Component.InvokeAsync("Header")
+
+			<div class="header-bottom d-none d-lg-block bg-gray">
+				<div class="container">
+					<div class="header-center">
+						<nav class="main-nav w-100">
+							@await Component.InvokeAsync("MainMenu")
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main class="main about">
+			<div class="page-header page-header-bg text-left"
+				 style="background: 50%/cover #D4E1EA url('@Url.Content("~/assets/images/page-header-bg.jpg")');">
+				<div class="container">
+					<h1>
+						ĐÔI NÉT VỀ
+					</h1>
+					<h2>
+						MINH NGUYEN TECHNOLOGY
+					</h2>
+					<a href="#footer" class="btn btn-dark">Liên hệ</a>
+				</div>
+			</div>
+
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")"><i class="icon-home"></i></a></li>
+						<li class="breadcrumb-item active" aria-current="page">Về chúng tôi</li>
+					</ol>
+				</div>
+			</nav>
+
+			<div class="about-section">
+				<div class="container" style="color: black;">
+					<h2 class="subtitle">SỨ MỆNH CỦA CHÚNG TÔI</h2>
+					<p>
+						<strong>Minh Nguyen Technology</strong> được thành lập với mục tiêu tiên phong trong việc ứng dụng trí tuệ nhân tạo (AI) vào lĩnh vực thương mại điện tử,
+						mang đến trải nghiệm mua sắm thông minh, cá nhân hóa và tiện lợi hơn cho người dùng Việt Nam.
+					</p>
+					<p>
+						Dự án khởi đầu từ một ý tưởng trong môi trường học thuật – đồ án tốt nghiệp của sinh viên <strong>Nguyễn Nhật Minh</strong> tại Trường Đại học Bách Khoa – Đại học Đà Nẵng.
+						Từ đó, chúng tôi từng bước phát triển một hệ thống thương mại điện tử hiện đại, được tích hợp <strong>chatbot AI</strong> và các <strong>AI Agents</strong> thông minh có khả năng:
+					</p>
+					<ul>
+						<li>🎯 Gợi ý sản phẩm phù hợp với nhu cầu người dùng</li>
+						<li>🛒 Tự động thêm sản phẩm vào giỏ hàng theo ngữ cảnh hội thoại</li>
+						<li>💳 Hỗ trợ đặt hàng và thanh toán nhanh chóng qua <strong>VNPay</strong></li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="about-section">
+				<div class="container" style="color: black;">
+					<h2 class="subtitle">Giá trị cốt lõi</h2>
+					<div class="row">
+						<div class="col-md-4">
+							<h5>🔬 Đổi mới công nghệ</h5>
+							<p>Tận dụng sức mạnh của AI, học máy và xử lý ngôn ngữ tự nhiên để tối ưu hóa quy trình mua sắm.</p>
+						</div>
+						<div class="col-md-4">
+							<h5>💡 Trải nghiệm người dùng</h5>
+							<p>Đặt khách hàng làm trung tâm trong mọi thiết kế – từ giao diện đến tương tác thông minh.</p>
+						</div>
+						<div class="col-md-4">
+							<h5>⚙️ Tự động hóa & mở rộng</h5>
+							<p>Tích hợp hệ thống bằng n8n và triển khai trên Microsoft Azure để đảm bảo ổn định và linh hoạt trong mở rộng.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="about-section">
+				<div class="container" style="color: black;">
+					<h2 class="subtitle">Tầm nhìn</h2>
+					<p>
+						Trở thành nền tảng thương mại điện tử ứng dụng AI hàng đầu tại Việt Nam, nơi mỗi người dùng đều được tư vấn
+						và hỗ trợ như một <strong>"trợ lý mua sắm ảo"</strong> thực thụ – nhanh chóng, hiệu quả và đầy cảm hứng.
+					</p>
+				</div>
+			</div>
+
+			<div class="features-section bg-gray">
+				<div class="container">
+					<h2 class="subtitle">TẠI SAO CHỌN CHÚNG TÔI</h2>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="feature-box bg-white">
+								<i class="icon-shipped"></i>
+								<div class="feature-box-content p-0">
+									<h3 class="mb-0 pb-1">Đổi Trả Dễ Dàng</h3>
+									<h5 class="mb-1 pb-1">Miễn phí & linh hoạt</h5>
+
+									<p>Cam kết hỗ trợ đổi trả hoàn toàn miễn phí nếu sản phẩm bị lỗi kỹ thuật hoặc không đúng với mô tả ban đầu.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4">
+							<div class="feature-box bg-white">
+								<i class="icon-us-dollar"></i>
+								<div class="feature-box-content p-0">
+									<h3 class="mb-0 pb-1">Thanh Toán An Toàn</h3>
+									<h5 class="mb-1 pb-1">Nhanh chóng & bảo mật</h5>
+
+									<p>Chấp nhận nhiều phương thức thanh toán an toàn, bảo vệ thông tin khách hàng tuyệt đối.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4">
+							<div class="feature-box bg-white">
+								<i class="icon-online-support"></i>
+								<div class="feature-box-content p-0">
+									<h3 class="mb-0 pb-1">Hỗ Trợ Trực Tuyến 24/7</h3>
+									<h5 class="mb-1 pb-1">Luôn sẵn sàng trợ giúp</h5>
+
+									<p>Đội ngũ chăm sóc khách hàng nhiệt tình, sẵn sàng hỗ trợ bạn mọi lúc, mọi nơi.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div style="padding: 40px 0; background-color: #f9f9f9;">
+				<div style="max-width: 800px; margin: 0 auto; text-align: center;">
+					<h2 style="font-size: 28px; font-weight: bold; margin-bottom: 30px;">CẢM NHẬN KHÁCH HÀNG</h2>
+
+					<div style="display: flex; align-items: center; gap: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+						<img src="~/assets/images/clients/client1.png" alt="Khách hàng" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+
+						<div style="text-align: left;">
+							<p style="margin: 0; font-style: italic;">"Giao hàng nhanh, đóng gói cẩn thận và chất lượng sản phẩm vượt mong đợi. Mình sẽ giới thiệu cho bạn bè cùng mua!"</p>
+							<p style="margin-top: 10px; font-weight: bold;">Long Nguyễn - Hà Nội</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="counters-section bg-gray">
+				<div class="container">
+					<div class="row">
+						<div class="col-6 col-md-4 count-container">
+							<div class="count-wrapper">
+								<span class="count-to" data-from="0" data-to="200">40</span>+
+							</div>
+							<h4 class="count-title">NGHÌN KHÁCH HÀNG</h4>
+						</div>
+
+						<div class="col-6 col-md-4 count-container">
+							<div class="count-wrapper">
+								<span class="count-to" data-from="0" data-to="1800">19</span>+
+							</div>
+							<h4 class="count-title">NGHÌN THÀNH VIÊN</h4>
+						</div>
+
+						<div class="col-6 col-md-4 count-container">
+							<div class="count-wrapper line-height-1">
+								<span class="count-to" data-from="0" data-to="24">24</span><span>GIỜ</span>
+							</div>
+							<h4 class="count-title">HỖ TRỢ MỖI NGÀY</h4>
+						</div>
+
+						<div class="col-6 col-md-4 count-container">
+							<div class="count-wrapper">
+								<span class="count-to" data-from="0" data-to="265">9</span>+
+							</div>
+							<h4 class="count-title">CHI NHÁNH TOÀN QUỐC</h4>
+						</div>
+
+						<div class="col-6 col-md-4 count-container">
+							<div class="count-wrapper line-height-1">
+								<span class="count-to" data-from="0" data-to="99">99</span><span>%</span>
+							</div>
+							<h4 class="count-title">MỨC ĐỘ HÀI LÒNG</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer class="footer bg-dark position-relative" id="footer">
+			@await Html.PartialAsync("_Footer")
+		</footer>
+	</div>
+
+	<div class="loading-overlay">
+		<div class="bounce-loader">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div>
+	</div>
+
+	<div class="mobile-menu-overlay"></div>
+
+	<div class="mobile-menu-container">
+		@await Component.InvokeAsync("Menu")
+	</div>
+
+	<div class="sticky-navbar">
+		<div class="sticky-info">
+			<a href="#"><i class="icon-home"></i>Trang chủ</a>
+		</div>
+		<div class="sticky-info">
+			<a href="#"><i class="icon-bars"></i>Danh mục</a>
+		</div>
+		<div class="sticky-info">
+			<a href="#"><i class="icon-wishlist-2"></i>Yêu thích</a>
+		</div>
+		<div class="sticky-info">
+			<a href="#"><i class="icon-user-2"></i>Tài khoản</a>
+		</div>
+		<div class="sticky-info">
+			<a href="#">
+				<i class="icon-shopping-cart position-relative">
+					<span class="cart-count badge-circle">3</span>
+				</i>Giỏ hàng
+			</a>
+		</div>
+	</div>
+
+	<a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+
+	<!-- Plugins JS File -->
+	<script src="~/assets/js/jquery.min.js"></script>
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="~/assets/js/plugins.min.js"></script>
+	<script src="~/assets/js/plugins/jquery.countTo.js"></script>
+
+	<!-- Main JS File -->
+	<script src="~/assets/js/main.min.js"></script>
+	<script src="~/assets/js/cart.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('a[href^="#"]').on('click', function (e) {
+				var target = $($(this).attr('href'));
+				if (target.length) {
+					e.preventDefault();
+					$('html, body').animate({
+						scrollTop: target.offset().top
+					}, 600);
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

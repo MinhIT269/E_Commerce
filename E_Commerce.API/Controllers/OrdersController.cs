@@ -8,7 +8,7 @@ namespace E_Commerce.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
-    { 
+    {
         private readonly IOrderService _orderService;
         private readonly IConfiguration _config;
         public OrdersController(IOrderService orderService, IConfiguration config)
@@ -57,7 +57,7 @@ namespace E_Commerce.API.Controllers
         public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
         {
             var totalRecords = await _orderService.GetTotalOrdersAsync(searchQuery);
-            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); 
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8);
             return Ok(totalPages);
         }
 
@@ -120,9 +120,15 @@ namespace E_Commerce.API.Controllers
         }
 
         [HttpGet("TotalPagesOrdered_Detail")]
-        public async Task<IActionResult> GetTotalPagesCategory_Detail([FromQuery] string id, [FromQuery] string searchQuery = "")
+        public async Task<IActionResult> GetTotalPagesOrder_Detail([FromQuery] string id, [FromQuery] string searchQuery = "")
         {
-            var totalPages = await _orderService.CountAllOrdersAsync(id, searchQuery);
+            var ordersDTO = await _orderService.GetAllOrders_UserPagenation(id, searchQuery);
+            if (ordersDTO == null || !ordersDTO.Any())
+            {
+                return Ok(0);
+            }
+            var totalRecords = ordersDTO.Count;
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 5); // Điều chỉnh số item trên mỗi trang nếu cần
             return Ok(totalPages);
         }
 

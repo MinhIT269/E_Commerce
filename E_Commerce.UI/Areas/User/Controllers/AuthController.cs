@@ -48,7 +48,7 @@ namespace E_Commerce.UI.Areas.User.Controllers
             if (role == "Admin")
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             var client = _httpClientFactory.CreateClient();
-            var n8nWebhookUrl = "http://localhost:5678/webhook/15a5aead-4aa6-4e34-b576-8e76d61ae931";
+            var n8nWebhookUrl = "https://minhnhatben.app.n8n.cloud/webhook/15a5aead-4aa6-4e34-b576-8e76d61ae931";
             var payload = new
             {
                 email = model.UserName, // hoặc loginResponse.UserId nếu có

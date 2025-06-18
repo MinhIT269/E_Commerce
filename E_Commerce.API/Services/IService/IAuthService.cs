@@ -16,5 +16,6 @@ namespace E_Commerce.API.Services.IService
         Task<bool> ResetPasswordAsync(ResetPasswordDto dto);
         Task<User?> FindByRefreshTokenAsync(string refreshToken);
         Task LogoutAsync(string username);
+        Task<ChangePasswordResult> ChangePasswordAsync(ChangePasswordDto dto);
     }
 }

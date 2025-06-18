@@ -16,10 +16,15 @@
                     html = '<p class="text-center">Giỏ hàng trống.</p>';
                 } else {
                     cart.cartItems.forEach(item => {
+                        const price = Number(item.price) || 0;
+                        const promo = Number(item.promotionPrice) || 0;
+                        const hasPromo = promo > 0 && price > 0 && promo < price;
+                        const unitPrice = hasPromo ? promo : (promo > 0 ? promo : price);
+
                         const priceFormatted = new Intl.NumberFormat('vi-VN', {
                             style: 'currency',
                             currency: 'VND'
-                        }).format(item.price);
+                        }).format(unitPrice);
 
                         html += `
                         <div class="product" id="cart-item-${item.cartItemId}">
@@ -78,12 +83,16 @@
 
                 let html = '';
                 cart.cartItems.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
+                    const price = Number(item.price) || 0;
+                    const promo = Number(item.promotionPrice) || 0;
+                    const hasPromo = promo > 0 && price > 0 && promo < price;
+                    const unitPrice = hasPromo ? promo : (promo > 0 ? promo : price); // fallback nếu price = 0
+                    const itemTotal = unitPrice * item.quantity;
                     html += `
                         <tr class="product-row" id="cart-item-${item.cartItemId}">
                             <td>
                                 <figure class="product-image-container">
-                                    <a href="/product/${item.productId}" class="product-image">
+                                    <a href="home/productdetail/${item.productId}" class="product-image">
                                         <img src="${item.imageUrl}" alt="${item.productName}">
                                     </a>
                                     <a href="#" class="btn-remove icon-cancel" title="Xóa sản phẩm" data-cartitem-id="${item.cartItemId}"></a>
@@ -91,10 +100,16 @@
                             </td>
                             <td class="product-col">
                                 <h5 class="product-title">
-                                    <a href="/product/${item.productId}">${item.productName}</a>
+                                    <a href="/home/productdetail/${item.productId}">${item.productName}</a>
                                 </h5>
                             </td>
-                            <td>${item.price.toLocaleString('vi-VN')} ₫</td>
+                            <td>
+                                ${hasPromo
+                            ? `<span class="old-price text-muted d-block">${item.price.toLocaleString('vi-VN')} ₫</span>
+                                       <span class="text-danger fw-bold">${unitPrice.toLocaleString('vi-VN')} ₫</span>`
+                            : `<span class="text-danger fw-bold">${unitPrice.toLocaleString('vi-VN')} ₫</span>`
+                        }
+                            </td>
                             <td>
                                 <div class="input-group product-single-qty">
                                     <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -339,7 +354,11 @@
                 let subtotal = 0;
 
                 cart.cartItems.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
+                    const price = Number(item.price) || 0;
+                    const promo = Number(item.promotionPrice) || 0;
+                    const hasPromo = promo > 0 && price > 0 && promo < price;
+                    const unitPrice = hasPromo ? promo : (promo > 0 ? promo : price);
+                    const itemTotal = unitPrice * item.quantity;
                     subtotal += itemTotal;
 
                     const priceFormatted = new Intl.NumberFormat('vi-VN', {

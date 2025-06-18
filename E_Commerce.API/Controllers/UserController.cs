@@ -20,7 +20,8 @@ namespace E_Commerce.API.Controllers
         public async Task<IActionResult> GetUserDetails(string username)
         {
             var user = await _userService.GetUser(username);
-
+            if (user == null)
+                return NotFound();
             return Ok(user);
         }
 

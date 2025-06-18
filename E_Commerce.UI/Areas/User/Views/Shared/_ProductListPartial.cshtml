@@ -9,7 +9,7 @@
             <div class="product-default">
                 <figure>
                     <a href="@Url.Action("ProductDetail", "Home", new { id = item.ProductId })">
-                        <img src="@item.ImageUrl" width="220" height="220" alt="@item.Name" style="width:220px; height: 220px;"/>
+                        <img src="@item.ImageUrl" width="220" height="220" alt="@item.Name" style="width:220px; height: 220px;" />
                         <img src="@item.ImageUrl" width="220" height="220" alt="@item.Name" />
                     </a>
 
@@ -40,14 +40,34 @@
                         </div>
                     </div>
 
-                    <div class="price-box">
-                        @if (item.PromotionPrice > item.Price)
-                        {
-                            <span class="old-price">@item.PromotionPrice.GetValueOrDefault().ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
-                        }
-                        <span class="product-price">@item.Price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
-                    </div>
 
+                    <div class="price-box">
+                        @{
+                            var price = item.Price;
+                            var promo = item.PromotionPrice ?? 0m;
+                        }
+
+                        @if (promo > 0 && promo < price)
+                        {
+                            <span class="old-price text-muted">@price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</span>
+                            <div class="product-price text-danger mt-1">@promo.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                        }
+                        else if (promo > 0)
+                        {
+                            <span class="old-price text-muted"></span>
+                            <div class="product-price text-danger mt-1">@promo.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                        }
+                        else if (price > 0)
+                        {
+                            <span class="old-price text-muted"></span>
+                            <div class="product-price text-danger mt-1">@price.ToString("C0", new System.Globalization.CultureInfo("vi-VN"))</div>
+                        }
+                        else
+                        {
+                            <span class="old-price text-muted"></span>
+                            <div class="product-price text-danger mt-1">Giá: Liên hệ</div>
+                        }
+                    </div>
                     <div class="product-action">
                         <a href="#" class="btn-icon-wish" title="wishlist">
                             <i class="icon-heart"></i>

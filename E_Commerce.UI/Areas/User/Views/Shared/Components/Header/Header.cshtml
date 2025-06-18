@@ -19,8 +19,8 @@
                 <a href="#">Links</a>
                 <div class="header-menu">
                     <ul>
-                        <li><a href="#">Tài Khoản</a></li>
-                        <li><a href="#">Liên Hệ</a></li>
+                        <li><a href="@Url.Action("Dashboard", "Customer")">Tài Khoản</a></li>
+                        <li><a href="@Url.Action("About","Home")">Liên Hệ</a></li>
                         <li><a href="#">DS Yêu Thích</a></li>
                         <li><a href="@Url.Action("Index", "Cart")">Giỏ Hàng</a></li>
                         @if (isLoggedIn)
@@ -95,7 +95,7 @@
             </div>
             <!-- End .header-contact -->
 
-            <a href="#" class="header-icon header-icon-user"><i class="icon-user-2"></i></a>
+            <a href="@Url.Action("Dashboard","Customer")" class="header-icon header-icon-user"><i class="icon-user-2"></i></a>
 
             <a href="#" class="header-icon"><i class="icon-wishlist-2"></i></a>
 

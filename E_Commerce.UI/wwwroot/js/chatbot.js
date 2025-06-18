@@ -1,5 +1,4 @@
-﻿const API_URL = '@(Configuration["Chatbot:ApiUrl"])';
-let isChatOpen = false;
+﻿let isChatOpen = false;
 
 function getSessionId() {
     let sessionId = sessionStorage.getItem("sessionId");
@@ -176,7 +175,7 @@ function sendMessage() {
     // Hiển thị đang nhập...
     showTypingIndicator();
     // Gửi tới API chatbot
-    fetch("http://localhost:5678/webhook/c5bbbfc6-5bad-4869-9d6a-213273d219ff", {
+    fetch("https://minhnhatben.app.n8n.cloud/webhook/c5bbbfc6-5bad-4869-9d6a-213273d219ff", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

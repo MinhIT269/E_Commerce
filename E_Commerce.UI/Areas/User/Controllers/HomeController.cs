@@ -65,5 +65,10 @@ namespace E_Commerce.UI.Areas.User.Controllers
         {
             return await _apiHelper.SendGetRequestAsync<ProductResponseDto>($"/api/Products/GetProductById?productId={id}");
         }
+
+        public IActionResult About()
+        {
+            return View();
+        }
     }
 }

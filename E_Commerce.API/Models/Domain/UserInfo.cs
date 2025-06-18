@@ -23,6 +23,6 @@ namespace E_Commerce.API.Models.Domain
         public bool Gender { get; set; } 
 
         [ForeignKey(nameof(UserId))]
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

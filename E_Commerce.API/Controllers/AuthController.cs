@@ -90,6 +90,17 @@ namespace E_Commerce.API.Controllers
             return Ok(new { message = "Password has been reset successfully." });
         }
 
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+        {
+            var result = await _authService.ChangePasswordAsync(dto);
+
+            if (!result.Succeeded)
+                return BadRequest(new { errors = result.Errors });
+
+            return Ok(result.Message);
+        }
+
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout([FromBody] RefreshTokenDto dto)
         {

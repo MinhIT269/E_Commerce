@@ -2,6 +2,7 @@
 using E_Commerce.API.Repositories.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace E_Commerce.API.Repositories.Repository
 {
@@ -114,6 +115,11 @@ namespace E_Commerce.API.Repositories.Repository
                 _ => query
             };
             return query;
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword)
+        {
+            return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
         }
     }
 }

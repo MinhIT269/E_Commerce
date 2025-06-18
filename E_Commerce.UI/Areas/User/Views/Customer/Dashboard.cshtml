@@ -1,0 +1,650 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	@await Html.PartialAsync("_Head")
+	<link rel="stylesheet" href="~/assets/css/style.min.css">
+</head>
+
+<body>
+	<div class="page-wrapper">
+
+		<header class="header">
+			@await Component.InvokeAsync("Header")
+
+			<div class="header-bottom d-none d-lg-block bg-gray">
+				<div class="container">
+					<nav class="main-nav w-100">
+						@await Component.InvokeAsync("MainMenu")
+					</nav>
+				</div><!-- End .container -->
+			</div><!-- End .header-bottom -->
+		</header><!-- End .header -->
+
+		<main class="main">
+			<div class="page-header" style="
+				background: linear-gradient(135deg, #6f86d6, #48c6ef);
+				color: #fff;
+				padding: 40px 0;
+				border-radius: 0 0 30px 30px;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+				text-align: center;
+			">
+				<div class="container d-flex flex-column align-items-center">
+					<nav class="breadcrumb-nav" style="background: transparent; font-size: 14px; color: #e0e0e0;">
+						<div class="container">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="@Url.Action("Index", "Home")" style="color: #ffffff; text-decoration: underline; font-size: 24px; font-weight: 700;">
+										Trang chủ
+									</a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page" style="color: #e0e0e0; font-size: 24px; font-weight: 700;">
+									Tài khoản của tôi
+								</li>
+							</ol>
+						</div>
+					</nav>
+				</div>
+			</div>
+
+
+			<div class="container account-container custom-account-container">
+				<div class="row">
+					<div class="sidebar widget widget-dashboard mb-lg-0 mb-3 col-lg-3 order-0">
+						<h2 class="text-uppercase">Tài khoản</h2>
+						<ul class="nav nav-tabs list flex-column mb-0" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard"
+								   role="tab" aria-controls="dashboard" aria-selected="true">Bảng điều khiển</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab"
+								   aria-controls="order" aria-selected="true">Đơn hàng</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab"
+								   aria-controls="edit" aria-selected="false">
+									Chi tiết
+									tài khoản
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="shop-address-tab" data-toggle="tab" href="#change-password" role="tab"
+								   aria-controls="edit" aria-selected="false">Đổi mật khẩu</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Yêu thích</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="@Url.Action("Logout", "Auth", new { area = "User" })">Đăng xuất</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-lg-9 order-lg-last order-1 tab-content">
+						<div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+							<div class="dashboard-content">
+								<p>
+									Xin chào <strong class="text-dark">Editor</strong> (không phải
+									<strong class="text-dark">Editor</strong>?
+									<a href="@Url.Action("Logout", "Auth", new { area = "User" })" class="btn btn-link ">Đăng xuất</a>)
+								</p>
+
+								<p>
+									Từ bảng điều khiển tài khoản của bạn, bạn có thể xem
+									<a class="btn btn-link link-to-tab" href="#order">đơn hàng gần đây</a>,
+									quản lý
+									<a class="btn btn-link link-to-tab" href="#address">
+										địa chỉ thanh toán và giao hàng
+									</a>, và
+									<a class="btn btn-link link-to-tab" href="#edit">
+										chỉnh sửa mật khẩu và chi tiết tài khoản.
+									</a>
+								</p>
+
+								<div class="mb-4"></div>
+
+								<div class="row row-lg">
+									<div class="col-6 col-md-4">
+										<div class="feature-box text-center pb-4">
+											<a href="#order" class="link-to-tab">
+												<i class="sicon-social-dropbox"></i>
+											</a>
+											<div class="feature-box-content">
+												<h3>ĐƠN HÀNG</h3>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-6 col-md-4">
+										<div class="feature-box text-center pb-4">
+											<a href="#edit" class="link-to-tab"><i class="icon-user-2"></i></a>
+											<div class="feature-box-content p-0">
+												<h3>CHI TIẾT TÀI KHOẢN</h3>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-6 col-md-4">
+										<div class="feature-box text-center pb-4">
+											<a href="#change-password" class="link-to-tab"><i class="sicon-lock"></i></a>
+											<div class="feature-box-content">
+												<h3>ĐỔI MẬT KHẨU</h3>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-6 col-md-4">
+										<div class="feature-box text-center pb-4">
+											<a href="#"><i class="sicon-heart"></i></a>
+											<div class="feature-box-content">
+												<h3>YÊU THÍCH</h3>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-6 col-md-4">
+										<div class="feature-box text-center pb-4">
+											<a href="@Url.Action("Logout", "Auth", new { area = "User" })"><i class="sicon-logout"></i></a>
+											<div class="feature-box-content">
+												<h3>ĐĂNG XUẤT</h3>
+											</div>
+										</div>
+									</div>
+								</div><!-- End .row -->
+							</div>
+						</div><!-- End .tab-pane -->
+
+						<div class="tab-pane fade" id="order" role="tabpanel">
+							<div class="order-content">
+								<h3 class="account-sub-title d-none d-md-block">
+									<i class="sicon-social-dropbox align-middle mr-3"></i>Đơn hàng
+								</h3>
+								<div class="order-table-container text-center">
+									<table class="table table-order text-left">
+										<thead>
+											<tr>
+												<th class="order-id">MÃ ĐƠN</th>
+												<th class="order-date">NGÀY</th>
+												<th class="order-status">TRẠNG THÁI</th>
+												<th class="order-price">TỔNG</th>
+												<th class="order-action">THAO TÁC</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="text-center p-0" colspan="5">
+													<p class="mb-5 mt-5">
+														Bạn chưa có đơn hàng nào.
+													</p>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<nav aria-label="Page navigation">
+										<ul class="pagination justify-content-center mt-4" id="pagination-user"></ul>
+									</nav>
+									<hr class="mt-0 mb-3 pb-2" />
+									<a href="@Url.Action("Index","Home")" class="btn btn-dark">Mua sắm ngay</a>
+								</div>
+							</div>
+						</div><!-- End .tab-pane -->
+
+						<div class="tab-pane fade" id="edit" role="tabpanel">
+							<h3 class="account-sub-title d-none d-md-block mt-0 pt-1 ml-1">
+								<i class="icon-user-2 align-middle mr-3 pr-1"></i>Chi tiết tài khoản
+							</h3>
+							<div class="account-content">
+								<form id="account-info-form" action="#">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="acc-name">Tên <span class="required">*</span></label>
+												<input type="text" class="form-control" id="acc-name" name="acc-name" required />
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="acc-lastname">Họ <span class="required">*</span></label>
+												<input type="text" class="form-control" id="acc-lastname"
+													   name="acc-lastname" required />
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group mb-2">
+										<label for="acc-text">Tên hiển thị <span class="required">*</span></label>
+										<input type="text" class="form-control" id="acc-text" name="acc-text"
+											   readonly />
+										<p>
+											Tên này sẽ được hiển thị trong khu vực tài khoản và trong đánh giá.
+										</p>
+									</div>
+
+									<div class="form-group mb-2">
+										<label for="acc-email">Email <span class="required">*</span></label>
+										<input type="email" class="form-control" id="acc-email" name="acc-email"
+											   placeholder="editor@gmail.com" readonly />
+									</div>
+
+									<div class="form-group mb-2">
+										<label for="acc-phone">Phone <span class="required">*</span></label>
+										<input type="tel" class="form-control" id="acc-phone" name="acc-phone"
+											   placeholder="0123 456 789" required />
+									</div>
+
+									<div class="form-group mb-4">
+										<label for="acc-street">Địa chỉ đường <span class="required">*</span></label>
+										<input type="text" class="form-control" id="acc-street" name="acc-street"
+											   placeholder="Số nhà và tên đường" required />
+									</div>
+
+									<div class="form-footer mt-3 mb-0">
+										<button type="submit" class="btn btn-dark mr-0">Lưu thay đổi</button>
+									</div>
+								</form>
+							</div>
+						</div><!-- End .tab-pane -->
+
+
+						<div class="tab-pane fade" id="change-password" role="tabpanel">
+							<h3 class="account-sub-title d-none d-md-block mt-0 pt-1 ml-1">
+								<i class="icon-lock align-middle mr-3 pr-1"></i>Đổi mật khẩu
+							</h3>
+							<div class="change-password">
+								<form id="change-password-form">
+									<div class="form-group">
+										<label for="acc-password" class="font-weight-bold">Mật khẩu hiện tại <span class="required">*</span></label>
+										<input type="password" class="form-control" id="acc-password" name="CurrentPassword" placeholder="Nhập mật khẩu hiện tại" required />
+									</div>
+
+									<div class="form-group">
+										<label for="acc-new-password" class="font-weight-bold">Mật khẩu mới <span class="required">*</span></label>
+										<input type="password" class="form-control" id="acc-new-password" name="NewPassword" placeholder="Tối thiểu 6 ký tự" minlength="6" required />
+									</div>
+
+									<div class="form-group">
+										<label for="acc-confirm-password" class="font-weight-bold">Xác nhận mật khẩu mới <span class="required">*</span></label>
+										<input type="password" class="form-control" id="acc-confirm-password" name="ConfirmPassword" placeholder="Nhập lại mật khẩu mới" required />
+									</div>
+
+									<div class="form-footer mt-4">
+										<button type="submit" class="btn btn-dark btn-block text-uppercase font-weight-bold">Cập nhật mật khẩu</button>
+									</div>
+
+									<p class="text-muted mt-3 mb-0" style="font-size: 14px;">
+										Vui lòng đảm bảo mật khẩu đủ mạnh để bảo vệ tài khoản của bạn.
+									</p>
+								</form>
+							</div>
+						</div>
+					</div><!-- End .tab-content -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+
+			<div class="mb-5"></div><!-- margin -->
+		</main><!-- End .main -->
+
+		<footer class="footer bg-dark position-relative">
+			@await Html.PartialAsync("_Footer")
+		</footer>
+	</div><!-- End .page-wrapper -->
+
+	<div class="loading-overlay">
+		<div class="bounce-loader">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div>
+	</div>
+
+	<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+	<div class="mobile-menu-container">
+		@await Component.InvokeAsync("Menu")
+	</div><!-- End .mobile-menu-container -->
+
+	<div class="sticky-navbar">
+		<div class="sticky-info">
+			<a href="demo4.html">
+				<i class="icon-home"></i>Home
+			</a>
+		</div>
+		<div class="sticky-info">
+			<a href="category.html" class="">
+				<i class="icon-bars"></i>Categories
+			</a>
+		</div>
+		<div class="sticky-info">
+			<a href="wishlist.html" class="">
+				<i class="icon-wishlist-2"></i>Wishlist
+			</a>
+		</div>
+		<div class="sticky-info">
+			<a href="login.html" class="">
+				<i class="icon-user-2"></i>Account
+			</a>
+		</div>
+		<div class="sticky-info">
+			<a href="cart.html" class="">
+				<i class="icon-shopping-cart position-relative">
+					<span class="cart-count badge-circle">3</span>
+				</i>Cart
+			</a>
+		</div>
+	</div>
+
+	<a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+
+	<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="orderDetailModalLabel">Chi tiết đơn hàng</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+				</div>
+				<div class="modal-body" id="orderDetailContent">
+					<p class="text-center">Đang tải dữ liệu...</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Plugins JS File -->
+	<script src="~/assets/js/jquery.min.js"></script>
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="~/assets/js/plugins.min.js"></script>
+
+	<!-- Main JS File -->
+	<script src="~/assets/js/main.min.js"></script>
+	<script src="~/assets/js/cart.js"></script>
+	<script>
+		let userId = "";
+		const itemsPerPage = 5;
+		let currentPage = 1;
+		const maxVisiblePages = 3;
+
+		const Url = "@ViewBag.ApiBaseUrl";
+		document.addEventListener("DOMContentLoaded", async function () {
+			try {
+				const res = await fetch("https://localhost:7131/user/customer/getprofile", {
+				credentials: "include"
+				});
+
+				const data = await res.json();
+				userId = data.id;
+
+				// ✅ Gán tên hiển thị
+				document.querySelectorAll("strong.text-dark").forEach(el => el.textContent = data.name);
+				await getUserInfo(data.name);
+
+				await renderUserOrdersTable(currentPage);
+				await renderUserPagination();
+
+			} catch (err) {
+				console.error("Lỗi load profile:", err);
+				window.location.href = "/User/Auth/Login";
+			}
+		});
+
+		async function renderUserOrdersTable(page = 1, searchQuery = "") {
+			const url = `${Url}/api/Orders/AllOrder?id=${userId}&page=${page}&pageSize=${itemsPerPage}&searchQuery=${encodeURIComponent(searchQuery)}`;
+			try {
+				const res = await fetch(url);
+				if (!res.ok) throw new Error("Không lấy được đơn hàng");
+
+				const orders = await res.json();
+				const tbody = document.querySelector(".table-order tbody");
+				tbody.innerHTML = "";
+
+				if (!orders || orders.length === 0) {
+					tbody.innerHTML = `
+						<tr>
+							<td class="text-center p-0" colspan="5">
+								<p class="mb-5 mt-5">Bạn chưa có đơn hàng nào.</p>
+							</td>
+						</tr>`;
+					return;
+				}
+
+				orders.forEach((order, index) => {
+					const date = new Date(order.orderDate).toLocaleDateString("vi-VN");
+					const total = Number(order.totalAmount || 0).toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+
+					let statusLabel = "";
+					switch (order.status?.toLowerCase()) {
+						case "done":
+							statusLabel = '<span class="badge bg-success">Thành công</span>'; break;
+						case "pending":
+							statusLabel = '<span class="badge bg-warning">Chờ xử lý</span>'; break;
+						case "cancelled":
+							statusLabel = '<span class="badge bg-danger">Đã huỷ</span>'; break;
+						default:
+							statusLabel = '<span class="badge bg-secondary">Không xác định</span>';
+					}
+
+					tbody.innerHTML += `
+						<tr>
+							<td>#INV-${order.orderId.substring(0, 8).toUpperCase()}</td>
+							<td>${date}</td>
+							<td>${statusLabel}</td>
+							<td>${total}</td>
+							<td><button class="btn btn-outline-dark btn-sm" onclick="viewOrderDetail('${order.orderId}')">Chi tiết</button></td>
+						</tr>`;
+				});
+
+			} catch (err) {
+				console.error("Lỗi khi tải đơn hàng:", err);
+			}
+		}
+
+		async function renderUserPagination() {
+			const totalPages = await getUserTotalPages();
+			const pagination = document.getElementById("pagination-user");
+			pagination.innerHTML = "";
+
+			let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+			let endPage = Math.min(totalPages, currentPage + Math.floor(maxVisiblePages / 2));
+
+			if (endPage - startPage + 1 < maxVisiblePages) {
+				if (endPage === totalPages) {
+					startPage = Math.max(1, endPage - maxVisiblePages + 1);
+				} else {
+					endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+				}
+			}
+
+			// Prev
+			pagination.innerHTML += `
+				<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+					<a class="page-link" href="javascript:void(0);" onclick="changeUserPage(${currentPage - 1})">Trước</a>
+				</li>`;
+
+			// Numbered pages
+			for (let i = startPage; i <= endPage; i++) {
+				pagination.innerHTML += `
+					<li class="page-item ${i === currentPage ? 'active' : ''}">
+						<a class="page-link" href="javascript:void(0);" onclick="changeUserPage(${i})">${i}</a>
+					</li>`;
+			}
+
+			// Next
+			pagination.innerHTML += `
+				<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+					<a class="page-link" href="javascript:void(0);" onclick="changeUserPage(${currentPage + 1})">Tiếp</a>
+				</li>`;
+		}
+
+		async function changeUserPage(page) {
+			const totalPages = await getUserTotalPages();
+			if (page < 1 || page > totalPages) return;
+			currentPage = page;
+			await renderUserOrdersTable(currentPage);
+			await renderUserPagination();
+		}
+
+		async function getUserTotalPages() {
+			const url = `${Url}/api/Orders/TotalPagesOrdered_Detail?id=${userId}&pageSize=${itemsPerPage}`;
+            console.log(arguments, "URL lấy tổng số trang:", url);
+			try {
+				const res = await fetch(url);
+				const total = await res.json();
+				return total > 0 ? total : 1;
+			} catch (err) {
+				console.error("Lỗi lấy số trang:", err);
+				return 1;
+			}
+		}
+
+		async function viewOrderDetail(orderId) {
+		   const modal = new bootstrap.Modal(document.getElementById('orderDetailModal'));
+		   document.getElementById('orderDetailContent').innerHTML = `<p class="text-center">Đang tải dữ liệu...</p>`;
+		   modal.show();
+
+		   try {
+			 const res = await fetch(`${Url}/api/Orders/OrderDetail/${orderId}`);
+			 if (!res.ok) throw new Error("Không thể lấy chi tiết đơn hàng");
+			 const data = await res.json();
+
+			 let statusBadge = data.status === "done"
+						? `<span class="badge bg-success">Thành công</span>`
+						: data.status === "pending"
+						? `<span class="badge bg-warning">Chờ xử lý</span>`
+						: `<span class="badge bg-danger">Đã huỷ</span>`;
+
+			const itemsHtml = Array.isArray(data.products)
+				? data.products.map((item, index) => `
+					<tr>
+					  <td>${index + 1}</td>
+					  <td>${item.name}</td>
+					  <td>${item.quantity}</td>
+					  <td>${Number(item.price).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</td>
+					</tr>
+				  `).join('')
+				: `<tr><td colspan="4" class="text-center text-muted">Không có sản phẩm nào trong đơn hàng</td></tr>`;
+
+			 const html = `
+			   <p><strong>Mã đơn hàng:</strong> #INV-${data.orderId.substring(0, 8).toUpperCase()}</p>
+			   <p><strong>Ngày đặt:</strong> ${new Date(data.orderDate).toLocaleDateString("vi-VN")}</p>
+			   <p><strong>Trạng thái:</strong> ${statusBadge}</p>
+			   <p><strong>Tổng tiền:</strong> ${Number(data.totalAmount).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</p>
+			   <h5>Danh sách sản phẩm</h5>
+			   <table class="table table-bordered">
+				 <thead>
+				   <tr>
+					 <th>#</th>
+					 <th>Tên sản phẩm</th>
+					 <th>Số lượng</th>
+					 <th>Giá</th>
+				   </tr>
+				 </thead>
+				 <tbody>${itemsHtml}</tbody>
+			   </table>
+			 `;
+			 document.getElementById('orderDetailContent').innerHTML = html;
+
+		   } catch (err) {
+			 console.error("Lỗi khi tải chi tiết đơn hàng:", err);
+			 document.getElementById('orderDetailContent').innerHTML = `<p class="text-danger">Không thể tải chi tiết đơn hàng.</p>`;
+		   }
+		}
+
+		function fillAccountInfo(data) {
+			document.getElementById("acc-name").value = data.firstName || '';
+			document.getElementById("acc-lastname").value = data.lastName || '';
+			document.getElementById("acc-text").value = data.email || '';
+			document.getElementById("acc-email").value = data.email || '';
+			document.getElementById("acc-phone").value = data.phoneNumber || '';
+			document.getElementById("acc-street").value = data.address || '';
+		}
+
+		async function getUserInfo(userName) {
+			try {
+				const response = await fetch(`${Url}/api/User/${userName}`);
+				if (!response.ok) throw new Error("Không lấy được thông tin người dùng");
+
+				const data = await response.json();
+				console.log("Thông tin người dùng:", data);
+
+				// Gọi hàm đổ vào form
+				fillAccountInfo(data);
+
+			} catch (err) {
+				console.error("Lỗi khi gọi API người dùng:", err);
+			}
+		}
+
+		document.getElementById("account-info-form").addEventListener("submit", async function (e) {
+			e.preventDefault(); // chặn submit mặc định
+
+			const dto = {
+				userId: userId, 
+				firstName: document.getElementById("acc-name").value,
+				lastName: document.getElementById("acc-lastname").value,
+				phoneNumber: document.getElementById("acc-phone").value,
+				address: document.getElementById("acc-street").value,
+                email: document.getElementById("acc-email").value,
+				gender: true 
+			};
+
+			try {
+				const res = await fetch(`${Url}/api/UserInfo/${userId}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(dto)
+				});
+
+				if (!res.ok) throw new Error("Cập nhật thất bại");
+
+				alert("✅ Cập nhật thông tin thành công!");
+				const updatedData = await res.json();
+				fillAccountInfo(updatedData); // cập nhật lại form nếu cần
+
+			} catch (err) {
+				console.error("❌ Lỗi khi cập nhật thông tin:", err);
+				alert("❌ Cập nhật thất bại. Vui lòng thử lại.");
+			}
+		});
+
+		document.getElementById("change-password-form").addEventListener("submit", async function (e) {
+			e.preventDefault();
+			const dto = {
+				id: userId, 
+				currentPassword: document.getElementById("acc-password").value,
+				newPassword: document.getElementById("acc-new-password").value,
+				confirmPassword: document.getElementById("acc-confirm-password").value
+			};
+
+			try {
+				const res = await fetch(`${Url}/api/Auth/change-password`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(dto)
+				});
+
+				if (!res.ok) {
+					const errorData = await res.json();
+					alert("❌ Lỗi: " + (errorData?.errors?.[0] || "Đổi mật khẩu thất bại."));
+					return;
+				}
+
+				alert("✅ Đổi mật khẩu thành công!");
+				document.getElementById("change-password-form").reset();
+
+			} catch (err) {
+				console.error("❌ Lỗi khi gọi API đổi mật khẩu:", err);
+				alert("❌ Có lỗi xảy ra. Vui lòng thử lại.");
+			}
+		});
+	</script>
+</body>
+
+</html>

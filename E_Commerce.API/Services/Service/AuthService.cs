@@ -4,6 +4,7 @@ using E_Commerce.API.Models.Response;
 using E_Commerce.API.Models.Responses;
 using E_Commerce.API.Repositories.IRepository;
 using E_Commerce.API.Services.IService;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace E_Commerce.API.Services.Service
@@ -184,6 +185,42 @@ namespace E_Commerce.API.Services.Service
                 user.RefreshTokenExpiryTime = DateTime.MinValue;
                 await _userRepository.UpdateAsync(user);
             }
+        }
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword)
+        {
+            return await _userRepository.ChangePasswordAsync(user, currentPassword, newPassword); 
+        }
+
+        public async Task<ChangePasswordResult> ChangePasswordAsync(ChangePasswordDto dto)
+        {
+            var result = new ChangePasswordResult();
+
+            if (dto.NewPassword != dto.ConfirmPassword)
+            {
+                result.Succeeded = false;
+                result.Errors = new List<string> { "Mật khẩu xác nhận không khớp." };
+                return result;
+            }
+
+            var user = await _userRepository.FindByIdAsync(dto.Id);
+            if (user == null)
+            {
+                result.Succeeded = false;
+                result.Errors = new List<string> { "Không tìm thấy người dùng." };
+                return result;
+            }
+
+            var identityResult = await _userRepository.ChangePasswordAsync(user, dto.CurrentPassword, dto.NewPassword);
+            if (!identityResult.Succeeded)
+            {
+                result.Succeeded = false;
+                result.Errors = identityResult.Errors.Select(e => e.Description).ToList();
+                return result;
+            }
+
+            result.Succeeded = true;
+            result.Message = "Đổi mật khẩu thành công.";
+            return result;
         }
     }
 }
